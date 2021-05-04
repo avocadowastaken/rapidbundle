@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-require('./dist');
+const { bundle, handleError } = require('./dist');
+bundle(process.cwd()).catch(handleError);

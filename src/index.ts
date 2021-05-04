@@ -12,14 +12,12 @@ export async function bundle(cwd: string): Promise<void> {
   }
 }
 
-if (require.main === module) {
-  bundle(process.cwd()).catch((error: unknown) => {
-    if (error instanceof StandardError) {
-      console.error(error.message);
-    } else {
-      console.error(error);
-    }
+export function handleError(error: unknown): void {
+  if (error instanceof StandardError) {
+    console.error(error.message);
+  } else {
+    console.error(error);
+  }
 
-    process.exit(1);
-  });
+  process.exit(1);
 }
