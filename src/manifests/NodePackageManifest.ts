@@ -6,11 +6,10 @@ import semver = require("semver");
 
 const log = createLogger("manifest", "node-package");
 
-interface PackageJSON {
+export interface PackageJSON {
   main?: string;
-  engines?: {
-    node?: string;
-  };
+  engines?: { node?: string };
+  dependencies?: { [key: string]: string };
 }
 
 export class NodePackageManifest {
@@ -32,6 +31,10 @@ export class NodePackageManifest {
       }
 
       manifest.nodeTarget = minVersion.version;
+    }
+
+    if (typeof pkg.dependencies == "object") {
+      manifest.nodeDependencies = Object.keys(pkg.dependencies);
     }
 
     return manifest;
@@ -65,4 +68,7 @@ export class NodePackageManifest {
   nodeEntry?: string;
   /** minimal version of the "engines.node" field */
   nodeTarget?: string;
+
+  /** list of "dependency" field keys */
+  nodeDependencies?: string[];
 }

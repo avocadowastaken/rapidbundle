@@ -16,7 +16,11 @@ export class BuildNodeTask extends BuildTask {
   }
 
   async run(): Promise<void> {
-    const { nodeEntry, nodeTarget = "12" } = this.#manifest;
+    const {
+      nodeEntry,
+      nodeTarget = "12",
+      nodeDependencies = [],
+    } = this.#manifest;
 
     if (!nodeEntry) {
       this.log("skipping build, reason: empty node entry");
@@ -31,6 +35,7 @@ export class BuildNodeTask extends BuildTask {
       platform: "node",
       outfile: nodeEntry,
       target: `node${nodeTarget}`,
+      external: nodeDependencies,
       entryPoints: [path.join(this.cwd, "src")],
     });
   }

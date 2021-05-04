@@ -1,12 +1,8 @@
 import { promises as fs } from "fs";
 import * as path from "path";
 import { bundle } from "../index";
+import { PackageJSON } from "../manifests/NodePackageManifest";
 import snapshotDiff = require("snapshot-diff");
-
-interface FixtureOptions {
-  main?: string;
-  engines?: { node?: string };
-}
 
 interface FixtureOutputs {
   main?: string;
@@ -24,16 +20,20 @@ expect.addSnapshotSerializer({
     return typeof value == "string" && builtCode.has(value);
   },
   print(value: unknown) {
-    return value as string;
+    return (value as string).trim();
   },
 });
 
 export async function buildFixture(
-  name: string,
   code: string,
-  options: FixtureOptions = {}
+  pkg: PackageJSON = {}
 ): Promise<FixtureOutputs> {
-  const pkgDir = path.join(process.cwd(), "node_modules", "__fixtures__", name);
+  const { testPath, currentTestName } = expect.getState();
+  const name = `${path
+    .basename(testPath)
+    .replace(/\./g, "_")}__${currentTestName}`;
+
+  const pkgDir = path.join(process.cwd(), "node_modules", ".fixtures", name);
 
   await fs.rm(pkgDir, { force: true, recursive: true });
 
@@ -44,7 +44,7 @@ export async function buildFixture(
   await fs.writeFile(path.join(srcDir, "index.ts"), code, "utf8");
   await fs.writeFile(
     path.join(pkgDir, "package.json"),
-    JSON.stringify({ name, ...options }),
+    JSON.stringify({ name, ...pkg }),
     "utf8"
   );
 
@@ -52,8 +52,8 @@ export async function buildFixture(
 
   const outputs: FixtureOutputs = {};
 
-  if (options.main) {
-    outputs.main = await fs.readFile(path.join(pkgDir, options.main), "utf8");
+  if (pkg.main) {
+    outputs.main = await fs.readFile(path.join(pkgDir, pkg.main), "utf8");
   }
 
   trackOutputs(outputs);
@@ -61,25 +61,19 @@ export async function buildFixture(
   return outputs;
 }
 
-export async function buildFixturesDiff(
-  name: string,
-  code: string,
-  optionsA: FixtureOptions,
-  optionsB: FixtureOptions
-): Promise<FixtureOutputs> {
-  const outputsA = await buildFixture(name, code, optionsA);
-  const outputsB = await buildFixture(name, code, optionsB);
-  const allKeys = new Set([
-    ...Object.keys(outputsA),
-    ...Object.keys(outputsB),
-  ] as Array<keyof FixtureOutputs>);
+export async function injectModule(name: string, code: string) {
+  const pkgDir = path.join(process.cwd(), "node_modules", name);
 
-  const outputs: FixtureOutputs = {};
-  for (const key of allKeys) {
-    outputs[key] = snapshotDiff(outputsA[key], outputsB[key], {
-      contextLines: 2,
-      stablePatchmarks: true,
-    });
-  }
-  return outputs;
+  await fs.rm(pkgDir, { force: true, recursive: true });
+  await fs.mkdir(pkgDir, { recursive: true });
+
+  await fs.writeFile(path.join(pkgDir, "index.js"), code, "utf8");
+  await fs.writeFile(
+    path.join(pkgDir, "package.json"),
+    JSON.stringify({
+      name,
+      exports: { ".": "./index.js" },
+    }),
+    "utf8"
+  );
 }
