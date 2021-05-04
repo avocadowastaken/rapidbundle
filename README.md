@@ -4,8 +4,6 @@
 [![npm version](https://img.shields.io/npm/v/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 [![npm downloads](https://img.shields.io/npm/dm/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 
-![Demo](demo.gif)
-
 ### Installation
 
 ```bash
