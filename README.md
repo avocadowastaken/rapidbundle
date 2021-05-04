@@ -27,14 +27,12 @@ yarn rapidbundle
 #### Node (CJS)
 
 1. Set `main` field.
-2. Set `engines.node` field (optional)
+2. Set `engines.node` field (optional) (used for [esbuild target](https://esbuild.github.io/api/#target) option)
 
 ```json
 {
+  "name": "my-mod",
   "main": "./cjs/index.js",
-  "scripts": {
-    "build": "rapidbundle"
-  },
   "engines": {
     "node": ">=12"
   }
