@@ -1,5 +1,6 @@
 import { build } from "esbuild";
 import * as path from "path";
+import * as pkg from "../package.json";
 
 const ROOT_DIR = path.join(__dirname, "..");
 
@@ -9,6 +10,8 @@ async function main(): Promise<void> {
 
     target: "node12",
     platform: "node",
+
+    external: Object.keys(pkg.dependencies),
 
     entryPoints: [path.join(ROOT_DIR, "src", "index.ts")],
     outfile: path.join(ROOT_DIR, "dist", "index.js"),
