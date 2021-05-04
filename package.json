@@ -8,6 +8,7 @@
     "rapidbundle": "bin"
   },
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
