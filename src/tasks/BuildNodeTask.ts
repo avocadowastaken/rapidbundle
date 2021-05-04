@@ -29,8 +29,9 @@ export class BuildNodeTask extends BuildTask {
 
     this.log("building with options: %o", { nodeEntry, nodeTarget });
 
-    await build({
+    const { errors, warnings, metafile } = await build({
       bundle: true,
+      metafile: true,
       keepNames: true,
       platform: "node",
       outfile: nodeEntry,
@@ -38,5 +39,17 @@ export class BuildNodeTask extends BuildTask {
       external: nodeDependencies,
       entryPoints: [path.join(this.cwd, "src")],
     });
+
+    if (errors.length) {
+      this.log("built with %i errors: %O", errors.length, errors);
+    }
+
+    if (warnings.length) {
+      this.log("built with %i warnings: %O", warnings.length, warnings);
+    }
+
+    if (metafile) {
+      this.log("successfully built: %O", metafile);
+    }
   }
 }
