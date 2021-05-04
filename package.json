@@ -7,6 +7,9 @@
   "bin": {
     "rapidbundle": "bin"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "ts-node scripts/build.ts",
     "test": "jest --coverage",
