@@ -10,6 +10,8 @@ export interface PackageJSON {
   main?: string;
   engines?: { node?: string };
   dependencies?: { [key: string]: string };
+  peerDependencies?: { [key: string]: string };
+  optionalDependencies?: { [key: string]: string };
 }
 
 export class NodePackageManifest {
@@ -33,9 +35,11 @@ export class NodePackageManifest {
       manifest.nodeTarget = minVersion.version;
     }
 
-    if (typeof pkg.dependencies == "object") {
-      manifest.nodeDependencies = Object.keys(pkg.dependencies);
-    }
+    manifest.nodeDependencies = Object.keys({
+      ...pkg.dependencies,
+      ...pkg.peerDependencies,
+      ...pkg.optionalDependencies,
+    });
 
     return manifest;
   }
@@ -68,7 +72,6 @@ export class NodePackageManifest {
   nodeEntry?: string;
   /** minimal version of the "engines.node" field */
   nodeTarget?: string;
-
   /** list of "dependency" field keys */
   nodeDependencies?: string[];
 }

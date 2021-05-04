@@ -82,10 +82,15 @@ test("dependencies", async () => {
     `
 import { isFunction } from 'is-function';
 import debug = require('debug');
+import isObject = require('isobject');
 export const logger = debug('app');
-if (isFunction(console?.log)) logger.log = console.log.bind(console);
+if (isObject(console) && isFunction(console.log)) logger.log = console.log.bind(console);
 `,
-    { main: "dist.js", dependencies: { debug: "*" } }
+    {
+      main: "dist.js",
+      dependencies: { debug: "*" },
+      peerDependencies: { isobject: "*" },
+    }
   );
 
   expect(main).toMatchInlineSnapshot(`
@@ -111,8 +116,9 @@ if (isFunction(console?.log)) logger.log = console.log.bind(console);
 
     // node_modules/.fixtures/bundle-node_spec_ts__dependencies/src/index.ts
     var debug = require("debug");
+    var isObject = require("isobject");
     var logger = debug("app");
-    if (isFunction(console == null ? void 0 : console.log))
+    if (isObject(console) && isFunction(console.log))
       logger.log = console.log.bind(console);
     // Annotate the CommonJS export names for ESM import in node:
     0 && (module.exports = {
