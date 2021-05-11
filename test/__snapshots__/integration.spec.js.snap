@@ -1,24 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`errors Error 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
 [HH:mm:ss] Getting Node package manifest [failed]
-[HH:mm:ss] → Invalid comparator: !@#
-[HH:mm:ss] Getting manifests [failed]
 [HH:mm:ss] → Invalid comparator: !@#
 `;
 
 exports[`errors StandardError 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
 [HH:mm:ss] Getting Node package manifest [failed]
-[HH:mm:ss] → Failed to parse <cwd>/test/__fixtures__/empty-package-json/package.json
-[HH:mm:ss] Getting manifests [failed]
 [HH:mm:ss] → Failed to parse <cwd>/test/__fixtures__/empty-package-json/package.json
 `;
 
@@ -29,10 +23,8 @@ Array [
 `;
 
 exports[`github-action: logs 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting manifests [completed]
 [HH:mm:ss] Creating bundle from GitHub Action manifest [started]
 [HH:mm:ss] Creating bundle from GitHub Action manifest [completed]
 `;
@@ -75,16 +67,12 @@ Array [
 `;
 
 exports[`node-basic: logs 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
 [HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Getting manifests [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [started]
-[HH:mm:ss] Creating CommonJS output [started]
-[HH:mm:ss] Creating CommonJS output [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
 `;
 
 exports[`node-basic: main.js 1`] = `
@@ -122,16 +110,12 @@ Array [
 `;
 
 exports[`node-dependencies: logs 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
 [HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Getting manifests [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [started]
-[HH:mm:ss] Creating CommonJS output [started]
-[HH:mm:ss] Creating CommonJS output [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
 `;
 
 exports[`node-dependencies: main.js 1`] = `
@@ -184,16 +168,12 @@ Array [
 `;
 
 exports[`node-version: logs 1`] = `
-[HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
 [HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Getting manifests [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [started]
-[HH:mm:ss] Creating CommonJS output [started]
-[HH:mm:ss] Creating CommonJS output [completed]
-[HH:mm:ss] Creating bundles from Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
 `;
 
 exports[`node-version: main.js 1`] = `
