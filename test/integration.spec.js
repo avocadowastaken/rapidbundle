@@ -27,7 +27,9 @@ let logError;
 
 function extractLogs() {
   const message = log.mock.calls
-    .map(([line]) => line.replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]"))
+    .map(([line]) =>
+      line.replace(CWD, "<cwd>").replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]")
+    )
     .join("\n");
 
   snapshots.add(message);
@@ -63,11 +65,15 @@ describe("errors", () => {
 
   test("Error", async () => {
     await runErrorFixture("invalid-package-engine-version");
+
+    expect(extractLogs()).toMatchSnapshot();
     expect(logError).lastCalledWith(new TypeError("Invalid comparator: !@#"));
   });
 
   test("StandardError", async () => {
     const errorFixturePath = await runErrorFixture("empty-package-json");
+
+    expect(extractLogs()).toMatchSnapshot();
     expect(logError).lastCalledWith(
       `Failed to parse ${path.join(errorFixturePath, "package.json")}`
     );

@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`errors Error 1`] = `
+[HH:mm:ss] Getting Node Package manifest [started]
+[HH:mm:ss] Getting Node Package manifest [failed]
+[HH:mm:ss] → Invalid comparator: !@#
+`;
+
+exports[`errors StandardError 1`] = `
+[HH:mm:ss] Getting Node Package manifest [started]
+[HH:mm:ss] Getting Node Package manifest [failed]
+[HH:mm:ss] → Failed to parse <cwd>/test/__fixtures__/empty-package-json/package.json
+`;
+
 exports[`node-basic 1`] = `
 [HH:mm:ss] Getting Node Package manifest [started]
 [HH:mm:ss] Getting Node Package manifest [completed]
