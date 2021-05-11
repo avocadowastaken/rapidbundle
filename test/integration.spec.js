@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const util = require("util");
 
 const CWD = process.cwd();
 const BIN_PATH = path.join(CWD, "bin");
@@ -26,9 +27,17 @@ let logError;
 
 function extractLogs() {
   const message = log.mock.calls
-    .map(([line]) =>
-      line.replace(CWD, "<cwd>").replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]")
-    )
+    .map((args) => {
+      let line = util
+        .format(...args)
+        .replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]");
+
+      if (line.includes(CWD)) {
+        line = line.replace(CWD, "<cwd>").replace(/\\/g, "/");
+      }
+
+      return line;
+    })
     .join("\n");
 
   snapshots.add(message);
