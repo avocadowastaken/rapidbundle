@@ -3,6 +3,5 @@
   "engines": {
     "node": ">=14"
   },
-  "dependencies": { "debug": "*" },
-  "peerDependencies": { "isobject": "*" }
+  "dependencies": { "debug": "*" }
 }

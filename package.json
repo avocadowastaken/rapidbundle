@@ -28,7 +28,8 @@
     "esbuild": "^0.11.20",
     "find-up": "^5.0.0",
     "listr": "^0.14.3",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
