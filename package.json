@@ -32,7 +32,7 @@
     },
     "extends": [
       "eslint:recommended",
-      "plugin:node/recommended"
+      "plugin:node/recommended-script"
     ],
     "overrides": [
       {
