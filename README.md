@@ -68,8 +68,6 @@ yarn rapidbundle
 
 #### Browser (ESM) [Not Implemented]
 
-1. Set `module` field.
-
 ```json
 {
   "module": "./dist/index.esm.js"
