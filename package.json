@@ -12,12 +12,12 @@
     "lib"
   ],
   "scripts": {
+    "prepare": "husky install",
     "test": "jest --coverage",
     "lint": "eslint .",
     "format": "prettier . --write",
     "tdd": "jest --watch",
-    "release": "np --no-2fa",
-    "postinstall": "husky install"
+    "release": "np --no-2fa"
   },
   "lint-staged": {
     ".js": [
