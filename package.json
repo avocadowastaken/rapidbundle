@@ -19,7 +19,8 @@
   "jest": {
     "modulePathIgnorePatterns": [
       "<rootDir>/examples/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/test/__fixtures__/"
     ]
   },
   "dependencies": {

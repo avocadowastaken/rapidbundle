@@ -22,6 +22,8 @@ expect.addSnapshotSerializer({
 
 /** @type {jest.SpyInstance} */
 let log;
+/** @type {jest.SpyInstance} */
+let logError;
 
 function extractLogs() {
   const message = log.mock.calls
@@ -36,11 +38,40 @@ function extractLogs() {
 beforeEach(() => {
   process.stdout.isTTY = false;
   log = jest.spyOn(console, "log").mockImplementation();
+  logError = jest.spyOn(console, "error").mockImplementation();
 });
 
-afterAll(() => {
+afterEach(() => {
   jest.resetModules();
   jest.restoreAllMocks();
+});
+
+describe("errors", () => {
+  /** @param {string} name */
+  async function runErrorFixture(name) {
+    const errorFixturePath = path.join(__dirname, "__fixtures__", name);
+
+    jest.spyOn(process, "cwd").mockImplementation(() => errorFixturePath);
+
+    await require(BIN_PATH);
+
+    expect(process.exitCode).toBe(1);
+    expect(logError).toBeCalledTimes(1);
+
+    return errorFixturePath;
+  }
+
+  test("Error", async () => {
+    await runErrorFixture("invalid-package-engine-version");
+    expect(logError).lastCalledWith(new TypeError("Invalid comparator: !@#"));
+  });
+
+  test("StandardError", async () => {
+    const errorFixturePath = await runErrorFixture("empty-package-json");
+    expect(logError).lastCalledWith(
+      `Failed to parse ${path.join(errorFixturePath, "package.json")}`
+    );
+  });
 });
 
 for (const example of fs.readdirSync(EXAMPLES_DIR)) {
