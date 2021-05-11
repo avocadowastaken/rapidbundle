@@ -1,9 +1,7 @@
-interface User {
-  roles?: {
-    admin?: boolean;
-  };
-}
+export class Foo {
+  #bar: string;
 
-export function isAdmin(user?: User): boolean {
-  return user?.roles?.admin ?? false;
+  constructor(bar: string) {
+    this.#bar = bar;
+  }
 }

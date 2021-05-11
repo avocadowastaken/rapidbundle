@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`browser-esm-basic: dist files 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`browser-esm-basic: index.js 1`] = `
+// ../../node_modules/lodash-es/isObjectLike.js
+function isObjectLike(value) {
+  return value != null && typeof value == "object";
+}
+var isObjectLike_default = isObjectLike;
+
+// src/index.ts
+var isImportMetaObjectLike = isObjectLike_default(import.meta);
+export {
+  isImportMetaObjectLike
+};
+/**
+ * @license
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: \`lodash modularize exports="es" -o ./\`
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+`;
+
+exports[`browser-esm-basic: logs 1`] = `
+[HH:mm:ss] Getting GitHub Action manifest [started]
+[HH:mm:ss] Getting GitHub Action manifest [completed]
+[HH:mm:ss] Getting Node package manifest [started]
+[HH:mm:ss] Getting Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [skipped]
+[HH:mm:ss] → "main" field is empty.
+[HH:mm:ss] Creating Browser ESM bundle [started]
+[HH:mm:ss] Creating Browser ESM bundle [completed]
+`;
+
 exports[`errors Error 1`] = `
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
@@ -32,151 +74,36 @@ exports[`github-action: logs 1`] = `
 exports[`github-action: main.js 1`] = `
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
-};
 
-// ../../node_modules/isobject/index.js
-var require_isobject = __commonJS({
-  "../../node_modules/isobject/index.js"(exports2, module2) {
-    "use strict";
-    module2.exports = /* @__PURE__ */ __name(function isObject2(val) {
-      return val != null && typeof val === "object" && Array.isArray(val) === false;
-    }, "isObject");
-  }
-});
+// ../../node_modules/lodash-es/isObjectLike.js
+function isObjectLike(value) {
+  return value != null && typeof value == "object";
+}
+__name(isObjectLike, "isObjectLike");
+var isObjectLike_default = isObjectLike;
 
 // src/index.ts
-var isObject = require_isobject();
-if (isObject(process)) {
+if (isObjectLike_default(process))
   console.log(process.env);
-}
-/*!
- * isobject <https://github.com/jonschlinkert/isobject>
- *
- * Copyright (c) 2014-2017, Jon Schlinkert.
- * Released under the MIT License.
+/**
+ * @license
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: \`lodash modularize exports="es" -o ./\`
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
 
 `;
 
 exports[`node-basic: dist files 1`] = `
 Array [
-  "main.js",
+  "index.js",
 ]
 `;
 
-exports[`node-basic: logs 1`] = `
-[HH:mm:ss] Getting GitHub Action manifest [started]
-[HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting Node package manifest [started]
-[HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Creating Node CJS bundle [started]
-[HH:mm:ss] Creating Node CJS bundle [completed]
-`;
-
-exports[`node-basic: main.js 1`] = `
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-var __reExport = (target, module2, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
-        __defProp(target, key, {get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable});
-  }
-  return target;
-};
-var __toModule = (module2) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? {get: () => module2.default, enumerable: true} : {value: module2, enumerable: true})), module2);
-};
-
-// src/index.ts
-var path = __toModule(require("path"));
-var debug = require("debug");
-var logger = debug("app");
-logger(path.basename(path.join(__dirname, "..")));
-
-`;
-
-exports[`node-dependencies: dist files 1`] = `
-Array [
-  "main.js",
-]
-`;
-
-exports[`node-dependencies: logs 1`] = `
-[HH:mm:ss] Getting GitHub Action manifest [started]
-[HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting Node package manifest [started]
-[HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Creating Node CJS bundle [started]
-[HH:mm:ss] Creating Node CJS bundle [completed]
-`;
-
-exports[`node-dependencies: main.js 1`] = `
-var __defProp = Object.defineProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
-};
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, {get: all[name], enumerable: true});
-};
-
-// ../../node_modules/isobject/index.js
-var require_isobject = __commonJS({
-  "../../node_modules/isobject/index.js"(exports, module2) {
-    "use strict";
-    module2.exports = /* @__PURE__ */ __name(function isObject2(val) {
-      return val != null && typeof val === "object" && Array.isArray(val) === false;
-    }, "isObject");
-  }
-});
-
-// src/index.ts
-__markAsModule(exports);
-__export(exports, {
-  logger: () => logger
-});
-var debug = require("debug");
-var isObject = require_isobject();
-var logger = debug("app");
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  logger
-});
-/*!
- * isobject <https://github.com/jonschlinkert/isobject>
- *
- * Copyright (c) 2014-2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-
-`;
-
-exports[`node-version: dist files 1`] = `
-Array [
-  "main.js",
-]
-`;
-
-exports[`node-version: logs 1`] = `
-[HH:mm:ss] Getting GitHub Action manifest [started]
-[HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting Node package manifest [started]
-[HH:mm:ss] Getting Node package manifest [completed]
-[HH:mm:ss] Creating Node CJS bundle [started]
-[HH:mm:ss] Creating Node CJS bundle [completed]
-`;
-
-exports[`node-version: main.js 1`] = `
+exports[`node-basic: index.js 1`] = `
 var __defProp = Object.defineProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
@@ -190,13 +117,152 @@ __markAsModule(exports);
 __export(exports, {
   isAdmin: () => isAdmin
 });
+
+// ../../node_modules/lodash-es/isObjectLike.js
+function isObjectLike(value) {
+  return value != null && typeof value == "object";
+}
+__name(isObjectLike, "isObjectLike");
+var isObjectLike_default = isObjectLike;
+
+// src/index.ts
+var assert = require("assert");
 function isAdmin(user) {
-  return user?.roles?.admin ?? false;
+  assert.ok(isObjectLike_default(user));
+  return user.role === "admin";
 }
 __name(isAdmin, "isAdmin");
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   isAdmin
 });
+/**
+ * @license
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: \`lodash modularize exports="es" -o ./\`
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
 
+`;
+
+exports[`node-basic: logs 1`] = `
+[HH:mm:ss] Getting GitHub Action manifest [started]
+[HH:mm:ss] Getting GitHub Action manifest [completed]
+[HH:mm:ss] Getting Node package manifest [started]
+[HH:mm:ss] Getting Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
+[HH:mm:ss] Creating Browser ESM bundle [started]
+[HH:mm:ss] Creating Browser ESM bundle [skipped]
+[HH:mm:ss] → "module" field is empty.
+`;
+
+exports[`node-dependencies: dist files 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`node-dependencies: index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {get: all[name], enumerable: true});
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  logger: () => logger
+});
+
+// ../../node_modules/lodash-es/isObjectLike.js
+function isObjectLike(value) {
+  return value != null && typeof value == "object";
+}
+__name(isObjectLike, "isObjectLike");
+var isObjectLike_default = isObjectLike;
+
+// src/index.ts
+var debug = require("debug");
+var logger = debug("app");
+if (isObjectLike_default(console))
+  logger.log = console.log;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  logger
+});
+/**
+ * @license
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: \`lodash modularize exports="es" -o ./\`
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+`;
+
+exports[`node-dependencies: logs 1`] = `
+[HH:mm:ss] Getting GitHub Action manifest [started]
+[HH:mm:ss] Getting GitHub Action manifest [completed]
+[HH:mm:ss] Getting Node package manifest [started]
+[HH:mm:ss] Getting Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
+[HH:mm:ss] Creating Browser ESM bundle [started]
+[HH:mm:ss] Creating Browser ESM bundle [skipped]
+[HH:mm:ss] → "module" field is empty.
+`;
+
+exports[`node-version: dist files 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`node-version: index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {get: all[name], enumerable: true});
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  Foo: () => Foo
+});
+var Foo = class {
+  #bar;
+  constructor(bar) {
+    this.#bar = bar;
+  }
+};
+__name(Foo, "Foo");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Foo
+});
+
+`;
+
+exports[`node-version: logs 1`] = `
+[HH:mm:ss] Getting GitHub Action manifest [started]
+[HH:mm:ss] Getting GitHub Action manifest [completed]
+[HH:mm:ss] Getting Node package manifest [started]
+[HH:mm:ss] Getting Node package manifest [completed]
+[HH:mm:ss] Creating Node CJS bundle [started]
+[HH:mm:ss] Creating Node CJS bundle [completed]
+[HH:mm:ss] Creating Browser ESM bundle [started]
+[HH:mm:ss] Creating Browser ESM bundle [skipped]
+[HH:mm:ss] → "module" field is empty.
 `;

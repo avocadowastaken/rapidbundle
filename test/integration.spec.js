@@ -46,6 +46,7 @@ function extractLogs() {
 }
 
 beforeEach(() => {
+  process.exitCode = undefined;
   process.stdout.isTTY = false;
   log = jest.spyOn(console, "log").mockImplementation();
   logError = jest.spyOn(console, "error").mockImplementation();
@@ -97,6 +98,7 @@ for (const example of fs.readdirSync(EXAMPLES_DIR)) {
 
     await require(BIN_PATH);
 
+    expect(process.exitCode).toBe(undefined);
     expect(extractLogs()).toMatchSnapshot("logs");
 
     const distDir = path.join(exampleDir, "dist");

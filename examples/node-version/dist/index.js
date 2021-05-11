@@ -9,13 +9,16 @@ var __export = (target, all) => {
 // src/index.ts
 __markAsModule(exports);
 __export(exports, {
-  isAdmin: () => isAdmin
+  Foo: () => Foo
 });
-function isAdmin(user) {
-  return user?.roles?.admin ?? false;
-}
-__name(isAdmin, "isAdmin");
+var Foo = class {
+  #bar;
+  constructor(bar) {
+    this.#bar = bar;
+  }
+};
+__name(Foo, "Foo");
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  isAdmin
+  Foo
 });

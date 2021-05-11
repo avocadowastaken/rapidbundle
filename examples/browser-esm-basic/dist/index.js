@@ -1,16 +1,14 @@
-var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
-
 // ../../node_modules/lodash-es/isObjectLike.js
 function isObjectLike(value) {
   return value != null && typeof value == "object";
 }
-__name(isObjectLike, "isObjectLike");
 var isObjectLike_default = isObjectLike;
 
 // src/index.ts
-if (isObjectLike_default(process))
-  console.log(process.env);
+var isImportMetaObjectLike = isObjectLike_default(import.meta);
+export {
+  isImportMetaObjectLike
+};
 /**
  * @license
  * Lodash (Custom Build) <https://lodash.com/>

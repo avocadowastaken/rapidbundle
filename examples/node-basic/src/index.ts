@@ -1,5 +1,7 @@
-import * as path from "path";
-import debug = require("debug");
+import assert = require('assert')
+import { isObjectLike } from "lodash-es";
 
-const logger = debug("app");
-logger(path.basename(path.join(__dirname, "..")));
+export function isAdmin(user: unknown) {
+  assert.ok(isObjectLike(user))
+  return (user as {role?: unknown}).role === 'admin';
+}

@@ -1,5 +1,2 @@
-import isObject = require("isobject");
-
-if (isObject(process)) {
-  console.log(process.env);
-}
+import { isObjectLike } from 'lodash-es'
+if (isObjectLike(process)) console.log(process.env);
