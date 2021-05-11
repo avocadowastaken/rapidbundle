@@ -9,43 +9,37 @@
   },
   "files": [
     "bin",
-    "dist"
+    "lib"
   ],
   "scripts": {
-    "build": "ts-node scripts/build.ts",
     "test": "jest --coverage",
     "tdd": "jest --watch",
-    "prerelease": "yarn build",
     "release": "np --no-2fa"
   },
   "jest": {
     "modulePathIgnorePatterns": [
-      "<rootDir>/dist/",
       "<rootDir>/node_modules/"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    }
+    ]
   },
   "dependencies": {
     "debug": "^4.3.1",
-    "esbuild": "^0.11.0",
+    "esbuild": "^0.11.20",
     "find-up": "^5.0.0",
     "semver": "^7.3.5"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.168",
     "@types/semver": "^7.3.5",
     "execa": "^5.0.0",
     "jest": "^26.6.3",
+    "lodash": "^4.17.21",
     "np": "^7.5.0",
-    "prettier": "^2.2.1",
-    "prettier-plugin-organize-imports": "^1.1.1",
-    "prettier-plugin-packagejson": "^2.2.10",
-    "snapshot-diff": "^0.8.1",
-    "ts-jest": "^26.5.5",
-    "ts-node": "^9.1.1",
+    "prettier": "^2.3.0",
+    "prettier-plugin-jsdoc": "^0.3.22",
+    "prettier-plugin-organize-imports": "^2.0.0",
+    "prettier-plugin-packagejson": "^2.2.11",
     "typescript": "^4.2.4"
   },
   "engines": {

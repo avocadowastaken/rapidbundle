@@ -4,6 +4,8 @@
     "module": "CommonJS",
     "noEmit": true,
     "strict": true,
+    "allowJs": true,
+    "checkJs": true,
     "resolveJsonModule": true
   }
 }
