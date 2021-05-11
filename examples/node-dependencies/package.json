@@ -1,7 +1,9 @@
 {
   "main": "./dist/main.js",
+  "dependencies": {
+    "debug": "*"
+  },
   "engines": {
     "node": ">=14"
-  },
-  "dependencies": { "debug": "*" }
+  }
 }

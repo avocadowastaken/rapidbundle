@@ -30,5 +30,7 @@ jobs:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
       - run: yarn tsc
+      - run: yarn lint
+      - run: yarn format --check
       - run: yarn test
       - uses: codecov/codecov-action@v1

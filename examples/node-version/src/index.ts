@@ -1,9 +1,7 @@
-import * as path from "path";
-
 interface User {
   roles?: {
-    admin?: boolean
-  }
+    admin?: boolean;
+  };
 }
 
 export function isAdmin(user?: User): boolean {

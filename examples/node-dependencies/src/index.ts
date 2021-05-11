@@ -1,4 +1,4 @@
-import debug = require('debug');
-import isObject = require('isobject');
+import debug = require("debug");
+import isObject = require("isobject");
 
-export const logger = debug('app');
+export const logger = debug("app");

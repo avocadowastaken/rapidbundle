@@ -13,9 +13,32 @@
   ],
   "scripts": {
     "test": "jest --coverage",
+    "lint": "eslint .",
+    "format": "prettier . --write",
     "tdd": "jest --watch",
     "release": "np --no-2fa"
   },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2019
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+    ],
+    "overrides": [
+      {
+        "files": "*.spec.js",
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "eslintIgnore": [
+    "examples",
+    "test/__fixtures__"
+  ],
   "jest": {
     "modulePathIgnorePatterns": [
       "<rootDir>/examples/",
@@ -37,6 +60,8 @@
     "@types/listr": "^0.14.3",
     "@types/lodash": "^4.14.168",
     "@types/semver": "^7.3.5",
+    "eslint": "^7.26.0",
+    "eslint-plugin-node": "^11.1.0",
     "execa": "^5.0.0",
     "jest": "^26.6.3",
     "lodash": "^4.17.21",
