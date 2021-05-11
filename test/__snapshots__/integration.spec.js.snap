@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`node-basic: node-basic 1`] = `
+exports[`node-basic 1`] = `
 [HH:mm:ss] Getting Node Package manifest [started]
 [HH:mm:ss] Getting Node Package manifest [completed]
 [HH:mm:ss] Bundling Node Package [started]
@@ -9,7 +9,7 @@ exports[`node-basic: node-basic 1`] = `
 [HH:mm:ss] Bundling Node Package [completed]
 `;
 
-exports[`node-dependencies: node-dependencies 1`] = `
+exports[`node-dependencies 1`] = `
 [HH:mm:ss] Getting Node Package manifest [started]
 [HH:mm:ss] Getting Node Package manifest [completed]
 [HH:mm:ss] Bundling Node Package [started]
@@ -18,7 +18,7 @@ exports[`node-dependencies: node-dependencies 1`] = `
 [HH:mm:ss] Bundling Node Package [completed]
 `;
 
-exports[`node-version: node-version 1`] = `
+exports[`node-version 1`] = `
 [HH:mm:ss] Getting Node Package manifest [started]
 [HH:mm:ss] Getting Node Package manifest [completed]
 [HH:mm:ss] Bundling Node Package [started]
