@@ -655,6 +655,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/listr@^0.14.3":
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/@types/listr/-/listr-0.14.3.tgz#f6cfd1f0841ce6c0d2571fb114279ba07be43796"
+  integrity sha512-+TxIH5cf6w/44VH+cc1oTccaR7aBQdUJU0nas+seJ/iOYPi7q0kHf153eFayT0KitxCZMVoyFmruCrWt/bxq2g==
+  dependencies:
+    "@types/node" "*"
+    rxjs "^6.5.1"
+
 "@types/lodash@^4.14.168":
   version "4.14.168"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
@@ -4542,7 +4550,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.3, rxjs@^6.6.0, rxjs@^6.6.3:
+rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.1, rxjs@^6.5.3, rxjs@^6.6.0, rxjs@^6.6.3:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==

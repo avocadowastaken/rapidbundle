@@ -1,0 +1,6 @@
+{
+  "main": "./dist/main.js",
+  "dependencies": {
+    "debug": "*"
+  }
+}

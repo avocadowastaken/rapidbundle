@@ -1,4 +1,2 @@
 #!/usr/bin/env node
-
-const { bundle } = require("./dist");
-bundle(process.cwd());
+require("./lib")(process.cwd());
