@@ -16,7 +16,15 @@
     "lint": "eslint .",
     "format": "prettier . --write",
     "tdd": "jest --watch",
-    "release": "np --no-2fa"
+    "release": "np --no-2fa",
+    "postinstall": "husky install"
+  },
+  "lint-staged": {
+    ".js": [
+      "eslint --fix",
+      "prettier --write",
+      "jest --bail --findRelatedTests"
+    ]
   },
   "eslintConfig": {
     "parserOptions": {
@@ -63,7 +71,9 @@
     "eslint": "^7.26.0",
     "eslint-plugin-node": "^11.1.0",
     "execa": "^5.0.0",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
     "np": "^7.5.0",
     "prettier": "^2.3.0",
