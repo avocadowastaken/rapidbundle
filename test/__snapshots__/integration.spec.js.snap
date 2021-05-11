@@ -22,7 +22,13 @@ exports[`errors StandardError 1`] = `
 [HH:mm:ss] → Failed to parse <cwd>/test/__fixtures__/empty-package-json/package.json
 `;
 
-exports[`github-action 1`] = `
+exports[`github-action: dist files 1`] = `
+Array [
+  "main.js",
+]
+`;
+
+exports[`github-action: logs 1`] = `
 [HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
@@ -31,7 +37,44 @@ exports[`github-action 1`] = `
 [HH:mm:ss] Creating bundle from GitHub Action manifest [completed]
 `;
 
-exports[`node-basic 1`] = `
+exports[`github-action: main.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
+};
+
+// ../../node_modules/isobject/index.js
+var require_isobject = __commonJS({
+  "../../node_modules/isobject/index.js"(exports2, module2) {
+    "use strict";
+    module2.exports = /* @__PURE__ */ __name(function isObject2(val) {
+      return val != null && typeof val === "object" && Array.isArray(val) === false;
+    }, "isObject");
+  }
+});
+
+// src/index.ts
+var isObject = require_isobject();
+if (isObject(process)) {
+  console.log(process.env);
+}
+/*!
+ * isobject <https://github.com/jonschlinkert/isobject>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+`;
+
+exports[`node-basic: dist files 1`] = `
+Array [
+  "main.js",
+]
+`;
+
+exports[`node-basic: logs 1`] = `
 [HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
@@ -44,7 +87,41 @@ exports[`node-basic 1`] = `
 [HH:mm:ss] Creating bundles from Node package manifest [completed]
 `;
 
-exports[`node-dependencies 1`] = `
+exports[`node-basic: main.js 1`] = `
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __reExport = (target, module2, desc) => {
+  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
+    for (let key of __getOwnPropNames(module2))
+      if (!__hasOwnProp.call(target, key) && key !== "default")
+        __defProp(target, key, {get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable});
+  }
+  return target;
+};
+var __toModule = (module2) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? {get: () => module2.default, enumerable: true} : {value: module2, enumerable: true})), module2);
+};
+
+// src/index.ts
+var path = __toModule(require("path"));
+var debug = require("debug");
+var logger = debug("app");
+logger(path.basename(path.join(__dirname, "..")));
+
+`;
+
+exports[`node-dependencies: dist files 1`] = `
+Array [
+  "main.js",
+]
+`;
+
+exports[`node-dependencies: logs 1`] = `
 [HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
@@ -57,7 +134,56 @@ exports[`node-dependencies 1`] = `
 [HH:mm:ss] Creating bundles from Node package manifest [completed]
 `;
 
-exports[`node-version 1`] = `
+exports[`node-dependencies: main.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {get: all[name], enumerable: true});
+};
+
+// ../../node_modules/isobject/index.js
+var require_isobject = __commonJS({
+  "../../node_modules/isobject/index.js"(exports, module2) {
+    "use strict";
+    module2.exports = /* @__PURE__ */ __name(function isObject2(val) {
+      return val != null && typeof val === "object" && Array.isArray(val) === false;
+    }, "isObject");
+  }
+});
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  logger: () => logger
+});
+var debug = require("debug");
+var isObject = require_isobject();
+var logger = debug("app");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  logger
+});
+/*!
+ * isobject <https://github.com/jonschlinkert/isobject>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+`;
+
+exports[`node-version: dist files 1`] = `
+Array [
+  "main.js",
+]
+`;
+
+exports[`node-version: logs 1`] = `
 [HH:mm:ss] Getting manifests [started]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
@@ -68,4 +194,29 @@ exports[`node-version 1`] = `
 [HH:mm:ss] Creating CommonJS output [started]
 [HH:mm:ss] Creating CommonJS output [completed]
 [HH:mm:ss] Creating bundles from Node package manifest [completed]
+`;
+
+exports[`node-version: main.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {get: all[name], enumerable: true});
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  isAdmin: () => isAdmin
+});
+function isAdmin(user) {
+  return user?.roles?.admin ?? false;
+}
+__name(isAdmin, "isAdmin");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  isAdmin
+});
+
 `;

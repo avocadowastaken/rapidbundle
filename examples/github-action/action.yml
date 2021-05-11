@@ -2,4 +2,4 @@ name: "Print env"
 description: "Check if env is defined and print it."
 runs:
   using: "node12"
-  main: "dist/index.js"
+  main: "dist/main.js"
