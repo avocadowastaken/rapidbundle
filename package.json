@@ -13,9 +13,40 @@
   ],
   "scripts": {
     "test": "jest --coverage",
+    "lint": "eslint .",
+    "format": "prettier . --write",
     "tdd": "jest --watch",
-    "release": "np --no-2fa"
+    "release": "np --no-2fa",
+    "postinstall": "husky install"
   },
+  "lint-staged": {
+    ".js": [
+      "eslint --fix",
+      "prettier --write",
+      "jest --bail --findRelatedTests"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2019
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended-script"
+    ],
+    "overrides": [
+      {
+        "files": "*.spec.js",
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "eslintIgnore": [
+    "examples",
+    "test/__fixtures__"
+  ],
   "jest": {
     "modulePathIgnorePatterns": [
       "<rootDir>/examples/",
@@ -28,7 +59,8 @@
     "esbuild": "^0.11.20",
     "find-up": "^5.0.0",
     "listr": "^0.14.3",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
@@ -36,8 +68,11 @@
     "@types/listr": "^0.14.3",
     "@types/lodash": "^4.14.168",
     "@types/semver": "^7.3.5",
-    "execa": "^5.0.0",
+    "eslint": "^7.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
     "np": "^7.5.0",
     "prettier": "^2.3.0",

@@ -5,7 +5,6 @@
 [![npm downloads](https://img.shields.io/npm/dm/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 [![Codecov](https://img.shields.io/codecov/c/gh/umidbekk/rapidbundle.svg)](https://codecov.io/gh/umidbekk/rapidbundle)
 
-
 ### Installation
 
 ```bash
@@ -28,13 +27,11 @@ yarn rapidbundle
 
 #### Node (CJS)
 
-1. Set `main` field.
-2. Set `engines.node` field (optional) (used for [esbuild target](https://esbuild.github.io/api/#target) option)
+> `engines.node` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
 
 ```json
 {
-  "name": "my-mod",
-  "main": "./cjs/index.js",
+  "main": "./dist/index.cjs.js",
   "engines": {
     "node": ">=12"
   }
@@ -43,16 +40,14 @@ yarn rapidbundle
 
 #### Node (ESM) [Not Implemented]
 
-1. Set `exports` field.
-2. Set `engines.node` field (optional) (used for [esbuild target](https://esbuild.github.io/api/#target))
+> `engines.node` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
 
 ```json
 {
-  "name": "my-mod",
   "exports": {
-    ".": "./esm/index.js",
-    "./feature": "./esm/feature/index.js",
-    "./feature/index.js": "./esm/feature/index.js"
+    ".": "./dist/index.esm.js",
+    "./feature": "./dist/feature.esm.js",
+    "./feature/index.js": "./dist/feature.esm.js"
   },
   "engines": {
     "node": ">=14"
@@ -62,13 +57,11 @@ yarn rapidbundle
 
 #### Browser [Not Implemented]
 
-1. Set `browser` field.
-2. Set `browserslist` field (optional) (used for [esbuild target](https://esbuild.github.io/api/#target) option)
+> `browserlist` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
 
 ```json
 {
-  "name": "my-mod",
-  "browser": "./browser/index.js",
+  "browser": "./dist/index.browser.js",
   "browserslist": ["defaults", "not IE 11", "maintained node versions"]
 }
 ```
@@ -79,18 +72,22 @@ yarn rapidbundle
 
 ```json
 {
-  "name": "my-mod",
-  "module": "./esm/index.js"
+  "module": "./dist/index.esm.js"
 }
 ```
 
 #### TypeScript definitions [Not Implemented]
 
-1. Set `types` field.
-
 ```json
 {
-  "name": "my-mod",
-  "types": "./types/index.d.ts"
+  "types": "./dist/index.d.ts"
 }
+```
+
+#### GitHub Action
+
+```yaml
+runs:
+  using: "node12"
+  main: "dist/index.js"
 ```

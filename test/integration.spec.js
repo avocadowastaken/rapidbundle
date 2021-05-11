@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const execa = require("execa");
+const util = require("util");
 
 const CWD = process.cwd();
 const BIN_PATH = path.join(CWD, "bin");
@@ -27,9 +27,17 @@ let logError;
 
 function extractLogs() {
   const message = log.mock.calls
-    .map(([line]) =>
-      line.replace(CWD, "<cwd>").replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]")
-    )
+    .map((args) => {
+      let line = util
+        .format(...args)
+        .replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]");
+
+      if (line.includes(CWD)) {
+        line = line.replace(CWD, "<cwd>").replace(/\\/g, "/");
+      }
+
+      return line;
+    })
     .join("\n");
 
   snapshots.add(message);
@@ -89,10 +97,19 @@ for (const example of fs.readdirSync(EXAMPLES_DIR)) {
 
     await require(BIN_PATH);
 
-    expect(extractLogs()).toMatchSnapshot();
+    expect(extractLogs()).toMatchSnapshot("logs");
 
-    await expect(
-      execa("git", ["status", "--porcelain", path.join(exampleDir, "dist")])
-    ).resolves.toMatchObject({ stdout: "" });
+    const distDir = path.join(exampleDir, "dist");
+    const distFiles = fs.readdirSync(distDir);
+
+    expect(distFiles).toMatchSnapshot("dist files");
+
+    for (const distFile of distFiles) {
+      const distFilePath = path.join(distDir, distFile);
+      const distFileContent = fs.readFileSync(distFilePath, "utf8");
+
+      snapshots.add(distFileContent);
+      expect(distFileContent).toMatchSnapshot(distFile);
+    }
   });
 }
