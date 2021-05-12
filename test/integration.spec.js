@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const util = require("util");
+const stripANSI = require("strip-ansi");
 
 const CWD = process.cwd();
 const BIN_PATH = path.join(CWD, "bin");
@@ -28,9 +29,10 @@ let logError;
 function extractLogs() {
   const message = log.mock.calls
     .map((args) => {
-      let line = util
-        .format(...args)
-        .replace(/^(\[\d\d:\d\d:\d\d])/, "[HH:mm:ss]");
+      let line = stripANSI(util.format(...args)).replace(
+        /^(\[\d\d:\d\d:\d\d])/,
+        "[HH:mm:ss]"
+      );
 
       if (line.includes(CWD)) {
         line = line.replace(CWD, "<cwd>").replace(/\\/g, "/");
@@ -45,8 +47,12 @@ function extractLogs() {
   return message;
 }
 
-beforeEach(() => {
+beforeAll(() => {
   process.stdout.isTTY = false;
+});
+
+beforeEach(() => {
+  process.exitCode = undefined;
   log = jest.spyOn(console, "log").mockImplementation();
   logError = jest.spyOn(console, "error").mockImplementation();
 });
@@ -65,26 +71,14 @@ describe("errors", () => {
 
     await require(BIN_PATH);
 
-    expect(process.exitCode).toBe(1);
-    expect(logError).toBeCalledTimes(1);
-
     return errorFixturePath;
   }
 
-  test("Error", async () => {
-    await runErrorFixture("invalid-package-engine-version");
+  test("invalid entry", async () => {
+    await runErrorFixture("invalid-entry");
 
+    expect(process.exitCode).toBe(1);
     expect(extractLogs()).toMatchSnapshot();
-    expect(logError).lastCalledWith(new TypeError("Invalid comparator: !@#"));
-  });
-
-  test("StandardError", async () => {
-    const errorFixturePath = await runErrorFixture("empty-package-json");
-
-    expect(extractLogs()).toMatchSnapshot();
-    expect(logError).lastCalledWith(
-      `Failed to parse ${path.join(errorFixturePath, "package.json")}`
-    );
   });
 });
 
@@ -97,6 +91,8 @@ for (const example of fs.readdirSync(EXAMPLES_DIR)) {
 
     await require(BIN_PATH);
 
+    expect(logError).not.toBeCalled();
+    expect(process.exitCode).toBe(undefined);
     expect(extractLogs()).toMatchSnapshot("logs");
 
     const distDir = path.join(exampleDir, "dist");

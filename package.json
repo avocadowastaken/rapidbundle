@@ -39,6 +39,9 @@
         "files": "*.spec.js",
         "env": {
           "jest": true
+        },
+        "rules": {
+          "node/no-extraneous-require": "off"
         }
       }
     ]
@@ -59,6 +62,7 @@
     "esbuild": "^0.11.20",
     "find-up": "^5.0.0",
     "listr": "^0.14.3",
+    "resolve": "^1.20.0",
     "semver": "^7.3.5",
     "yaml": "^1.10.2"
   },
@@ -67,6 +71,8 @@
     "@types/jest": "^26.0.23",
     "@types/listr": "^0.14.3",
     "@types/lodash": "^4.14.168",
+    "@types/lodash-es": "^4.17.4",
+    "@types/resolve": "^1.20.0",
     "@types/semver": "^7.3.5",
     "eslint": "^7.26.0",
     "eslint-plugin-node": "^11.1.0",
@@ -74,6 +80,7 @@
     "jest": "^26.6.3",
     "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "np": "^7.5.0",
     "prettier": "^2.3.0",
     "prettier-plugin-jsdoc": "^0.3.22",

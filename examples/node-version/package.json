@@ -1,6 +1,6 @@
 {
-  "main": "./dist/main.js",
+  "main": "./dist/index.js",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }
