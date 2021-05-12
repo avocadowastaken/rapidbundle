@@ -1,12 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`browser-esm-basic: dist files 1`] = `
+exports[`errors invalid-action 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-action/src
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-action/lib
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-action
+[HH:mm:ss] → Resolved: <cwd>/test/__fixtures__/errors/invalid-action/index.ts
+[HH:mm:ss] Getting entry point [completed]
+[HH:mm:ss] Getting GitHub Action manifest [started]
+[HH:mm:ss] Getting GitHub Action manifest [failed]
+[HH:mm:ss] → Invalid 'action.yml':
+  .runs.main: Expected a string (got undefined)
+  .runs.using: Expected a valid enumeration value (got an empty string)
+`;
+
+exports[`errors invalid-entry 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-entry/src
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-entry/lib
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/errors/invalid-entry
+[HH:mm:ss] Getting entry point [failed]
+[HH:mm:ss] → Failed to resolve entry from: <cwd>/test/__fixtures__/errors/invalid-entry.
+`;
+
+exports[`examples browser-esm-basic: dist files 1`] = `
 Array [
   "index.js",
 ]
 `;
 
-exports[`browser-esm-basic: index.js 1`] = `
+exports[`examples browser-esm-basic: index.js 1`] = `
 // ../../node_modules/lodash-es/isObjectLike.js
 function isObjectLike(value) {
   return value != null && typeof value == "object";
@@ -30,7 +53,7 @@ export {
 
 `;
 
-exports[`browser-esm-basic: logs 1`] = `
+exports[`examples browser-esm-basic: logs 1`] = `
 [HH:mm:ss] Getting entry point [started]
 [HH:mm:ss] → Resolving from: <cwd>/examples/browser-esm-basic/src
 [HH:mm:ss] → Resolved: <cwd>/examples/browser-esm-basic/src/index.ts
@@ -46,22 +69,13 @@ exports[`browser-esm-basic: logs 1`] = `
 [HH:mm:ss] Creating Browser ESM bundle [completed]
 `;
 
-exports[`errors invalid entry 1`] = `
-[HH:mm:ss] Getting entry point [started]
-[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry/src
-[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry/lib
-[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry
-[HH:mm:ss] Getting entry point [failed]
-[HH:mm:ss] → Failed to resolve entry in <cwd>/test/__fixtures__/invalid-entry.
-`;
-
-exports[`github-action: dist files 1`] = `
+exports[`examples github-action: dist files 1`] = `
 Array [
   "main.js",
 ]
 `;
 
-exports[`github-action: logs 1`] = `
+exports[`examples github-action: logs 1`] = `
 [HH:mm:ss] Getting entry point [started]
 [HH:mm:ss] → Resolving from: <cwd>/examples/github-action/src
 [HH:mm:ss] → Resolved: <cwd>/examples/github-action/src/index.ts
@@ -72,7 +86,7 @@ exports[`github-action: logs 1`] = `
 [HH:mm:ss] Creating bundle from GitHub Action manifest [completed]
 `;
 
-exports[`github-action: main.js 1`] = `
+exports[`examples github-action: main.js 1`] = `
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
 
@@ -98,13 +112,13 @@ if (isObjectLike_default(process))
 
 `;
 
-exports[`node-basic: dist files 1`] = `
+exports[`examples node-basic: dist files 1`] = `
 Array [
   "index.js",
 ]
 `;
 
-exports[`node-basic: index.js 1`] = `
+exports[`examples node-basic: index.js 1`] = `
 var __defProp = Object.defineProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
@@ -149,7 +163,7 @@ __name(isAdmin, "isAdmin");
 
 `;
 
-exports[`node-basic: logs 1`] = `
+exports[`examples node-basic: logs 1`] = `
 [HH:mm:ss] Getting entry point [started]
 [HH:mm:ss] → Resolving from: <cwd>/examples/node-basic/src
 [HH:mm:ss] → Resolved: <cwd>/examples/node-basic/src/index.ts
@@ -165,13 +179,13 @@ exports[`node-basic: logs 1`] = `
 [HH:mm:ss] → "module" field is empty.
 `;
 
-exports[`node-dependencies: dist files 1`] = `
+exports[`examples node-dependencies: dist files 1`] = `
 Array [
   "index.js",
 ]
 `;
 
-exports[`node-dependencies: index.js 1`] = `
+exports[`examples node-dependencies: index.js 1`] = `
 var __defProp = Object.defineProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
@@ -214,7 +228,7 @@ if (isObjectLike_default(console))
 
 `;
 
-exports[`node-dependencies: logs 1`] = `
+exports[`examples node-dependencies: logs 1`] = `
 [HH:mm:ss] Getting entry point [started]
 [HH:mm:ss] → Resolving from: <cwd>/examples/node-dependencies/src
 [HH:mm:ss] → Resolved: <cwd>/examples/node-dependencies/src/index.ts
@@ -230,13 +244,13 @@ exports[`node-dependencies: logs 1`] = `
 [HH:mm:ss] → "module" field is empty.
 `;
 
-exports[`node-version: dist files 1`] = `
+exports[`examples node-version: dist files 1`] = `
 Array [
   "index.js",
 ]
 `;
 
-exports[`node-version: index.js 1`] = `
+exports[`examples node-version: index.js 1`] = `
 var __defProp = Object.defineProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
 var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
@@ -264,7 +278,7 @@ __name(Foo, "Foo");
 
 `;
 
-exports[`node-version: logs 1`] = `
+exports[`examples node-version: logs 1`] = `
 [HH:mm:ss] Getting entry point [started]
 [HH:mm:ss] → Resolving from: <cwd>/examples/node-version/src
 [HH:mm:ss] → Resolved: <cwd>/examples/node-version/src/index.ts

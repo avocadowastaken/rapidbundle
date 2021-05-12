@@ -7,7 +7,7 @@ const stripANSI = require("strip-ansi");
 
 const CWD = process.cwd();
 const BIN_PATH = path.join(CWD, "bin");
-const EXAMPLES_DIR = path.join(CWD, "examples");
+const FIXTURES_DIR = path.join(CWD, "test", "__fixtures__");
 
 /** @type {Set<string>} */
 const snapshots = new Set();
@@ -23,8 +23,6 @@ expect.addSnapshotSerializer({
 
 /** @type {jest.SpyInstance} */
 let log;
-/** @type {jest.SpyInstance} */
-let logError;
 
 function extractLogs() {
   const message = log.mock.calls
@@ -54,7 +52,6 @@ beforeAll(() => {
 beforeEach(() => {
   process.exitCode = undefined;
   log = jest.spyOn(console, "log").mockImplementation();
-  logError = jest.spyOn(console, "error").mockImplementation();
 });
 
 afterEach(() => {
@@ -63,49 +60,50 @@ afterEach(() => {
 });
 
 describe("errors", () => {
-  /** @param {string} name */
-  async function runErrorFixture(name) {
-    const errorFixturePath = path.join(__dirname, "__fixtures__", name);
+  const errorFixturesDir = path.join(FIXTURES_DIR, "errors");
 
-    jest.spyOn(process, "cwd").mockImplementation(() => errorFixturePath);
+  for (const fixture of fs.readdirSync(errorFixturesDir)) {
+    const fixtureDir = path.join(errorFixturesDir, fixture);
+    if (!fs.statSync(fixtureDir).isDirectory()) continue;
 
-    await require(BIN_PATH);
+    test(fixture, async () => {
+      jest.spyOn(process, "cwd").mockImplementation(() => fixtureDir);
+      await require(BIN_PATH);
+      expect(extractLogs()).toMatchSnapshot();
+      expect(process.exitCode).toBe(1);
 
-    return errorFixturePath;
+      const distDir = path.join(fixtureDir, "dist");
+      expect(fs.existsSync(distDir)).toBe(false);
+    });
   }
-
-  test("invalid entry", async () => {
-    await runErrorFixture("invalid-entry");
-
-    expect(process.exitCode).toBe(1);
-    expect(extractLogs()).toMatchSnapshot();
-  });
 });
 
-for (const example of fs.readdirSync(EXAMPLES_DIR)) {
-  const exampleDir = path.join(EXAMPLES_DIR, example);
-  if (!fs.statSync(exampleDir).isDirectory()) continue;
+describe("examples", () => {
+  const examplesDir = path.join(CWD, "examples");
 
-  test(example, async () => {
-    jest.spyOn(process, "cwd").mockImplementation(() => exampleDir);
+  for (const example of fs.readdirSync(examplesDir)) {
+    const exampleDir = path.join(examplesDir, example);
+    if (!fs.statSync(exampleDir).isDirectory()) continue;
 
-    await require(BIN_PATH);
+    test(example, async () => {
+      jest.spyOn(process, "cwd").mockImplementation(() => exampleDir);
 
-    expect(logError).not.toBeCalled();
-    expect(process.exitCode).toBe(undefined);
-    expect(extractLogs()).toMatchSnapshot("logs");
+      await require(BIN_PATH);
 
-    const distDir = path.join(exampleDir, "dist");
-    const distFiles = fs.readdirSync(distDir);
+      expect(extractLogs()).toMatchSnapshot("logs");
 
-    expect(distFiles).toMatchSnapshot("dist files");
+      const distDir = path.join(exampleDir, "dist");
+      const distFiles = fs.readdirSync(distDir);
 
-    for (const distFile of distFiles) {
-      const distFilePath = path.join(distDir, distFile);
-      const distFileContent = fs.readFileSync(distFilePath, "utf8");
+      expect(distFiles).toMatchSnapshot("dist files");
 
-      snapshots.add(distFileContent);
-      expect(distFileContent).toMatchSnapshot(distFile);
-    }
-  });
-}
+      for (const distFile of distFiles) {
+        const distFilePath = path.join(distDir, distFile);
+        const distFileContent = fs.readFileSync(distFilePath, "utf8");
+
+        snapshots.add(distFileContent);
+        expect(distFileContent).toMatchSnapshot(distFile);
+      }
+    });
+  }
+});
