@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`node-js: dist 1`] = `
+Array [
+  "index.d.ts",
+  "index.js",
+]
+`;
+
+exports[`node-js: dist/index.d.ts 1`] = `
+declare var logger: {
+    (formatter: any, ...args: any[]): void;
+    color: string;
+    enabled: boolean;
+    log: (...args: any[]) => any;
+    namespace: string;
+    destroy: () => boolean;
+    extend: (namespace: string, delimiter?: string) => debug.Debugger;
+};
+
+export { logger };
+
+`;
+
+exports[`node-js: dist/index.js 1`] = `
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
+};
+
+// src/logger.js
+var require_logger = __commonJS({
+  "src/logger.js"(exports2, module2) {
+    "use strict";
+    var debug = require("debug");
+    module2.exports = debug("app");
+  }
+});
+
+// src/index.js
+"use strict";
+module.exports.logger = require_logger();
+
+`;
+
+exports[`node-js: logs 1`] = `
+[HH:mm:ss] Resolving entry point [started]
+[HH:mm:ss] → Resolving from: <rootDir>/examples/node-js/src
+[HH:mm:ss] → Resolved: <rootDir>/examples/node-js/src/index.js
+[HH:mm:ss] Resolving entry point [completed]
+[HH:mm:ss] Creating GitHub action bundle [started]
+[HH:mm:ss] Creating GitHub action bundle [skipped]
+[HH:mm:ss] → Action not found
+[HH:mm:ss] Creating Node package bundles [started]
+[HH:mm:ss] Creating Node (CJS) bundle [started]
+[HH:mm:ss] Creating Node (CJS) bundle [completed]
+[HH:mm:ss] Creating Type declarations [started]
+[HH:mm:ss] Creating Type declarations [completed]
+[HH:mm:ss] Creating Node package bundles [completed]
+`;

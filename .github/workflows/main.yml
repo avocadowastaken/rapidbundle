@@ -10,6 +10,18 @@ on:
 
 jobs:
   checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.0
+      - uses: actions/checkout@v2
+      - uses: umidbekk/actions/npm/install@v1
+
+      - run: yarn tsc
+      - run: yarn lint
+      - run: yarn format --check
+
+  tests:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -23,14 +35,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - uses: styfle/cancel-workflow-action@0.9.0
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
         with:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
-      - run: yarn tsc
-      - run: yarn lint
-      - run: yarn format --check
       - run: yarn test
       - uses: codecov/codecov-action@v1

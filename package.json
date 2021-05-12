@@ -20,10 +20,11 @@
     "release": "np --no-2fa"
   },
   "lint-staged": {
-    ".js": [
-      "eslint --fix",
-      "prettier --write",
-      "jest --bail --findRelatedTests"
+    "*.js": [
+      "eslint --fix"
+    ],
+    "*": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "eslintConfig": {
@@ -36,25 +37,36 @@
     ],
     "overrides": [
       {
-        "files": "*.spec.js",
+        "files": [
+          "test/**",
+          "*.spec.js"
+        ],
         "env": {
           "jest": true
         },
         "rules": {
           "node/no-extraneous-require": "off"
+        },
+        "globals": {
+          "runIntegrationTest": true
         }
       }
     ]
   },
   "eslintIgnore": [
-    "examples",
+    "examples/*/dist",
     "test/__fixtures__"
   ],
   "jest": {
     "modulePathIgnorePatterns": [
-      "<rootDir>/examples/",
+      "/dist",
       "<rootDir>/node_modules/",
       "<rootDir>/test/__fixtures__/"
+    ],
+    "resetMocks": true,
+    "resetModules": true,
+    "setupFiles": [
+      "<rootDir>/test/setup.js"
     ],
     "watchPlugins": [
       "jest-watch-typeahead/filename",
@@ -64,9 +76,13 @@
   "dependencies": {
     "debug": "^4.3.1",
     "esbuild": "^0.11.20",
+    "execa": "^5.0.0",
     "find-up": "^5.0.0",
     "listr": "^0.14.3",
     "resolve": "^1.20.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.47.0",
+    "rollup-plugin-dts": "^3.0.1",
     "semver": "^7.3.5",
     "typanion": "^3.3.1",
     "yaml": "^1.10.2"

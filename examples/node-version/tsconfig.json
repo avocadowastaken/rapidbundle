@@ -2,7 +2,7 @@
   "include": ["src"],
   "compilerOptions": {
     "noEmit": true,
-    "module": "ES2020",
+    "target": "ES2015",
     "moduleResolution": "Node"
   }
 }

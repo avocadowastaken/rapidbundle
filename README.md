@@ -45,9 +45,9 @@ yarn rapidbundle
 ```json
 {
   "exports": {
-    ".": "./dist/index.esm.js",
-    "./feature": "./dist/feature.esm.js",
-    "./feature/index.js": "./dist/feature.esm.js"
+    ".": "./dist/index.esm",
+    "./feature": "./dist/feature.esm",
+    "./feature/index.js": "./dist/feature.esm"
   },
   "engines": {
     "node": ">=14"
@@ -76,7 +76,7 @@ yarn rapidbundle
 }
 ```
 
-#### TypeScript definitions [Not Implemented]
+#### TypeScript definitions
 
 ```json
 {
