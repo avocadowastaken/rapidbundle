@@ -31,6 +31,10 @@ export {
 `;
 
 exports[`browser-esm-basic: logs 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/examples/browser-esm-basic/src
+[HH:mm:ss] → Resolved: <cwd>/examples/browser-esm-basic/src/index.ts
+[HH:mm:ss] Getting entry point [completed]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
@@ -42,20 +46,13 @@ exports[`browser-esm-basic: logs 1`] = `
 [HH:mm:ss] Creating Browser ESM bundle [completed]
 `;
 
-exports[`errors Error 1`] = `
-[HH:mm:ss] Getting GitHub Action manifest [started]
-[HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting Node package manifest [started]
-[HH:mm:ss] Getting Node package manifest [failed]
-[HH:mm:ss] → Invalid comparator: !@#
-`;
-
-exports[`errors StandardError 1`] = `
-[HH:mm:ss] Getting GitHub Action manifest [started]
-[HH:mm:ss] Getting GitHub Action manifest [completed]
-[HH:mm:ss] Getting Node package manifest [started]
-[HH:mm:ss] Getting Node package manifest [failed]
-[HH:mm:ss] → Failed to parse <cwd>/test/__fixtures__/empty-package-json/package.json
+exports[`errors invalid entry 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry/src
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry/lib
+[HH:mm:ss] → Resolving from: <cwd>/test/__fixtures__/invalid-entry
+[HH:mm:ss] Getting entry point [failed]
+[HH:mm:ss] → Failed to resolve entry in <cwd>/test/__fixtures__/invalid-entry.
 `;
 
 exports[`github-action: dist files 1`] = `
@@ -65,6 +62,10 @@ Array [
 `;
 
 exports[`github-action: logs 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/examples/github-action/src
+[HH:mm:ss] → Resolved: <cwd>/examples/github-action/src/index.ts
+[HH:mm:ss] Getting entry point [completed]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Creating bundle from GitHub Action manifest [started]
@@ -149,6 +150,10 @@ __name(isAdmin, "isAdmin");
 `;
 
 exports[`node-basic: logs 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/examples/node-basic/src
+[HH:mm:ss] → Resolved: <cwd>/examples/node-basic/src/index.ts
+[HH:mm:ss] Getting entry point [completed]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
@@ -210,6 +215,10 @@ if (isObjectLike_default(console))
 `;
 
 exports[`node-dependencies: logs 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/examples/node-dependencies/src
+[HH:mm:ss] → Resolved: <cwd>/examples/node-dependencies/src/index.ts
+[HH:mm:ss] Getting entry point [completed]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]
@@ -256,6 +265,10 @@ __name(Foo, "Foo");
 `;
 
 exports[`node-version: logs 1`] = `
+[HH:mm:ss] Getting entry point [started]
+[HH:mm:ss] → Resolving from: <cwd>/examples/node-version/src
+[HH:mm:ss] → Resolved: <cwd>/examples/node-version/src/index.ts
+[HH:mm:ss] Getting entry point [completed]
 [HH:mm:ss] Getting GitHub Action manifest [started]
 [HH:mm:ss] Getting GitHub Action manifest [completed]
 [HH:mm:ss] Getting Node package manifest [started]

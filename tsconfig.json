@@ -7,6 +7,9 @@
     "strict": true,
     "allowJs": true,
     "checkJs": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }
