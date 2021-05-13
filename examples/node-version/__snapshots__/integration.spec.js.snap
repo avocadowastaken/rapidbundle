@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`node-version: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`node-version: dist/index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, {get: all[name], enumerable: true});
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  Foo: () => Foo
+});
+
+// src/Foo.ts
+var Foo = class {
+  #bar;
+  constructor(bar) {
+    this.#bar = bar;
+  }
+};
+__name(Foo, "Foo");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Foo
+});
+
+`;
+
+exports[`node-version: logs 1`] = `
+[HH:mm:ss] Resolving entry point [started]
+[HH:mm:ss] → Resolving from: <rootDir>/examples/node-version/src
+[HH:mm:ss] → Resolved: <rootDir>/examples/node-version/src/index.ts
+[HH:mm:ss] Resolving entry point [completed]
+[HH:mm:ss] Creating GitHub action bundle [started]
+[HH:mm:ss] Creating GitHub action bundle [skipped]
+[HH:mm:ss] → Action not found
+[HH:mm:ss] Creating Node package bundles [started]
+[HH:mm:ss] Creating Node (CJS) bundle [started]
+[HH:mm:ss] Creating Node (CJS) bundle [completed]
+[HH:mm:ss] Creating Node package bundles [completed]
+`;

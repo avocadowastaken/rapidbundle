@@ -3,8 +3,5 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "debug": "*"
-  },
-  "engines": {
-    "node": ">=14"
   }
 }
