@@ -7,9 +7,7 @@ const registerRawSnapshot = require("./registerRawSnapshot");
 
 const ROOT_DIR = path.join(__dirname, "..", "..");
 
-/**
- * @returns {() => string}
- * */
+/** @returns {() => string} */
 module.exports = function spyLog() {
   const log = jest.spyOn(console, "log").mockImplementation();
 
