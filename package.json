@@ -54,7 +54,7 @@
     ]
   },
   "eslintIgnore": [
-    "examples/*/dist",
+    "examples",
     "test/__fixtures__"
   ],
   "jest": {
@@ -108,6 +108,9 @@
     "prettier-plugin-jsdoc": "^0.3.22",
     "prettier-plugin-packagejson": "^2.2.11",
     "typescript": "^4.2.4"
+  },
+  "optionalDependencies": {
+    "typescript": "*"
   },
   "engines": {
     "node": ">=12"
