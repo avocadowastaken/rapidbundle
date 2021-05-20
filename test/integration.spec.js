@@ -8,7 +8,7 @@ const spyLog = require("./utils/spyLog");
 const FIXTURES_DIR = path.join(__dirname, "__fixtures__");
 const ERROR_FIXTURES_DIR = path.join(FIXTURES_DIR, "errors");
 
-jest.setTimeout(30 * 1000);
+jest.setTimeout(60 * 1000);
 
 beforeEach(() => {
   delete process.exitCode;
