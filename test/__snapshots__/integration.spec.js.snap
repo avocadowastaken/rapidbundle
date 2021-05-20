@@ -3,9 +3,7 @@
 exports[`invalid-action 1`] = `
 [HH:mm:ss] Resolving entry point [started]
 [HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-action/src
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-action/lib
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-action
-[HH:mm:ss] → Resolved: <rootDir>/test/__fixtures__/errors/invalid-action/index.ts
+[HH:mm:ss] → Resolved: <rootDir>/test/__fixtures__/errors/invalid-action/src/index.ts
 [HH:mm:ss] Resolving entry point [completed]
 [HH:mm:ss] Creating GitHub action bundle [started]
 [HH:mm:ss] Creating GitHub action bundle [failed]
@@ -17,8 +15,6 @@ exports[`invalid-action 1`] = `
 exports[`invalid-entry 1`] = `
 [HH:mm:ss] Resolving entry point [started]
 [HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-entry/src
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-entry/lib
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-entry
 [HH:mm:ss] Resolving entry point [failed]
 [HH:mm:ss] → Failed to resolve entry from: <rootDir>/test/__fixtures__/errors/invalid-entry.
 `;
