@@ -8,7 +8,7 @@ Array [
 
 exports[`github-action: dist/main.js 1`] = `
 var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", {value, configurable: true});
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
 // ../../node_modules/lodash-es/isObjectLike.js
 function isObjectLike(value) {
