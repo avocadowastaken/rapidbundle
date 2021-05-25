@@ -37,15 +37,10 @@ __name(Foo, "Foo");
 `;
 
 exports[`node-version: logs 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/examples/node-version/src
-[HH:mm:ss] → Resolved: <rootDir>/examples/node-version/src/index.ts
-[HH:mm:ss] Resolving entry point [completed]
-[HH:mm:ss] Creating GitHub action bundle [started]
-[HH:mm:ss] Creating GitHub action bundle [skipped]
-[HH:mm:ss] → Action not found
-[HH:mm:ss] Creating Node package bundles [started]
-[HH:mm:ss] Creating Node (CJS) bundle [started]
-[HH:mm:ss] Creating Node (CJS) bundle [completed]
-[HH:mm:ss] Creating Node package bundles [completed]
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✔ Resolving build manifests (<elapsedTime>)
+- Creating Node (CJS) bundle
+✔ Creating Node (CJS) bundle (<elapsedTime>)
 `;

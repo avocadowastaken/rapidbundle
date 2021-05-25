@@ -1,33 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`invalid-action 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-action/src
-[HH:mm:ss] → Resolved: <rootDir>/test/__fixtures__/errors/invalid-action/src/index.ts
-[HH:mm:ss] Resolving entry point [completed]
-[HH:mm:ss] Creating GitHub action bundle [started]
-[HH:mm:ss] Creating GitHub action bundle [failed]
-[HH:mm:ss] → Invalid 'action.yml':
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✖ Invalid 'action.yml':
   .runs.main: Expected a string (got undefined)
   .runs.using: Expected a valid enumeration value (got an empty string)
 `;
 
 exports[`invalid-entry 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-entry/src
-[HH:mm:ss] Resolving entry point [failed]
-[HH:mm:ss] → Failed to resolve entry from: <rootDir>/test/__fixtures__/errors/invalid-entry.
+- Resolving entry point
+✖ Failed to resolve entry point.
+  Checked:
+  - src/index.tsx
+  - src/index.ts
+  - src/index.esm
+  - src/index.js
 `;
 
 exports[`invalid-manifest 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/test/__fixtures__/errors/invalid-manifest/src
-[HH:mm:ss] → Resolved: <rootDir>/test/__fixtures__/errors/invalid-manifest/src/index.ts
-[HH:mm:ss] Resolving entry point [completed]
-[HH:mm:ss] Creating GitHub action bundle [started]
-[HH:mm:ss] Creating GitHub action bundle [skipped]
-[HH:mm:ss] → Action not found
-[HH:mm:ss] Creating Node package bundles [started]
-[HH:mm:ss] Creating Node package bundles [failed]
-[HH:mm:ss] → Manifest file (package.json or action.yml) not found.
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✖ Manifest file (package.json or action.yml) not found.
 `;
