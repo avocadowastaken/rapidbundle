@@ -41,17 +41,12 @@ export {
 `;
 
 exports[`browser-esm-basic: logs 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/examples/browser-esm-basic/src
-[HH:mm:ss] → Resolved: <rootDir>/examples/browser-esm-basic/src/index.ts
-[HH:mm:ss] Resolving entry point [completed]
-[HH:mm:ss] Creating GitHub action bundle [started]
-[HH:mm:ss] Creating GitHub action bundle [skipped]
-[HH:mm:ss] → Action not found
-[HH:mm:ss] Creating Node package bundles [started]
-[HH:mm:ss] Creating Browser (ESM) bundle [started]
-[HH:mm:ss] Creating Browser (ESM) bundle [completed]
-[HH:mm:ss] Creating Type declarations [started]
-[HH:mm:ss] Creating Type declarations [completed]
-[HH:mm:ss] Creating Node package bundles [completed]
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✔ Resolving build manifests (<elapsedTime>)
+- Creating Browser (ESM) bundle
+✔ Creating Browser (ESM) bundle (<elapsedTime>)
+- Creating Type declarations
+✔ Creating Type declarations (<elapsedTime>)
 `;

@@ -33,10 +33,10 @@ if (isObjectLike_default(process))
 `;
 
 exports[`github-action: logs 1`] = `
-[HH:mm:ss] Resolving entry point [started]
-[HH:mm:ss] → Resolving from: <rootDir>/examples/github-action/src
-[HH:mm:ss] → Resolved: <rootDir>/examples/github-action/src/index.ts
-[HH:mm:ss] Resolving entry point [completed]
-[HH:mm:ss] Creating GitHub action bundle [started]
-[HH:mm:ss] Creating GitHub action bundle [completed]
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✔ Resolving build manifests (<elapsedTime>)
+- Creating GitHub action bundle
+✔ Creating GitHub action bundle (<elapsedTime>)
 `;
