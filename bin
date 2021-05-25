@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-module.exports = require("./lib")(process.cwd());
+require("./lib");

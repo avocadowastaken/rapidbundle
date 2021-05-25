@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "test": "jest --coverage",
+    "test": "c8 --reporter lcov jest",
     "lint": "eslint .",
     "format": "prettier . --write",
     "tdd": "jest --watch",
@@ -65,6 +65,7 @@
     "setupFiles": [
       "<rootDir>/test/setup.js"
     ],
+    "testTimeout": 60000,
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
@@ -90,6 +91,7 @@
     "@types/lodash-es": "^4.17.4",
     "@types/resolve": "^1.20.0",
     "@types/semver": "^7.3.6",
+    "c8": "^7.7.2",
     "eslint": "^7.26.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "^6.0.0",
