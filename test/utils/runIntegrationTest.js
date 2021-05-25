@@ -2,7 +2,8 @@
 
 const path = require("path");
 const { promises: fs } = require("fs");
-const spyLog = require("./spyLog");
+
+const execCLI = require("./execCLI");
 const registerRawSnapshot = require("./registerRawSnapshot");
 
 module.exports = function runIntegrationTest() {
@@ -12,22 +13,12 @@ module.exports = function runIntegrationTest() {
   const fixtureName = path.basename(fixtureDir);
   const distDir = path.join(fixtureDir, "dist");
 
-  jest.setTimeout(30 * 1000);
-
-  beforeEach(() => {
-    delete process.exitCode;
-    process.stdout.isTTY = false;
-  });
-
   test(fixtureName, async () => {
-    const extractLogs = spyLog();
+    const [stdout, stderr, exitCode] = await execCLI(fixtureDir);
 
-    jest.spyOn(process, "cwd").mockImplementation(() => fixtureDir);
-
-    // @ts-ignore
-    await require("../../bin");
-
-    expect(extractLogs()).toMatchSnapshot("logs");
+    expect(stderr).toBe("");
+    expect(stdout).toMatchSnapshot("logs");
+    expect(exitCode).toBe(0);
 
     const distFiles = await fs.readdir(distDir);
 
