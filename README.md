@@ -55,20 +55,9 @@ yarn rapidbundle
 }
 ```
 
-#### Browser [Not Implemented]
+#### Browser
 
-> `browserlist` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
-
-```json
-{
-  "browser": "./dist/index.browser.js",
-  "browserslist": ["defaults", "not IE 11"]
-}
-```
-
-#### Browser (ESM)
-
-> `> 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11`
+> Browserlist: `> 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11`
 
 ```json
 {
