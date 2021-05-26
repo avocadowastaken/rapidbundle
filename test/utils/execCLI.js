@@ -1,13 +1,12 @@
-"use strict";
+import execa from "execa";
+import path from "path";
+import stripAnsi from "strip-ansi";
+import { fileURLToPath } from "url";
+import { registerRawSnapshot } from "./registerRawSnapshot";
 
-const path = require("path");
-const execa = require("execa");
-const stripANSI = require("strip-ansi");
-
-const registerRawSnapshot = require("./registerRawSnapshot");
-
-const ROOT_DIR = path.join(__dirname, "..", "..");
-const BIN = path.join(ROOT_DIR, "bin");
+const DIR = path.dirname(fileURLToPath(import.meta.url));
+const ROOT_DIR = path.join(DIR, "..", "..");
+const BIN = path.join(ROOT_DIR, "bin", "cli.js");
 
 /**
  * @param {string} input
@@ -17,7 +16,7 @@ function cleanupLogs(input) {
   return input
     .split("\n")
     .map((line) =>
-      stripANSI(line)
+      stripAnsi(line)
         .replace(/ \([\d.]+(ms|s)\)$/, " (<elapsedTime>)")
         .replace(ROOT_DIR, "<rootDir>")
     )
@@ -29,7 +28,7 @@ function cleanupLogs(input) {
  * @param {string[]} [args]
  * @returns {Promise<[stdout: string, stderr: string, exitCode: number]>}
  */
-module.exports = async function execCLI(cwd, args = []) {
+export async function execCLI(cwd, args = []) {
   const result = await execa.node(BIN, args, { cwd, reject: false });
 
   const stdout = cleanupLogs(result.stdout);
@@ -39,4 +38,4 @@ module.exports = async function execCLI(cwd, args = []) {
   registerRawSnapshot(stderr);
 
   return [stdout, stderr, result.exitCode];
-};
+}

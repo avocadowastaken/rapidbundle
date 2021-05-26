@@ -13,6 +13,6 @@ expect.addSnapshotSerializer({
 });
 
 /** @param {string} value */
-module.exports = function registerRawSnapshot(value) {
+export function registerRawSnapshot(value) {
   snapshots.add(value);
-};
+}

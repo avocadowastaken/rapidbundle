@@ -1,12 +1,9 @@
-"use strict";
+import { promises as fs } from "fs";
+import path from "path";
+import { execCLI } from "./execCLI";
+import { registerRawSnapshot } from "./registerRawSnapshot";
 
-const path = require("path");
-const { promises: fs } = require("fs");
-
-const execCLI = require("./execCLI");
-const registerRawSnapshot = require("./registerRawSnapshot");
-
-module.exports = function runIntegrationTest() {
+export function runIntegrationTest() {
   const { testPath } = expect.getState();
 
   const fixtureDir = path.dirname(testPath);
@@ -32,4 +29,4 @@ module.exports = function runIntegrationTest() {
       expect(distFileContent).toMatchSnapshot(`dist/${distFile}`);
     }
   });
-};
+}
