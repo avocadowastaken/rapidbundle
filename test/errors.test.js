@@ -1,11 +1,12 @@
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { execCLI } from "./utils/execCLI.js";
 
-const execCLI = require("./utils/execCLI");
-
-const FIXTURES_DIR = path.join(__dirname, "__fixtures__");
+const DIR = path.dirname(fileURLToPath(import.meta.url));
+const FIXTURES_DIR = path.join(DIR, "__fixtures__");
 const ERROR_FIXTURES_DIR = path.join(FIXTURES_DIR, "errors");
 
 for (const fixture of fs.readdirSync(ERROR_FIXTURES_DIR)) {

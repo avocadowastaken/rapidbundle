@@ -4,33 +4,32 @@
   "repository": "git@github.com:umidbekk/rapidbundle.git",
   "license": "MIT",
   "author": "Umidbek Karimov <4734297+umidbekk@users.noreply.github.com>",
-  "bin": {
-    "rapidbundle": "bin"
-  },
+  "type": "module",
+  "bin": "./bin/cli.js",
   "files": [
     "bin",
     "lib"
   ],
   "scripts": {
     "prepare": "husky install",
-    "test": "c8 --reporter lcov jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules c8 --reporter lcov jest",
     "lint": "eslint .",
     "format": "prettier . --write",
-    "tdd": "jest --watch",
+    "tdd": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "release": "np --no-2fa"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
     "yarn.lock": "npx yarn-deduplicate",
-    "*": "prettier --write --ignore-unknown"
+    "*.*": "prettier --write --ignore-unknown"
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2019
+      "ecmaVersion": 2021
     },
     "extends": [
       "eslint:recommended",
-      "plugin:node/recommended-script"
+      "plugin:node/recommended-module"
     ],
     "overrides": [
       {
@@ -51,6 +50,7 @@
     ]
   },
   "eslintIgnore": [
+    "bin",
     "examples",
     "test/__fixtures__"
   ],
@@ -62,22 +62,24 @@
     ],
     "resetMocks": true,
     "resetModules": true,
-    "setupFiles": [
+    "setupFilesAfterEnv": [
       "<rootDir>/test/setup.js"
     ],
     "testTimeout": 60000,
+    "transform": {},
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
   },
   "dependencies": {
-    "esbuild": "^0.12.2",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.12.3",
     "execa": "^5.0.0",
     "ora": "^5.4.0",
     "pretty-ms": "^7.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.50.0",
+    "rollup": "^2.50.1",
     "rollup-plugin-dts": "^3.0.2",
     "semver": "^7.3.5",
     "typanion": "^3.3.1",
@@ -104,13 +106,15 @@
     "np": "^7.5.0",
     "prettier": "^2.3.0",
     "prettier-plugin-jsdoc": "^0.3.22",
+    "prettier-plugin-organize-imports": "^2.1.0",
     "prettier-plugin-packagejson": "^2.2.11",
+    "strip-ansi": "^7.0.0",
     "typescript": "^4.2.4"
   },
   "optionalDependencies": {
     "typescript": "*"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=12.22"
   }
 }
