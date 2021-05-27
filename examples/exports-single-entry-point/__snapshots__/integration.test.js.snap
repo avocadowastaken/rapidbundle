@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-single-entry-point: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`exports-single-entry-point: dist/index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/isImportMetaObjectLike.ts
+import { isObjectLike } from "lodash-es";
+function isImportMetaObjectLike() {
+  return isObjectLike(import.meta);
+}
+__name(isImportMetaObjectLike, "isImportMetaObjectLike");
+export {
+  isImportMetaObjectLike
+};
+
+`;
+
+exports[`exports-single-entry-point: logs 1`] = `
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/index.js' [started]
+[HH:MM:SS] → Using output file: ./dist/index.js
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] → Using external: lodash-es
+[HH:MM:SS] Bundling './dist/index.js' [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
+`;

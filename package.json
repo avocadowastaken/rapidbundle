@@ -31,11 +31,15 @@
       "eslint:recommended",
       "plugin:node/recommended-module"
     ],
+    "rules": {
+      "no-undef": "off",
+      "no-unused-vars": "off"
+    },
     "overrides": [
       {
         "files": [
           "test/**",
-          "*.spec.js"
+          "*.test.js"
         ],
         "env": {
           "jest": true
@@ -51,14 +55,12 @@
   },
   "eslintIgnore": [
     "bin",
-    "examples",
-    "test/__fixtures__"
+    "examples"
   ],
   "jest": {
     "modulePathIgnorePatterns": [
       "/dist",
-      "<rootDir>/node_modules/",
-      "<rootDir>/test/__fixtures__/"
+      "<rootDir>/node_modules/"
     ],
     "resetMocks": true,
     "resetModules": true,
@@ -76,14 +78,14 @@
     "cross-env": "^7.0.3",
     "esbuild": "^0.12.3",
     "execa": "^5.0.0",
-    "ora": "^5.4.0",
+    "listr": "^0.14.3",
     "pretty-ms": "^7.0.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.50.1",
     "rollup-plugin-dts": "^3.0.2",
     "semver": "^7.3.5",
-    "typanion": "^3.3.1",
-    "yaml": "^1.10.2"
+    "yaml": "^1.10.2",
+    "zod": "^3.1.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
@@ -91,8 +93,8 @@
     "@types/listr": "^0.14.3",
     "@types/lodash": "^4.14.170",
     "@types/lodash-es": "^4.17.4",
-    "@types/ora": "^3.2.0",
     "@types/resolve": "^1.20.0",
+    "@types/rimraf": "^3.0.0",
     "@types/semver": "^7.3.6",
     "c8": "^7.7.2",
     "eslint": "^7.27.0",

@@ -1,0 +1,6 @@
+{
+  "exports": {
+    ".": "./dist/main.js",
+    "./submodule": "./dist/submodule.js"
+  }
+}

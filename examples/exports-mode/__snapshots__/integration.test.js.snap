@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-mode: dist 1`] = `
+Array [
+  "index.dev.js",
+  "index.js",
+]
+`;
+
+exports[`exports-mode: dist/index.dev.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/index.dev.ts
+import debug2 from "debug";
+
+// src/logger.ts
+import debug from "debug";
+var logger = debug("app:logger");
+if (true) {
+  logger.log = console.log.bind(console);
+}
+
+// src/index.ts
+function main() {
+  logger("Main");
+}
+__name(main, "main");
+
+// src/index.dev.ts
+debug2.enable("app:*");
+export {
+  main
+};
+
+`;
+
+exports[`exports-mode: dist/index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/logger.ts
+import debug from "debug";
+var logger = debug("app:logger");
+if (false) {
+  logger.log = console.log.bind(console);
+}
+
+// src/index.ts
+function main() {
+  logger("Main");
+}
+__name(main, "main");
+export {
+  main
+};
+
+`;
+
+exports[`exports-mode: logs 1`] = `
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling 'dist/index.dev.js' (development) [started]
+[HH:MM:SS] → Using output file: dist/index.dev.js
+[HH:MM:SS] → Using entry points: ./src/index.dev
+[HH:MM:SS] → Using conditions: development
+[HH:MM:SS] → Using mode: development
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] → Using external: debug
+[HH:MM:SS] Bundling 'dist/index.dev.js' (development) [completed]
+[HH:MM:SS] Bundling 'dist/index.js' [started]
+[HH:MM:SS] → Using output file: dist/index.js
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] → Using external: debug
+[HH:MM:SS] Bundling 'dist/index.js' [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
+`;

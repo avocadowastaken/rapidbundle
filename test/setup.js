@@ -1,6 +1,12 @@
 "use strict";
 
-import { runIntegrationTest } from "./utils/runIntegrationTest";
+import { runErrorTest, runIntegrationTest } from "./utils/runTest.js";
+
+Object.defineProperty(global, "runErrorTest", {
+  get() {
+    return runErrorTest;
+  },
+});
 
 Object.defineProperty(global, "runIntegrationTest", {
   get() {

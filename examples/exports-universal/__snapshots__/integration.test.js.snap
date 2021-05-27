@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-universal: dist 1`] = `
+Array [
+  "index.cjs",
+  "index.esm",
+  "index.js",
+]
+`;
+
+exports[`exports-universal: dist/index.cjs 1`] = `
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __reExport = (target, module2, desc) => {
+  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
+    for (let key of __getOwnPropNames(module2))
+      if (!__hasOwnProp.call(target, key) && key !== "default")
+        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+  }
+  return target;
+};
+var __toModule = (module2) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  isImportMetaObjectLike: () => isImportMetaObjectLike
+});
+
+// src/isImportMetaObjectLike.ts
+var import_lodash_es = __toModule(require("lodash-es"));
+var import_meta = {};
+function isImportMetaObjectLike() {
+  return (0, import_lodash_es.isObjectLike)(import_meta);
+}
+__name(isImportMetaObjectLike, "isImportMetaObjectLike");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  isImportMetaObjectLike
+});
+
+`;
+
+exports[`exports-universal: dist/index.esm 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/isImportMetaObjectLike.ts
+import { isObjectLike } from "lodash-es";
+function isImportMetaObjectLike() {
+  return isObjectLike(import.meta);
+}
+__name(isImportMetaObjectLike, "isImportMetaObjectLike");
+export {
+  isImportMetaObjectLike
+};
+
+`;
+
+exports[`exports-universal: dist/index.js 1`] = `
+// src/isImportMetaObjectLike.ts
+import { isObjectLike } from "lodash-es";
+function isImportMetaObjectLike() {
+  return isObjectLike(import.meta);
+}
+export {
+  isImportMetaObjectLike
+};
+
+`;
+
+exports[`exports-universal: logs 1`] = `
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/index.cjs' (node, require) [started]
+[HH:MM:SS] → Using output file: ./dist/index.cjs
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: node, require
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: node
+[HH:MM:SS] → Using format: cjs
+[HH:MM:SS] → Using target: node12
+[HH:MM:SS] → Using external: lodash-es
+[HH:MM:SS] Bundling './dist/index.cjs' (node, require) [completed]
+[HH:MM:SS] Bundling './dist/index.esm' (node, import) [started]
+[HH:MM:SS] → Using output file: ./dist/index.esm
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: node, import
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: node
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12
+[HH:MM:SS] → Using external: lodash-es
+[HH:MM:SS] Bundling './dist/index.esm' (node, import) [completed]
+[HH:MM:SS] Bundling './dist/index.js' (browser) [started]
+[HH:MM:SS] → Using output file: ./dist/index.js
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: browser
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: browser
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] → Using external: lodash-es
+[HH:MM:SS] Bundling './dist/index.js' (browser) [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
+`;

@@ -1,0 +1,7 @@
+{
+  "exports": {
+    "node": {
+      "browser": "./index.js"
+    }
+  }
+}

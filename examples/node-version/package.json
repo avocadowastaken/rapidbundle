@@ -1,5 +1,7 @@
 {
-  "main": "./dist/index.js",
+  "exports": {
+    "node": "./dist/index.js"
+  },
   "engines": {
     "node": ">=16"
   }

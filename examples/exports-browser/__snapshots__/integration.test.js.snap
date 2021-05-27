@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-browser: dist 1`] = `
+Array [
+  "index.browser.js",
+  "index.cjs",
+  "index.mjs",
+]
+`;
+
+exports[`exports-browser: dist/index.browser.js 1`] = `
+// src/index.browser.ts
+function toBase64(input) {
+  return btoa(input);
+}
+function fromBase64(input) {
+  return atob(input);
+}
+export {
+  fromBase64,
+  toBase64
+};
+
+`;
+
+exports[`exports-browser: dist/index.cjs 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// src/index.ts
+__markAsModule(exports);
+__export(exports, {
+  fromBase64: () => fromBase64,
+  toBase64: () => toBase64
+});
+function toBase64(input) {
+  return Buffer.from(input, "utf8").toString("base64");
+}
+__name(toBase64, "toBase64");
+function fromBase64(input) {
+  return Buffer.from(input, "base64").toString("utf8");
+}
+__name(fromBase64, "fromBase64");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  fromBase64,
+  toBase64
+});
+
+`;
+
+exports[`exports-browser: dist/index.mjs 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/index.ts
+function toBase64(input) {
+  return Buffer.from(input, "utf8").toString("base64");
+}
+__name(toBase64, "toBase64");
+function fromBase64(input) {
+  return Buffer.from(input, "base64").toString("utf8");
+}
+__name(fromBase64, "fromBase64");
+export {
+  fromBase64,
+  toBase64
+};
+
+`;
+
+exports[`exports-browser: logs 1`] = `
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/index.mjs' (node, import) [started]
+[HH:MM:SS] → Using output file: ./dist/index.mjs
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: node, import
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: node
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12
+[HH:MM:SS] Bundling './dist/index.mjs' (node, import) [completed]
+[HH:MM:SS] Bundling './dist/index.cjs' (node, require) [started]
+[HH:MM:SS] → Using output file: ./dist/index.cjs
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: node, require
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: node
+[HH:MM:SS] → Using format: cjs
+[HH:MM:SS] → Using target: node12
+[HH:MM:SS] Bundling './dist/index.cjs' (node, require) [completed]
+[HH:MM:SS] Bundling './dist/index.browser.js' (browser) [started]
+[HH:MM:SS] → Using output file: ./dist/index.browser.js
+[HH:MM:SS] → Using entry points: ./src/index.browser
+[HH:MM:SS] → Using conditions: browser
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: browser
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Bundling './dist/index.browser.js' (browser) [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
+`;

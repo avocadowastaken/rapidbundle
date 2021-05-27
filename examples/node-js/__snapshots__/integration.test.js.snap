@@ -2,53 +2,61 @@
 
 exports[`node-js: dist 1`] = `
 Array [
-  "index.d.ts",
   "index.js",
 ]
 `;
 
-exports[`node-js: dist/index.d.ts 1`] = `
-declare var logger: {
-    (formatter: any, ...args: any[]): void;
-    color: string;
-    enabled: boolean;
-    log: (...args: any[]) => any;
-    namespace: string;
-    destroy: () => boolean;
-    extend: (namespace: string, delimiter?: string) => debug.Debugger;
-};
-
-export { logger };
-
-`;
-
 exports[`node-js: dist/index.js 1`] = `
-var __commonJS = (cb, mod) => function __require() {
+var __require = (x) => {
+  if (typeof require !== "undefined")
+    return require(x);
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+};
+var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 
 // src/logger.js
 var require_logger = __commonJS({
-  "src/logger.js"(exports2, module2) {
+  "src/logger.js"(exports, module) {
     "use strict";
-    var debug = require("debug");
-    module2.exports = debug("app");
+    var debug = __require("debug");
+    module.exports = debug("app");
   }
 });
 
 // src/index.js
-"use strict";
-module.exports.logger = require_logger();
+var require_src = __commonJS({
+  "src/index.js"(exports, module) {
+    "use strict";
+    module.exports.logger = require_logger();
+  }
+});
+export default require_src();
 
 `;
 
 exports[`node-js: logs 1`] = `
-- Resolving entry point
-✔ Resolving entry point (<elapsedTime>)
-- Resolving build manifests
-✔ Resolving build manifests (<elapsedTime>)
-- Creating Node (CJS) bundle
-✔ Creating Node (CJS) bundle (<elapsedTime>)
-- Creating Type declarations
-✔ Creating Type declarations (<elapsedTime>)
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/index.js' [started]
+[HH:MM:SS] → Using output file: ./dist/index.js
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] → Using external: debug
+[HH:MM:SS] Bundling './dist/index.js' [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
 `;

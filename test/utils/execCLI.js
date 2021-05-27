@@ -17,7 +17,7 @@ function cleanupLogs(input) {
     .split("\n")
     .map((line) =>
       stripAnsi(line)
-        .replace(/ \([\d.]+(ms|s)\)$/, " (<elapsedTime>)")
+        .replace(/\[\d\d:\d\d:\d\d]/g, "[HH:MM:SS]")
         .replace(ROOT_DIR, "<rootDir>")
     )
     .join("\n");

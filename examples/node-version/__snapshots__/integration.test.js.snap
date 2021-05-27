@@ -8,18 +8,7 @@ Array [
 
 exports[`node-version: dist/index.js 1`] = `
 var __defProp = Object.defineProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-
-// src/index.ts
-__markAsModule(exports);
-__export(exports, {
-  Foo: () => Foo
-});
 
 // src/Foo.ts
 var Foo = class {
@@ -29,18 +18,33 @@ var Foo = class {
   }
 };
 __name(Foo, "Foo");
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
   Foo
-});
+};
 
 `;
 
 exports[`node-version: logs 1`] = `
-- Resolving entry point
-✔ Resolving entry point (<elapsedTime>)
-- Resolving build manifests
-✔ Resolving build manifests (<elapsedTime>)
-- Creating Node (CJS) bundle
-✔ Creating Node (CJS) bundle (<elapsedTime>)
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node16.0.0
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/index.js' (node) [started]
+[HH:MM:SS] → Using output file: ./dist/index.js
+[HH:MM:SS] → Using entry points: ./src/index
+[HH:MM:SS] → Using conditions: node
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: node
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node16.0.0
+[HH:MM:SS] Bundling './dist/index.js' (node) [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
 `;

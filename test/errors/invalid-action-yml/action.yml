@@ -1,0 +1,3 @@
+runs:
+  using: @@
+  main: main.js

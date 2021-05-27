@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-subpath: dist 1`] = `
+Array [
+  "main.js",
+  "submodule.js",
+]
+`;
+
+exports[`exports-subpath: dist/main.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/submodule.ts
+function submodule() {
+  console.log("Submodule");
+}
+__name(submodule, "submodule");
+
+// src/main.ts
+function main() {
+  console.log("Main");
+}
+__name(main, "main");
+export {
+  main,
+  submodule
+};
+
+`;
+
+exports[`exports-subpath: dist/submodule.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+
+// src/submodule.ts
+function submodule() {
+  console.log("Submodule");
+}
+__name(submodule, "submodule");
+export {
+  submodule
+};
+
+`;
+
+exports[`exports-subpath: logs 1`] = `
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Resolving settings [started]
+[HH:MM:SS] → Resolved Node target version: node12
+[HH:MM:SS] → Resolved Browser target versions: chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Resolving settings [completed]
+[HH:MM:SS] Bundling './dist/main.js' [started]
+[HH:MM:SS] → Using output file: ./dist/main.js
+[HH:MM:SS] → Using entry points: ./src/main
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Bundling './dist/main.js' [completed]
+[HH:MM:SS] Bundling './dist/submodule.js' [started]
+[HH:MM:SS] → Using output file: ./dist/submodule.js
+[HH:MM:SS] → Using entry points: ./src/submodule
+[HH:MM:SS] → Using mode: production
+[HH:MM:SS] → Using platform: neutral
+[HH:MM:SS] → Using format: esm
+[HH:MM:SS] → Using target: node12, chrome88, edge89, firefox78, safari14
+[HH:MM:SS] Bundling './dist/submodule.js' [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
+`;

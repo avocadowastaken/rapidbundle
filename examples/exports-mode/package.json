@@ -1,0 +1,9 @@
+{
+  "exports": {
+    "development": "dist/index.dev.js",
+    "default": "dist/index.js"
+  },
+  "dependencies": {
+    "debug": "*"
+  }
+}

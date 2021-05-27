@@ -1,0 +1,12 @@
+{
+  "exports": {
+    "node": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.esm"
+    },
+    "browser": "./dist/index.js"
+  },
+  "peerDependencies": {
+    "lodash-es": "*"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "exports": {
+    "node": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "browser": "./dist/index.browser.js"
+  }
+}
