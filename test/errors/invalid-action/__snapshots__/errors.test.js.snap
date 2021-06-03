@@ -1,8 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`invalid-action 1`] = `
-- Resolving build manifests
-✖ Invalid 'action.yml':
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [failed]
+[HH:MM:SS] → Invalid 'action.yml':
   .runs.main: Expected a string (got undefined)
   .runs.using: Expected a valid enumeration value (got an empty string)
 `;

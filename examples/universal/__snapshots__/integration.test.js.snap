@@ -86,14 +86,19 @@ export { isImportMetaObjectLike };
 `;
 
 exports[`universal: logs 1`] = `
-- Resolving build manifests
-✔ Resolving build manifests (<elapsedTime>)
-- Resolving entry point
-✔ Resolving entry point (<elapsedTime>)
-- Creating Node (CJS) bundle
-✔ Creating Node (CJS) bundle (<elapsedTime>)
-- Creating Browser (ESM) bundle
-✔ Creating Browser (ESM) bundle (<elapsedTime>)
-- Creating Type declarations
-✔ Creating Type declarations (<elapsedTime>)
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running Node Package bundler [started]
+[HH:MM:SS] Creating Node (CJS) bundle [started]
+[HH:MM:SS] Creating Node (CJS) bundle [completed]
+[HH:MM:SS] Creating Browser (ESM) bundle [started]
+[HH:MM:SS] Creating Browser (ESM) bundle [completed]
+[HH:MM:SS] Creating Type declarations [started]
+[HH:MM:SS] Creating Type declarations [completed]
+[HH:MM:SS] Running Node Package bundler [completed]
 `;
