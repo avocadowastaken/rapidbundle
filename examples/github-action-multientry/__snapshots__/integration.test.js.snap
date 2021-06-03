@@ -48,8 +48,16 @@ setup();
 `;
 
 exports[`github-action-multientry: logs 1`] = `
-- Resolving build manifests
-✔ Resolving build manifests (<elapsedTime>)
-- Creating GitHub action bundle
-✔ Creating GitHub action bundle (<elapsedTime>)
+[HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'package.json'
+[HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] Resolving build manifests [completed]
+[HH:MM:SS] Run preparations [started]
+[HH:MM:SS] → Removing 'dist' directory
+[HH:MM:SS] Run preparations [completed]
+[HH:MM:SS] Running GitHub Action bundler [started]
+[HH:MM:SS] → Using entry points: ./src/index, ./src/setup, ./src/cleanup
+[HH:MM:SS] → Using output directory: ./dist
+[HH:MM:SS] → Using Node version: node12
+[HH:MM:SS] Running GitHub Action bundler [completed]
 `;
