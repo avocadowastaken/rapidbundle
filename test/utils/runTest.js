@@ -30,3 +30,21 @@ export function runIntegrationTest() {
     }
   });
 }
+
+export function runErrorTest() {
+  const { testPath } = expect.getState();
+
+  const fixtureDir = path.dirname(testPath);
+  const fixtureName = path.basename(fixtureDir);
+  const distDir = path.join(fixtureDir, "dist");
+
+  test(fixtureName, async () => {
+    const [stdout, stderr, exitCode] = await execCLI(fixtureDir);
+
+    expect(stderr).toBe("");
+    expect(stdout).toMatchSnapshot();
+    expect(exitCode).toBe(1);
+
+    await expect(fs.stat(distDir)).rejects.toBeDefined();
+  });
+}

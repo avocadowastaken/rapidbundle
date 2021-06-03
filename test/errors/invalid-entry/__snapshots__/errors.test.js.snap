@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-entry 1`] = `
+- Resolving entry point
+✖ Failed to resolve entry point.
+  Checked:
+  - src/index.tsx
+  - src/index.ts
+  - src/index.esm
+  - src/index.js
+`;

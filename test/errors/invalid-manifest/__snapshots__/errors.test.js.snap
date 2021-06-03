@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-manifest 1`] = `
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✖ Manifest file (package.json or action.yml) not found.
+`;

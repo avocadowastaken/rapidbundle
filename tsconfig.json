@@ -1,5 +1,6 @@
 {
   "include": ["lib", "test"],
+  "exclude": ["test/errors"],
   "compilerOptions": {
     "noEmit": true,
 

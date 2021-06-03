@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-action 1`] = `
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
+- Resolving build manifests
+✖ Invalid 'action.yml':
+  .runs.main: Expected a string (got undefined)
+  .runs.using: Expected a valid enumeration value (got an empty string)
+`;
