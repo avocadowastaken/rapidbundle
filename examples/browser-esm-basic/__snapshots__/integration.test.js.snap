@@ -27,10 +27,10 @@ export {
 `;
 
 exports[`browser-esm-basic: logs 1`] = `
-- Resolving entry point
-✔ Resolving entry point (<elapsedTime>)
 - Resolving build manifests
 ✔ Resolving build manifests (<elapsedTime>)
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
 - Creating Browser (ESM) bundle
 ✔ Creating Browser (ESM) bundle (<elapsedTime>)
 - Creating Type declarations

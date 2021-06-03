@@ -1,0 +1,7 @@
+name: "Print env"
+description: "Check if env is defined and print it."
+runs:
+  using: "node12"
+  pre: "./dist/setup.js"
+  main: "./dist/index.js"
+  post: "./dist/cleanup.js"

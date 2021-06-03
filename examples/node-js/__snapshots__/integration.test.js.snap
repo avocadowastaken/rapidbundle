@@ -43,10 +43,10 @@ module.exports.logger = require_logger();
 `;
 
 exports[`node-js: logs 1`] = `
-- Resolving entry point
-✔ Resolving entry point (<elapsedTime>)
 - Resolving build manifests
 ✔ Resolving build manifests (<elapsedTime>)
+- Resolving entry point
+✔ Resolving entry point (<elapsedTime>)
 - Creating Node (CJS) bundle
 ✔ Creating Node (CJS) bundle (<elapsedTime>)
 - Creating Type declarations
