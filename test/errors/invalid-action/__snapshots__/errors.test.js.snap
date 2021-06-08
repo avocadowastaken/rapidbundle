@@ -6,6 +6,6 @@ exports[`invalid-action 1`] = `
 [HH:MM:SS] → Checking 'action.yml'
 [HH:MM:SS] Resolving build manifests [failed]
 [HH:MM:SS] → Invalid 'action.yml':
-  .runs.main: Expected a string (got undefined)
-  .runs.using: Expected a valid enumeration value (got an empty string)
+  .runs.main: expected to be in the 'dist' directory, received 'action.js'
+  .runs.using: expected "node12" or "node14" or "node16" but received "undefined"
 `;
