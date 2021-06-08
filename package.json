@@ -5,9 +5,8 @@
   "license": "MIT",
   "author": "Umidbek Karimov <4734297+umidbekk@users.noreply.github.com>",
   "type": "module",
-  "bin": "./bin/cli.js",
+  "bin": "./lib/cli.js",
   "files": [
-    "bin",
     "lib"
   ],
   "scripts": {
@@ -51,8 +50,8 @@
     ]
   },
   "eslintIgnore": [
-    "bin",
-    "examples"
+    "examples",
+    "lib/cli.js"
   ],
   "jest": {
     "modulePathIgnorePatterns": [

@@ -6,7 +6,7 @@ import { registerRawSnapshot } from "./registerRawSnapshot";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(DIR, "..", "..");
-const BIN = path.join(ROOT_DIR, "bin", "cli.js");
+const BIN = path.join(ROOT_DIR, "lib", "cli.js");
 
 /**
  * @param {string} input
