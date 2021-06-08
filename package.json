@@ -73,12 +73,12 @@
   },
   "dependencies": {
     "cross-env": "^7.0.3",
-    "esbuild": "^0.12.3",
-    "execa": "^5.0.0",
+    "esbuild": "^0.12.6",
+    "execa": "^5.1.1",
     "listr": "^0.14.3",
     "pretty-ms": "^7.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.50.1",
+    "rollup": "^2.51.1",
     "rollup-plugin-dts": "^3.0.2",
     "semver": "^7.3.5",
     "yaml": "^1.10.2",
@@ -94,24 +94,23 @@
     "@types/rimraf": "^3.0.0",
     "@types/semver": "^7.3.6",
     "c8": "^7.7.2",
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "^6.0.0",
-    "jest": "^27.0.1",
-    "jest-watch-typeahead": "^0.6.3",
+    "jest": "^27.0.4",
+    "jest-watch-typeahead": "^0.6.4",
     "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "np": "^7.5.0",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "prettier-plugin-jsdoc": "^0.3.22",
     "prettier-plugin-organize-imports": "^2.1.0",
     "prettier-plugin-packagejson": "^2.2.11",
-    "strip-ansi": "^7.0.0",
-    "typescript": "^4.2.4"
+    "strip-ansi": "^7.0.0"
   },
   "optionalDependencies": {
-    "typescript": "*"
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": ">=12.22"
