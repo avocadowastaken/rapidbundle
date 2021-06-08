@@ -28,8 +28,8 @@ export {
 
 exports[`browser-esm-basic: logs 1`] = `
 [HH:MM:SS] Resolving build manifests [started]
-[HH:MM:SS] → Checking 'package.json'
 [HH:MM:SS] → Checking 'action.yml'
+[HH:MM:SS] → Checking 'package.json'
 [HH:MM:SS] Resolving build manifests [completed]
 [HH:MM:SS] Run preparations [started]
 [HH:MM:SS] → Removing 'dist' directory

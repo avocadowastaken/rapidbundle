@@ -2,6 +2,7 @@
 
 exports[`invalid-package-version-value 1`] = `
 [HH:MM:SS] Resolving build manifests [started]
+[HH:MM:SS] → Checking 'action.yml'
 [HH:MM:SS] → Checking 'package.json'
 [HH:MM:SS] Resolving build manifests [failed]
 [HH:MM:SS] → Invalid 'package.json': .engines.node: expected "string", received "number"
