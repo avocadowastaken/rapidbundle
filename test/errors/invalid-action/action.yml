@@ -1,2 +1,2 @@
 runs:
-  using: ""
+  main: "action.js"
