@@ -27,9 +27,9 @@ exports[`modules: logs 1`] = `
 [DATA] Removing 'dist' directory
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'package.json'
-[STARTED] Resolving externals
+[STARTED] Parsing 'package.json'
 [DATA] Using ".peerDependencies" as external: lodash-es
-[SUCCESS] Resolving externals
+[SUCCESS] Parsing 'package.json'
 [STARTED] Making '.module' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js

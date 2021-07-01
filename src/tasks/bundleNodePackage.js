@@ -23,9 +23,19 @@ export function bundleNodePackage(cwd, packageJSON) {
     logLevel: "silent",
   };
 
+  /** @type {esbuild.BuildOptions} */
+  const baseNodeOptions = {
+    format: "cjs",
+    target: "node12",
+    platform: "node",
+
+    // `node-fetch` checks for the `AbortController` name.
+    keepNames: true,
+  };
+
   return new Listr([
     {
-      title: "Resolving externals",
+      title: "Parsing 'package.json'",
       task(_, task) {
         {
           /** @type {ReadonlyArray<'dependencies' | 'peerDependencies' | 'optionalDependencies'>} */
@@ -52,6 +62,51 @@ export function bundleNodePackage(cwd, packageJSON) {
             }
           }
         }
+
+        if (packageJSON.engines && packageJSON.engines.node) {
+          baseNodeOptions.target = `node${packageJSON.engines.node}`;
+          task.output = `Using '.engines.node' entry: ${packageJSON.engines.node}`;
+        }
+      },
+    },
+
+    {
+      title: "Making '.bin' entry bundle",
+      enabled() {
+        return !!packageJSON.bin;
+      },
+      task(_, task) {
+        /** @type {esbuild.BuildOptions} */
+        const options = {
+          ...baseOptions,
+          ...baseNodeOptions,
+
+          minify: true,
+          outdir: resolveDistDir(cwd),
+        };
+
+        assert(packageJSON.bin);
+
+        options.entryPoints = [];
+
+        if (typeof packageJSON.bin == "string") {
+          const entry = resolveEntry(cwd, packageJSON.bin);
+          task.output = `Using '.bin' entry: ${formatRelativePath(cwd, entry)}`;
+          options.entryPoints.push(entry);
+        } else {
+          const bins = Object.entries(packageJSON.bin);
+
+          for (const [name, bin] of bins) {
+            const entry = resolveEntry(cwd, bin);
+            options.entryPoints.push(entry);
+            task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
+              cwd,
+              entry
+            )}`;
+          }
+        }
+
+        return esbuild.build(options);
       },
     },
 
@@ -64,11 +119,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         /** @type {esbuild.BuildOptions} */
         const options = {
           ...baseOptions,
-
-          format: "cjs",
-          platform: "node",
-
-          keepNames: true,
+          ...baseNodeOptions,
         };
 
         assert(packageJSON.main);
@@ -87,14 +138,10 @@ export function bundleNodePackage(cwd, packageJSON) {
           task.output = `Setting output file: ${packageJSON.main}`;
         }
 
-        {
-          options.target = `node${packageJSON.engines.node}`;
-          task.output = `Setting Node Version: ${packageJSON.engines.node}`;
-        }
-
         return esbuild.build(options);
       },
     },
+
     {
       title: "Making '.module' entry bundle",
       enabled() {

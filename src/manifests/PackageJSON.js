@@ -5,14 +5,24 @@ import { z } from "zod";
 import { isFile } from "../utils/fs.js";
 import { ValidationError } from "../utils/validation.js";
 
-const packageEntrySchema = z.string().refine(
-  (value) => path.posix.normalize(value).startsWith("dist/"),
-  (value) => ({
-    message: `expected to be in the 'dist' directory, received '${value}'`,
-  })
-);
+const packageEntrySchema = z
+  .string()
+  .nonempty("expected to be a valid file path, received, '\"\"'")
+  .refine(
+    (value) => path.posix.normalize(value).startsWith("dist/"),
+    (value) => ({
+      message: `expected to be in the 'dist' directory, received '${value}'`,
+    })
+  );
 
 const packageJSONSchema = z.object({
+  bin: z
+    .union([packageEntrySchema, z.record(packageEntrySchema)])
+    .refine(
+      (bin) => typeof bin == "string" || Object.keys(bin).length > 0,
+      "expected to have at least one command, received '{}'"
+    )
+    .optional(),
   main: packageEntrySchema.optional(),
   types: packageEntrySchema.optional(),
   module: packageEntrySchema.optional(),
@@ -21,14 +31,14 @@ const packageJSONSchema = z.object({
     .object({
       node: z
         .string()
-        .default("12")
         .transform((value) => {
           const version = semver.minVersion(value, true);
           if (version) return version.format();
           throw new Error(`invalid semver range: ${value}`);
-        }),
+        })
+        .optional(),
     })
-    .default({}),
+    .optional(),
 
   dependencies: z.record(z.string()).default({}),
   peerDependencies: z.record(z.string()).default({}),

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-package-bin-item-path: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin.hi': expected to be in the 'dist' directory, received './hi.js'`;
+
+exports[`invalid-package-bin-item-path: stdout 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+`;

@@ -66,7 +66,7 @@ paths in `src` directory
 - Creates a single file bundle for each entry
 - Scans `package.json` to obtain build info
 
-  - Infers entries from the `.main`, `.module` and `.types` fields
+  - Infers entries from the `.bin`, `.main`, `.module` and `.types` fields
   - Infers target Node version from the `.engines.node` field
 
 ### Constraints:
@@ -80,6 +80,7 @@ For example, if you have `package.json` like that:
 
 ```json
 {
+  "bin": "./dist/cli.js",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts"
@@ -90,8 +91,10 @@ It will produce 3 output files in `dist` directory.
 
 ```
 ├─ src
+│  ├─ cli.ts
 │  └─ index.ts
 ├─ dist
+│  ├─ cli.js
 │  ├─ index.js
 │  ├─ index.cjs
 │  └─ types.d.ts

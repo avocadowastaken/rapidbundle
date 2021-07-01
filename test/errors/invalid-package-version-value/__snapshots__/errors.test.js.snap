@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-version-value: stderr 1`] = `[FAILED] Invalid 'package.json': .engines.node: expected "string", received "number"`;
+exports[`invalid-package-version-value: stderr 1`] = `[FAILED] Invalid 'package.json': '.engines.node': expected "string", received "number"`;
 
 exports[`invalid-package-version-value: stdout 1`] = `
 [STARTED] Resolving build manifests

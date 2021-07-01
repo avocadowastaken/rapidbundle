@@ -5,12 +5,13 @@
   "license": "MIT",
   "author": "Umidbek Karimov <4734297+umidbekk@users.noreply.github.com>",
   "type": "module",
-  "bin": "./lib/cli.js",
+  "bin": "./dist/cli.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "prepare": "husky install",
+    "build": "node ./src/cli.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules c8 --reporter lcov jest",
     "lint": "eslint .",
     "format": "prettier . --write",
@@ -52,7 +53,7 @@
   },
   "eslintIgnore": [
     "examples",
-    "lib/cli.js"
+    "src/cli.js"
   ],
   "jest": {
     "modulePathIgnorePatterns": [
@@ -72,18 +73,9 @@
     ]
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "enquirer": "^2.3.6",
     "esbuild": "^0.12.13",
-    "execa": "^5.1.1",
-    "listr2": "^3.10.0",
-    "pretty-ms": "^7.0.1",
-    "rimraf": "^3.0.2",
     "rollup": "^2.52.6",
-    "rollup-plugin-dts": "^3.0.2",
-    "semver": "^7.3.5",
-    "yaml": "^1.10.2",
-    "zod": "^3.2.0"
+    "rollup-plugin-dts": "^3.0.2"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
@@ -94,12 +86,16 @@
     "@types/rimraf": "^3.0.0",
     "@types/semver": "^7.3.6",
     "c8": "^7.7.3",
+    "cross-env": "^7.0.3",
+    "enquirer": "^2.3.6",
     "eslint": "^7.29.0",
     "eslint-plugin-node": "^11.1.0",
+    "execa": "^5.1.1",
     "husky": "^7.0.0",
     "jest": "^27.0.6",
     "jest-watch-typeahead": "^0.6.4",
     "lint-staged": "^11.0.0",
+    "listr2": "^3.10.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "np": "^7.5.0",
@@ -107,7 +103,12 @@
     "prettier-plugin-jsdoc": "^0.3.23",
     "prettier-plugin-organize-imports": "^2.2.0",
     "prettier-plugin-packagejson": "^2.2.11",
-    "strip-ansi": "^7.0.0"
+    "pretty-ms": "^7.0.1",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.5",
+    "strip-ansi": "^7.0.0",
+    "yaml": "^1.10.2",
+    "zod": "^3.2.0"
   },
   "optionalDependencies": {
     "typescript": "^4.3.5"

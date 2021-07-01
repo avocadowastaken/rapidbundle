@@ -50,12 +50,11 @@ exports[`types-import-upper: logs 1`] = `
 [DATA] Removing 'dist' directory
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'package.json'
-[STARTED] Resolving externals
-[SUCCESS] Resolving externals
+[STARTED] Parsing 'package.json'
+[SUCCESS] Parsing 'package.json'
 [STARTED] Making '.main' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.cjs
-[DATA] Setting Node Version: 12.0.0
 [SUCCESS] Making '.main' entry bundle
 [STARTED] Making 'types' entry bundle
 [DATA] Generating 'd.ts' files

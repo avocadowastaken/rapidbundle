@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bin-multiple: dist 1`] = `
+Array [
+  "hello.js",
+  "hi.js",
+]
+`;
+
+exports[`bin-multiple: dist/hello.js 1`] = `
+#!/usr/bin/env node
+console.log(\`Hello \${process.argv[3]}\`);
+
+`;
+
+exports[`bin-multiple: dist/hi.js 1`] = `
+#!/usr/bin/env node
+console.log(\`Hello \${process.argv[3]}\`);
+
+`;
+
+exports[`bin-multiple: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Parsing 'package.json'
+[SUCCESS] Parsing 'package.json'
+[STARTED] Making '.bin' entry bundle
+[DATA] Using '.bin.hello' entry: ./src/hello
+[DATA] Using '.bin.hi' entry: ./src/hi
+[SUCCESS] Making '.bin' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;
