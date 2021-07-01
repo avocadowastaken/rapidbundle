@@ -1,11 +1,11 @@
 import assert from "assert";
 import { Listr } from "listr2";
-import path from "path";
 import { tryParseActionYML } from "./manifests/ActionYML.js";
 import { tryParsePackageJSON } from "./manifests/PackageJSON.js";
 import { bundleGitHubAction } from "./tasks/bundleGitHubAction.js";
 import { bundleNodePackage } from "./tasks/bundleNodePackage.js";
 import { rmrf } from "./utils/fs.js";
+import { resolveDistDir } from "./utils/path.js";
 
 /**
  * @typedef {object} TasksContext
@@ -37,7 +37,7 @@ const tasks = new Listr(
       title: "Run preparations",
       async task(ctx, task) {
         task.output = "Removing 'dist' directory";
-        await rmrf(path.join(ctx.cwd, "dist"));
+        await rmrf(resolveDistDir(ctx.cwd));
       },
     },
 

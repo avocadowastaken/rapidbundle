@@ -1,0 +1,1 @@
+runErrorTest({ env: { CI: true } });

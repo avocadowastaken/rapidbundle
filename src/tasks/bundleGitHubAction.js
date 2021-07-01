@@ -1,4 +1,5 @@
 import esbuild from "esbuild";
+import execa from "execa";
 import {
   formatRelativePath,
   resolveDistDir,
@@ -18,14 +19,16 @@ import {
  * @returns {AsyncGenerator<string, void>}
  */
 export async function* bundleGitHubAction(cwd, actionYML) {
+  const distDir = resolveDistDir(cwd);
+
   /** @type {esbuild.BuildOptions}*/
   const options = {
     logLevel: "silent",
 
     bundle: true,
+    outdir: distDir,
     keepNames: true,
     platform: "node",
-    outdir: resolveDistDir(cwd),
 
     external: [
       // Optional dependency of the `node-fetch`.
@@ -57,4 +60,24 @@ export async function* bundleGitHubAction(cwd, actionYML) {
   }
 
   await esbuild.build(options);
+
+  if (process.env.CI === "true") {
+    yield "Checking build difference";
+
+    const { stdout: status } = await execa(
+      "git",
+      ["status", "--porcelain", distDir],
+      { stderr: "inherit" }
+    );
+
+    if (status) {
+      const { stdout: diff } = await execa(
+        "git",
+        ["diff", "--minimal", "--unified=0", distDir],
+        { stderr: "inherit" }
+      );
+
+      throw new Error(`Found build difference:\n${diff || status}`);
+    }
+  }
 }

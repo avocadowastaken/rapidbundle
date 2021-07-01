@@ -35,11 +35,22 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - run: git config --global core.autocrlf false
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
         with:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
       - run: yarn test
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          if-no-files-found: ignore
+          name: build-examples-${{ matrix.os }}-${{ matrix.node }}-
+          path: |
+            examples/*/dist
+            test/errors/*/dist
+
       - uses: codecov/codecov-action@v1
         if: matrix.os == 'ubuntu-latest' && matrix.node == '14'
