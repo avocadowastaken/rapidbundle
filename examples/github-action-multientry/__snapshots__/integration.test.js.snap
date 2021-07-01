@@ -48,16 +48,18 @@ setup();
 `;
 
 exports[`github-action-multientry: logs 1`] = `
-[HH:MM:SS] Resolving build manifests [started]
-[HH:MM:SS] → Checking 'action.yml'
-[HH:MM:SS] → Checking 'package.json'
-[HH:MM:SS] Resolving build manifests [completed]
-[HH:MM:SS] Run preparations [started]
-[HH:MM:SS] → Removing 'dist' directory
-[HH:MM:SS] Run preparations [completed]
-[HH:MM:SS] Running GitHub Action bundler [started]
-[HH:MM:SS] → Using entry points: ./src/index, ./src/setup, ./src/cleanup
-[HH:MM:SS] → Using output directory: ./dist
-[HH:MM:SS] → Using Node version: node12
-[HH:MM:SS] Running GitHub Action bundler [completed]
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'action.yml'
+[DATA] Using 'runs.main' entry: ./src/index
+[DATA] Using 'runs.pre' entry: ./src/setup
+[DATA] Using 'runs.post' entry: ./src/cleanup
+[DATA] Setting output directory: ./dist
+[DATA] Setting Node version: node12
+[SUCCESS] Making bundle from 'action.yml'
 `;

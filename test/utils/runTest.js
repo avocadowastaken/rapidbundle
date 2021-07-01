@@ -41,8 +41,8 @@ export function runErrorTest() {
   test(fixtureName, async () => {
     const [stdout, stderr, exitCode] = await execCLI(fixtureDir);
 
-    expect(stderr).toBe("");
-    expect(stdout).toMatchSnapshot();
+    expect(stdout).toMatchSnapshot("stdout");
+    expect(stderr).toMatchSnapshot("stderr");
     expect(exitCode).toBe(1);
 
     await expect(fs.stat(distDir)).rejects.toBeDefined();

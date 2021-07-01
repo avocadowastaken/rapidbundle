@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-version-range 1`] = `
-[HH:MM:SS] Resolving build manifests [started]
-[HH:MM:SS] → Checking 'action.yml'
-[HH:MM:SS] → Checking 'package.json'
-[HH:MM:SS] Resolving build manifests [failed]
-[HH:MM:SS] → Invalid 'package.json': invalid semver range: >=12 <10
+exports[`invalid-package-version-range: stderr 1`] = `[FAILED] Invalid 'package.json': invalid semver range: >=12 <10`;
+
+exports[`invalid-package-version-range: stdout 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
 `;

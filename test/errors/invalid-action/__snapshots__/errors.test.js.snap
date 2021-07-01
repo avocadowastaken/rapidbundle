@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-action 1`] = `
-[HH:MM:SS] Resolving build manifests [started]
-[HH:MM:SS] → Checking 'action.yml'
-[HH:MM:SS] Resolving build manifests [failed]
-[HH:MM:SS] → Invalid 'action.yml':
-  .runs.main: expected to be in the 'dist' directory, received 'action.js'
-  .runs.using: expected "node12" or "node14" or "node16" but received "undefined"
+exports[`invalid-action: stderr 1`] = `
+[FAILED] Invalid 'action.yml':
+[FAILED]   .runs.main: expected to be in the 'dist' directory, received 'action.js'
+[FAILED]   .runs.using: expected "node12" or "node14" or "node16" but received "undefined"
+`;
+
+exports[`invalid-action: stdout 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
 `;

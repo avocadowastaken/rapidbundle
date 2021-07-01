@@ -15,12 +15,7 @@ const BIN = path.join(ROOT_DIR, "lib", "cli.js");
 function cleanupLogs(input) {
   return input
     .split("\n")
-    .map((line) =>
-      stripAnsi(line)
-        .replace(ROOT_DIR, "<rootDir>")
-        .replace(/\[\d\d:\d\d:\d\d]/g, "[HH:MM:SS]")
-        .replace(/ \([\d.]+(ms|s)\)$/, " (<elapsedTime>)")
-    )
+    .map((line) => stripAnsi(line).replace(ROOT_DIR, "<rootDir>"))
     .join("\n");
 }
 

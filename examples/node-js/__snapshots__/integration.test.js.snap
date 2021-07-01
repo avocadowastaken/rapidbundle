@@ -43,17 +43,17 @@ module.exports.logger = require_logger();
 `;
 
 exports[`node-js: logs 1`] = `
-[HH:MM:SS] Resolving build manifests [started]
-[HH:MM:SS] → Checking 'action.yml'
-[HH:MM:SS] → Checking 'package.json'
-[HH:MM:SS] Resolving build manifests [completed]
-[HH:MM:SS] Run preparations [started]
-[HH:MM:SS] → Removing 'dist' directory
-[HH:MM:SS] Run preparations [completed]
-[HH:MM:SS] Running Node Package bundler [started]
-[HH:MM:SS] Creating Node (CJS) bundle [started]
-[HH:MM:SS] Creating Node (CJS) bundle [completed]
-[HH:MM:SS] Creating Type declarations [started]
-[HH:MM:SS] Creating Type declarations [completed]
-[HH:MM:SS] Running Node Package bundler [completed]
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Making 'main' entry bundle
+[SUCCESS] Making 'main' entry bundle
+[STARTED] Making 'types' entry bundle
+[SUCCESS] Making 'types' entry bundle
+[SUCCESS] Making bundle from 'package.json'
 `;
