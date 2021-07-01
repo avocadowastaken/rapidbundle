@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-main: stderr 1`] = `[FAILED] Invalid 'package.json': .main: expected to be in the 'dist' directory, received 'index.js'`;
+exports[`invalid-package-main: stderr 1`] = `[FAILED] Invalid 'package.json': '.main': expected to be in the 'dist' directory, received 'index.js'`;
 
 exports[`invalid-package-main: stdout 1`] = `
 [STARTED] Resolving build manifests

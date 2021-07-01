@@ -66,7 +66,13 @@ const tasks = new Listr(
       },
     },
   ],
-  { rendererOptions: { collapse: false } }
+  {
+    rendererOptions: {
+      collapse: false,
+      clearOutput: false,
+      showSubtasks: true,
+    },
+  }
 );
 
 tasks.run({ cwd: process.cwd() }).catch(() => {

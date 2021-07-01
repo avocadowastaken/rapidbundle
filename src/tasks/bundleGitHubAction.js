@@ -25,6 +25,7 @@ export async function* bundleGitHubAction(cwd, actionYML) {
     bundle: true,
     keepNames: true,
     platform: "node",
+    outdir: resolveDistDir(cwd),
 
     external: [
       // Optional dependency of the `node-fetch`.
@@ -35,33 +36,24 @@ export async function* bundleGitHubAction(cwd, actionYML) {
   {
     const mainEntry = resolveEntry(cwd, actionYML.runs.main);
     options.entryPoints = [mainEntry];
-    yield `Using 'runs.main' entry: ${formatRelativePath(cwd, mainEntry)}`;
+    yield "Using '.runs.main' entry: " + formatRelativePath(cwd, mainEntry);
 
     if (actionYML.runs.pre) {
       const preEntry = resolveEntry(cwd, actionYML.runs.pre);
-      yield `Using 'runs.pre' entry: ${formatRelativePath(cwd, preEntry)}`;
+      yield "Using '.runs.pre' entry: " + formatRelativePath(cwd, preEntry);
       options.entryPoints.push(preEntry);
     }
 
     if (actionYML.runs.post) {
       const postEntry = resolveEntry(cwd, actionYML.runs.post);
-
-      yield `Using 'runs.post' entry: ${formatRelativePath(cwd, postEntry)}`;
+      yield "Using '.runs.post' entry: " + formatRelativePath(cwd, postEntry);
       options.entryPoints.push(postEntry);
     }
   }
 
   {
-    options.outdir = resolveDistDir(cwd);
-    yield `Setting output directory: ${formatRelativePath(
-      cwd,
-      options.outdir
-    )}`;
-  }
-
-  {
     options.target = actionYML.runs.using;
-    yield `Setting Node version: ${options.target}`;
+    yield `Using '.runs.using' entry: ${options.target}`;
   }
 
   await esbuild.build(options);

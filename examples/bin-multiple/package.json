@@ -1,0 +1,6 @@
+{
+  "bin": {
+    "hello": "./dist/hello.js",
+    "hi": "./dist/hi.js"
+  }
+}

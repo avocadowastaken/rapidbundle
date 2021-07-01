@@ -35,13 +35,12 @@ exports[`main-cjs: logs 1`] = `
 [DATA] Removing 'dist' directory
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'package.json'
-[STARTED] Resolving externals
+[STARTED] Parsing 'package.json'
 [DATA] Using ".dependencies" as external: debug
-[SUCCESS] Resolving externals
+[SUCCESS] Parsing 'package.json'
 [STARTED] Making '.main' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js
-[DATA] Setting Node Version: 12.0.0
 [SUCCESS] Making '.main' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;
