@@ -22,7 +22,7 @@ __export(exports, {
   hello: () => hello
 });
 function hello(name) {
-  return \`Hello \${name}\`;
+  return \`Hello, \${name}\`;
 }
 __name(hello, "hello");
 // Annotate the CommonJS export names for ESM import in node:

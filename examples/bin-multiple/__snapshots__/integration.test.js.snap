@@ -9,13 +9,13 @@ Array [
 
 exports[`bin-multiple: dist/hello.js 1`] = `
 #!/usr/bin/env node
-console.log(\`Hello \${process.argv[3]}\`);
+console.log(\`Hello, \${process.argv[3]}\`);
 
 `;
 
 exports[`bin-multiple: dist/hi.js 1`] = `
 #!/usr/bin/env node
-console.log(\`Hello \${process.argv[3]}\`);
+console.log(\`Hello, \${process.argv[3]}\`);
 
 `;
 

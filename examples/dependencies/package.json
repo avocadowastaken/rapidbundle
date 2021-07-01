@@ -2,6 +2,6 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "dependencies": {
-    "debug": "*"
+    "ansi-regex": "*"
   }
 }

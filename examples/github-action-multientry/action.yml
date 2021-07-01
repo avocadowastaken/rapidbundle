@@ -1,5 +1,5 @@
-name: "Print env"
-description: "Check if env is defined and print it."
+name: ""
+description: ""
 runs:
   using: "node12"
   pre: "./dist/setup.js"

@@ -15,7 +15,7 @@ var __commonJS = (cb, mod) => function __require() {
 var require_hello = __commonJS({
   "src/hello.js"(exports, module) {
     module.exports = function hello(name) {
-      return \`Hello \${name}\`;
+      return \`Hello, \${name}\`;
     };
   }
 });

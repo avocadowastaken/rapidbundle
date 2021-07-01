@@ -1,1 +1,1 @@
-export * from "./isImportMetaObjectLike";
+export * from "./hello";

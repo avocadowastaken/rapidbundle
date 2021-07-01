@@ -1,2 +1,7 @@
-import { isObjectLike } from "lodash-es";
-if (isObjectLike(process)) console.log(process.env);
+import { hello } from "./hello";
+
+function main() {
+  console.log(hello(process.env.INPUT_NAME || "unknown"));
+}
+
+main();
