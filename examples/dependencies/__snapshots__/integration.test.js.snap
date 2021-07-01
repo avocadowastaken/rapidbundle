@@ -1,15 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`universal: dist 1`] = `
+exports[`dependencies: dist 1`] = `
 Array [
   "index.cjs",
-  "index.d.ts",
   "index.js",
 ]
 `;
 
-exports[`universal: dist/index.cjs 1`] = `
+exports[`dependencies: dist/index.cjs 1`] = `
+var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __export = (target, all) => {
@@ -17,11 +21,25 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __reExport = (target, module2, desc) => {
+  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
+    for (let key of __getOwnPropNames(module2))
+      if (!__hasOwnProp.call(target, key) && key !== "default")
+        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+  }
+  return target;
+};
+var __toModule = (module2) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
+};
 
 // src/index.ts
 __export(exports, {
-  isImportMetaObjectLike: () => isImportMetaObjectLike
+  logger: () => logger
 });
+
+// src/logger.ts
+var import_debug = __toModule(require("debug"));
 
 // ../../node_modules/lodash-es/isObjectLike.js
 function isObjectLike(value) {
@@ -30,15 +48,13 @@ function isObjectLike(value) {
 __name(isObjectLike, "isObjectLike");
 var isObjectLike_default = isObjectLike;
 
-// src/isImportMetaObjectLike.ts
-var import_meta = {};
-function isImportMetaObjectLike() {
-  return isObjectLike_default(import_meta);
-}
-__name(isImportMetaObjectLike, "isImportMetaObjectLike");
+// src/logger.ts
+var logger = (0, import_debug.default)("app");
+if (isObjectLike_default(console))
+  logger.log = console.log;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  isImportMetaObjectLike
+  logger
 });
 /**
  * @license
@@ -52,26 +68,22 @@ __name(isImportMetaObjectLike, "isImportMetaObjectLike");
 
 `;
 
-exports[`universal: dist/index.d.ts 1`] = `
-declare function isImportMetaObjectLike(): boolean;
+exports[`dependencies: dist/index.js 1`] = `
+// src/logger.ts
+import debug from "debug";
 
-export { isImportMetaObjectLike };
-
-`;
-
-exports[`universal: dist/index.js 1`] = `
 // ../../node_modules/lodash-es/isObjectLike.js
 function isObjectLike(value) {
   return value != null && typeof value == "object";
 }
 var isObjectLike_default = isObjectLike;
 
-// src/isImportMetaObjectLike.ts
-function isImportMetaObjectLike() {
-  return isObjectLike_default(import.meta);
-}
+// src/logger.ts
+var logger = debug("app");
+if (isObjectLike_default(console))
+  logger.log = console.log;
 export {
-  isImportMetaObjectLike
+  logger
 };
 /**
  * @license
@@ -85,7 +97,7 @@ export {
 
 `;
 
-exports[`universal: logs 1`] = `
+exports[`dependencies: logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
@@ -95,6 +107,7 @@ exports[`universal: logs 1`] = `
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'package.json'
 [STARTED] Resolving externals
+[DATA] Using ".dependencies" as external: debug
 [SUCCESS] Resolving externals
 [STARTED] Making '.main' entry bundle
 [DATA] Setting entry point: ./src/index
@@ -106,9 +119,5 @@ exports[`universal: logs 1`] = `
 [DATA] Setting output file: ./dist/index.js
 [DATA] Setting build target: chrome88, edge89, firefox78, safari14.1
 [SUCCESS] Making '.module' entry bundle
-[STARTED] Making 'types' entry bundle
-[DATA] Generating 'd.ts' files
-[DATA] Bundle into single 'd.ts' file
-[SUCCESS] Making 'types' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main-engines-node: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`main-engines-node: dist/index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// src/index.ts
+__export(exports, {
+  Foo: () => Foo
+});
+
+// src/Foo.ts
+var Foo = class {
+  #bar;
+  constructor(bar) {
+    this.#bar = bar;
+  }
+};
+__name(Foo, "Foo");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Foo
+});
+
+`;
+
+exports[`main-engines-node: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Resolving externals
+[SUCCESS] Resolving externals
+[STARTED] Making '.main' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting Node Version: 16.0.0
+[SUCCESS] Making '.main' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;

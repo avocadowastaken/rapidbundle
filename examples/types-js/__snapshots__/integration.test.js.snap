@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`types-js: dist 1`] = `
+Array [
+  "hello.cjs",
+  "hello.d.ts",
+]
+`;
+
+exports[`types-js: dist/hello.cjs 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// src/hello.js
+__export(exports, {
+  hello: () => hello
+});
+function hello(name) {
+  return \`Hello \${name}\`;
+}
+__name(hello, "hello");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  hello
+});
+
+`;
+
+exports[`types-js: dist/hello.d.ts 1`] = `
+/**
+ * @param {string} name
+ * @returns {string}
+ */
+declare function hello(name: string): string;
+
+export { hello };
+
+`;
+
+exports[`types-js: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Resolving externals
+[SUCCESS] Resolving externals
+[STARTED] Making '.main' entry bundle
+[DATA] Setting entry point: ./src/hello
+[DATA] Setting output file: ./dist/hello.cjs
+[DATA] Setting Node Version: 12.0.0
+[SUCCESS] Making '.main' entry bundle
+[STARTED] Making 'types' entry bundle
+[DATA] Generating 'd.ts' files
+[DATA] Bundle into single 'd.ts' file
+[SUCCESS] Making 'types' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;

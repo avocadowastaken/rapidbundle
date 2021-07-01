@@ -1,0 +1,8 @@
+{
+  "include": ["src", "lib"],
+  "compilerOptions": {
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "Node"
+  }
+}

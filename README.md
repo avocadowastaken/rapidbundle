@@ -23,9 +23,11 @@ yarn rapidbundle
 
 # GitHub Action
 
-- Bundles everything to a single file
-- Uses `runs.using` property from the `action.yml` to set [esbuild target](https://esbuild.github.io/api/#target)
-- Uses `runs.main` property from the `action.yml` to set [esbuild output file](https://esbuild.github.io/api/#outfile) and infer [esbuild entry points](https://esbuild.github.io/api/#entry-points)
+- Creates a single file bundle for each entry
+- Scans `action.yml` to obtain build info
+
+  - Infers entries from the `.runs.main`, `.runs.pre` and `.runs.post` fields
+  - Infers target Node version from the `.runs.using` field
 
 ### Constraints:
 
@@ -59,74 +61,46 @@ paths in `src` directory
 └─ action.yml
 ```
 
-<details>
-   <summary>Produced esbuild options (https://esbuild.github.io/api/#simple-options)</summary>
-
-```json
-[
-  {
-    "outdir": "./dist",
-    "entryPoints": ["./src/setup", "./src/index", "./src/cleanup"],
-    "format": "cjs",
-    "platform": "node",
-    "mainFields": ["main", "module"],
-    "target": ["node12"]
-  }
-]
-```
-
- </details>
-
 # Node Package
 
-### Examples
+- Creates a single file bundle for each entry
+- Scans `package.json` to obtain build info
 
-> Not all features are implemented yet.
+  - Infers entries from the `.main`, `.module` and `.types` fields
+  - Infers target Node version from the `.engines.node` field
 
-#### Node (CJS)
+### Constraints:
 
-> `engines.node` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
+1. Entry file should be located in the `src` directory.
+2. Output files should be located in the `dist` directory.
 
-```json
-{
-  "main": "./dist/index.cjs.js",
-  "engines": {
-    "node": ">=12"
-  }
-}
-```
+This allows us to properly infer entry point names from the `package.json`.
 
-#### Node (ESM) [Not Implemented]
-
-> `engines.node` will be converted to [esbuild target](https://esbuild.github.io/api/#target)
+For example, if you have `package.json` like that:
 
 ```json
 {
-  "exports": {
-    ".": "./dist/index.esm",
-    "./feature": "./dist/feature.esm",
-    "./feature/index.js": "./dist/feature.esm"
-  },
-  "engines": {
-    "node": ">=14"
-  }
-}
-```
-
-#### Browser
-
-> Browserlist: `> 0.5%, last 2 versions, Firefox ESR, not dead, not IE 11`
-
-```json
-{
-  "module": "./dist/index.esm.js"
-}
-```
-
-#### TypeScript definitions
-
-```json
-{
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts"
 }
 ```
+
+It will produce 3 output files in `dist` directory.
+
+```
+├─ src
+│  └─ index.ts
+├─ dist
+│  ├─ index.js
+│  ├─ index.cjs
+│  └─ types.d.ts
+└─ action.yml
+```
+
+### Limitations
+
+File names should not have multiple `.` signs in it:
+
+- `dist/mod.js` will be mapped to `src/mod` and extension will be resolved automatically
+- `dist/mod.es.js` will be mapped to `src/mod.es` and will use `.es` extension

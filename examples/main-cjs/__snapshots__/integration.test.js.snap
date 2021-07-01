@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main-cjs: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`main-cjs: dist/index.js 1`] = `
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+
+// src/logger.js
+var require_logger = __commonJS({
+  "src/logger.js"(exports2, module2) {
+    "use strict";
+    var debug = require("debug");
+    module2.exports = debug("app");
+  }
+});
+
+// src/index.js
+"use strict";
+module.exports.logger = require_logger();
+
+`;
+
+exports[`main-cjs: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Resolving externals
+[DATA] Using ".dependencies" as external: debug
+[SUCCESS] Resolving externals
+[STARTED] Making '.main' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting Node Version: 12.0.0
+[SUCCESS] Making '.main' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;

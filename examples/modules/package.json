@@ -1,0 +1,6 @@
+{
+  "module": "./dist/index.js",
+  "peerDependencies": {
+    "lodash-es": "*"
+  }
+}

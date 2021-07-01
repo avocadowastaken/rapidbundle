@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`modules: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`modules: dist/index.js 1`] = `
+// src/isImportMetaObjectLike.ts
+import { isObjectLike } from "lodash-es";
+function isImportMetaObjectLike() {
+  return isObjectLike(import.meta);
+}
+export {
+  isImportMetaObjectLike
+};
+
+`;
+
+exports[`modules: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Resolving externals
+[DATA] Using ".peerDependencies" as external: lodash-es
+[SUCCESS] Resolving externals
+[STARTED] Making '.module' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting build target: chrome88, edge89, firefox78, safari14.1
+[SUCCESS] Making '.module' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;

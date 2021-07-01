@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`types-cjs: dist 1`] = `
+Array [
+  "index.d.ts",
+  "index.js",
+]
+`;
+
+exports[`types-cjs: dist/index.d.ts 1`] = `
+declare var hello: (name: string) => string;
+
+export { hello };
+
+`;
+
+exports[`types-cjs: dist/index.js 1`] = `
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+
+// src/hello.js
+var require_hello = __commonJS({
+  "src/hello.js"(exports2, module2) {
+    module2.exports = /* @__PURE__ */ __name(function hello(name) {
+      return \`Hello \${name}\`;
+    }, "hello");
+  }
+});
+
+// src/index.js
+"use strict";
+module.exports.hello = require_hello();
+
+`;
+
+exports[`types-cjs: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Resolving externals
+[SUCCESS] Resolving externals
+[STARTED] Making '.main' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting Node Version: 12.0.0
+[SUCCESS] Making '.main' entry bundle
+[STARTED] Making 'types' entry bundle
+[DATA] Generating 'd.ts' files
+[DATA] Bundle into single 'd.ts' file
+[SUCCESS] Making 'types' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;
