@@ -1,9 +1,16 @@
+import execa from "execa";
 import { promises as fs } from "fs";
 import path from "path";
 import { execCLI } from "./execCLI";
 import { registerRawSnapshot } from "./registerRawSnapshot";
 
-export function runIntegrationTest() {
+/**
+ * @typedef {object} IntegrationTestOptions
+ * @property {NodeJS.ProcessEnv} [env]
+ */
+
+/** @param {IntegrationTestOptions} [options] */
+export function runIntegrationTest({ env } = {}) {
   const { testPath } = expect.getState();
 
   const fixtureDir = path.dirname(testPath);
@@ -11,7 +18,7 @@ export function runIntegrationTest() {
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const [stdout, stderr, exitCode] = await execCLI(fixtureDir);
+    const [stdout, stderr, exitCode] = await execCLI(fixtureDir, [], env);
 
     expect(stderr).toBe("");
     expect(stdout).toMatchSnapshot("logs");
@@ -31,7 +38,13 @@ export function runIntegrationTest() {
   });
 }
 
-export function runErrorTest() {
+/**
+ * @typedef {object} ErrorTestOptions
+ * @property {NodeJS.ProcessEnv} [env]
+ */
+
+/** @param {ErrorTestOptions} [options] */
+export function runErrorTest({ env } = {}) {
   const { testPath } = expect.getState();
 
   const fixtureDir = path.dirname(testPath);
@@ -39,12 +52,20 @@ export function runErrorTest() {
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const [stdout, stderr, exitCode] = await execCLI(fixtureDir);
+    const [stdout, stderr, exitCode] = await execCLI(fixtureDir, [], env);
 
     expect(stdout).toMatchSnapshot("stdout");
     expect(stderr).toMatchSnapshot("stderr");
     expect(exitCode).toBe(1);
 
-    await expect(fs.stat(distDir)).rejects.toBeDefined();
+    const { stdout: status } = await execa("git", [
+      "status",
+      "--porcelain",
+      distDir,
+    ]);
+
+    if (status) {
+      await execa("git", ["checkout", "HEAD", "--", distDir]);
+    }
   });
 }

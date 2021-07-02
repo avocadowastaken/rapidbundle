@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`github-action-diff: dist 1`] = `
+Array [
+  "main.js",
+]
+`;
+
+exports[`github-action-diff: dist/main.js 1`] = `
+// src/main.ts
+console.log("Hello");
+
+`;
+
+exports[`github-action-diff: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'action.yml'
+[DATA] Using '.runs.main' entry: ./src/main
+[DATA] Using '.runs.using' entry: node12
+[DATA] Checking build difference
+[SUCCESS] Making bundle from 'action.yml'
+`;

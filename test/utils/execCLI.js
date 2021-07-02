@@ -13,19 +13,24 @@ const BIN = path.join(ROOT_DIR, "src", "cli.js");
  * @returns {string}
  */
 function cleanupLogs(input) {
-  return input
+  return stripAnsi(input)
     .split("\n")
-    .map((line) => stripAnsi(line).replace(ROOT_DIR, "<rootDir>"))
+    .map((line) =>
+      line
+        .replace(ROOT_DIR, "<rootDir>")
+        .replace(/index \w{7}\.\.\w{7} \w{6}/, "index abcdef0..abcdef1 123456")
+    )
     .join("\n");
 }
 
 /**
  * @param {string} cwd
  * @param {string[]} [args]
+ * @param {NodeJS.ProcessEnv} [env]
  * @returns {Promise<[stdout: string, stderr: string, exitCode: number]>}
  */
-export async function execCLI(cwd, args = []) {
-  const result = await execa.node(BIN, args, { cwd, reject: false });
+export async function execCLI(cwd, args = [], env = { CI: "false" }) {
+  const result = await execa.node(BIN, args, { env, cwd, reject: false });
 
   const stdout = cleanupLogs(result.stdout);
   const stderr = cleanupLogs(result.stderr);
