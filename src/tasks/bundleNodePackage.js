@@ -106,6 +106,11 @@ export function bundleNodePackage(cwd, packageJSON) {
           }
         }
 
+        if (packageJSON.type === "module") {
+          options.format = "esm";
+          task.output = `Using '.type' entry: ${packageJSON.type}`;
+        }
+
         return esbuild.build(options);
       },
     },

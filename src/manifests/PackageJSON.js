@@ -27,6 +27,8 @@ const packageJSONSchema = z.object({
   types: packageEntrySchema.optional(),
   module: packageEntrySchema.optional(),
 
+  type: z.enum(["module", "commonjs"]).optional(),
+
   engines: z
     .object({
       node: z
