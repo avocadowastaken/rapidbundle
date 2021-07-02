@@ -74,7 +74,9 @@
     ]
   },
   "dependencies": {
+    "enquirer": "^2.3.6",
     "esbuild": "^0.12.13",
+    "listr2": "^3.10.0",
     "rollup": "^2.52.6",
     "rollup-plugin-dts": "^3.0.2"
   },
@@ -84,7 +86,6 @@
     "@types/semver": "^7.3.6",
     "c8": "^7.7.3",
     "cross-env": "^7.0.3",
-    "enquirer": "^2.3.6",
     "eslint": "^7.29.0",
     "eslint-plugin-node": "^11.1.0",
     "execa": "^5.1.1",
@@ -92,7 +93,6 @@
     "jest": "^27.0.6",
     "jest-watch-typeahead": "^0.6.4",
     "lint-staged": "^11.0.0",
-    "listr2": "^3.10.0",
     "lodash": "^4.17.21",
     "np": "^7.5.0",
     "prettier": "^2.3.2",
