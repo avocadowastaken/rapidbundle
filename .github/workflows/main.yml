@@ -42,6 +42,7 @@ jobs:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
       - run: yarn test
+      - run: yarn cover
 
       - uses: actions/upload-artifact@v2
         if: failure()
