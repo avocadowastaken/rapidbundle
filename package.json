@@ -12,12 +12,13 @@
   "scripts": {
     "prepare": "husky install",
     "build": "node ./src/cli.js",
-    "cover": "cross-env NODE_OPTIONS=--experimental-vm-modules c8 --reporter lcov jest",
+    "esjest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "cover": "c8 --reporter lcov yarn esjest",
     "pretest": "yarn build",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "cross-env TEST_BUNDLE=true yarn esjest",
     "lint": "eslint .",
     "format": "prettier . --write",
-    "tdd": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "tdd": "yarn esjest --watch",
     "prerelease": "yarn tsc && yarn lint && yarn test",
     "release": "np --no-2fa"
   },
@@ -76,12 +77,13 @@
     ]
   },
   "dependencies": {
+    "browserslist": "^4.16.6",
     "enquirer": "^2.3.6",
-    "esbuild": "^0.12.13",
+    "esbuild": "^0.12.14",
     "execa": "^5.1.1",
     "listr2": "^3.10.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.52.6",
+    "rollup": "^2.52.7",
     "rollup-plugin-dts": "^3.0.2"
   },
   "devDependencies": {
@@ -90,7 +92,7 @@
     "@types/semver": "^7.3.6",
     "c8": "^7.7.3",
     "cross-env": "^7.0.3",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "^7.0.0",
     "jest": "^27.0.6",

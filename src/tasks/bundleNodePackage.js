@@ -5,6 +5,7 @@ import { Listr } from "listr2";
 import path from "path";
 import { rollup } from "rollup";
 import rollupPluginDTS from "rollup-plugin-dts";
+import { getESBuildBrowsers } from "../utils/browsers.js";
 import { rmrf } from "../utils/fs.js";
 import {
   formatRelativePath,
@@ -178,17 +179,8 @@ export function bundleNodePackage(cwd, packageJSON) {
         }
 
         {
-          // npx browserslist --mobile-to-desktop "defaults, Firefox ESR, not IE 11"
-          // TODO: Generate every time.
-          const stableBrowsers = [
-            "chrome 88",
-            "edge 89",
-            "firefox 78",
-            "safari 14.1",
-          ];
-
-          options.target = stableBrowsers.map((browser) =>
-            browser.replace(" ", "")
+          options.target = getESBuildBrowsers(
+            "defaults, Firefox ESR, not IE 11"
           );
 
           task.output = `Setting build target: ${options.target.join(", ")}`;

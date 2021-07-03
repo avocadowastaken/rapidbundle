@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`modules-cjs: dist 1`] = `
+exports[`module-cjs: dist 1`] = `
 Array [
   "index.js",
 ]
 `;
 
-exports[`modules-cjs: dist/index.js 1`] = `
+exports[`module-cjs: dist/index.js 1`] = `
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -31,7 +31,7 @@ export default require_src();
 
 `;
 
-exports[`modules-cjs: logs 1`] = `
+exports[`module-cjs: logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
@@ -45,7 +45,7 @@ exports[`modules-cjs: logs 1`] = `
 [STARTED] Making '.module' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js
-[DATA] Setting build target: chrome88, edge89, firefox78, safari14.1
+[DATA] Setting build target: chrome89, edge90, firefox78, ios13.4, safari14
 [SUCCESS] Making '.module' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;
