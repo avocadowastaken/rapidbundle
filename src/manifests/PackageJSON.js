@@ -29,6 +29,15 @@ const packageJSONSchema = z.object({
 
   type: z.enum(["module", "commonjs"]).optional(),
 
+  babel: z
+    .object({
+      test: z.unknown(),
+      presets: z.array(z.unknown()).optional(),
+      plugins: z.array(z.unknown()).optional(),
+    })
+    .passthrough()
+    .optional(),
+
   engines: z
     .object({
       node: z
@@ -40,6 +49,7 @@ const packageJSONSchema = z.object({
         })
         .optional(),
     })
+    .passthrough()
     .optional(),
 
   dependencies: z.record(z.string()).default({}),

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-presets: dist 1`] = `
+Array [
+  "index.js",
+]
+`;
+
+exports[`babel-presets: dist/index.js 1`] = `
+// src/warning.ts
+function warning(test, message) {
+  if (!test)
+    console.warn("[warn] %s", message);
+}
+
+// src/hello.ts
+function hello(name) {
+  import.meta.env.MODE === "production" ? warning(typeof name == "string", "'name' expected to be a string.") : void 0;
+  return \`Hello, \${name}\`;
+}
+export {
+  hello
+};
+
+`;
+
+exports[`babel-presets: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Parsing 'package.json'
+[DATA] Using '.babel.presets' entry.
+[SUCCESS] Parsing 'package.json'
+[STARTED] Making '.module' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting build target: chrome90, edge90, firefox78, ios13.4, safari14
+[SUCCESS] Making '.module' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;
