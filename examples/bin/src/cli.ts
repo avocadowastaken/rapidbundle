@@ -2,4 +2,4 @@
 
 import { hello } from "./hello";
 
-console.log(hello(process.argv[3]));
+console.log(hello(process.argv[3] as string));

@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel: dist 1`] = `
+Array [
+  "index.cjs",
+  "index.js",
+]
+`;
+
+exports[`babel: dist/index.cjs 1`] = `
+var __defProp = Object.defineProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// src/index.ts
+__export(exports, {
+  hello: () => hello
+});
+
+// src/warning.ts
+function warning(test, message) {
+  if (!test)
+    console.warn("[warn] %s", message);
+}
+__name(warning, "warning");
+
+// src/hello.ts
+function hello(name) {
+  process.env.NODE_ENV === "production" ? warning(typeof name == "string", "'name' expected to be a string.") : void 0;
+  return \`Hello, \${name}\`;
+}
+__name(hello, "hello");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  hello
+});
+
+`;
+
+exports[`babel: dist/index.js 1`] = `
+// src/warning.ts
+function warning(test, message) {
+  if (!test)
+    console.warn("[warn] %s", message);
+}
+
+// src/hello.ts
+function hello(name) {
+  import.meta.env.MODE === "production" ? warning(typeof name == "string", "'name' expected to be a string.") : void 0;
+  return \`Hello, \${name}\`;
+}
+export {
+  hello
+};
+
+`;
+
+exports[`babel: logs 1`] = `
+[STARTED] Resolving build manifests
+[DATA] Checking 'action.yml'
+[DATA] Checking 'package.json'
+[SUCCESS] Resolving build manifests
+[STARTED] Run preparations
+[DATA] Removing 'dist' directory
+[SUCCESS] Run preparations
+[STARTED] Making bundle from 'package.json'
+[STARTED] Parsing 'package.json'
+[DATA] Using '.babel.plugins' entry.
+[SUCCESS] Parsing 'package.json'
+[STARTED] Making '.main' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.cjs
+[SUCCESS] Making '.main' entry bundle
+[STARTED] Making '.module' entry bundle
+[DATA] Setting entry point: ./src/index
+[DATA] Setting output file: ./dist/index.js
+[DATA] Setting build target: chrome90, edge90, firefox78, ios13.4, safari14
+[SUCCESS] Making '.module' entry bundle
+[SUCCESS] Making bundle from 'package.json'
+`;

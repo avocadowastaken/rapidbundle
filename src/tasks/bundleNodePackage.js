@@ -1,6 +1,8 @@
+import * as babel from "@babel/core";
 import assert from "assert";
 import esbuild from "esbuild";
 import execa from "execa";
+import fs from "fs";
 import { Listr } from "listr2";
 import path from "path";
 import { rollup } from "rollup";
@@ -12,6 +14,70 @@ import {
   resolveDistDir,
   resolveEntry,
 } from "../utils/path.js";
+
+/**
+ * @typedef {import('@babel/core').TransformCaller} ESBuildTransformCaller
+ * @property {boolean} supportsProcessEnv
+ */
+
+/**
+ * @param {import('@babel/core').TransformOptions} options
+ * @returns {esbuild.Plugin}
+ */
+function buildESBuildBabelPlugin(options) {
+  const TS_EXTENSION_PATTERN = /^\.tsx?$/;
+  const filter =
+    typeof options.test === "string" ? new RegExp(options.test) : /.*/;
+
+  return {
+    name: "esbuild-plugin-babel",
+    setup(build) {
+      const isESM = build.initialOptions.format === "esm";
+
+      /** @type {import('@babel/core').TransformCaller & { supportsProcessEnv: boolean }} */
+      const caller = {
+        name: "esbuild-plugin-babel",
+        supportsTopLevelAwait: false,
+
+        supportsStaticESM: isESM,
+        supportsDynamicImport: isESM,
+        supportsExportNamespaceFrom: isESM,
+        supportsProcessEnv: build.initialOptions.platform === "node",
+      };
+
+      build.onLoad({ filter }, async (args) => {
+        const ext = path.extname(args.path);
+        const code = await fs.promises.readFile(args.path, "utf8");
+
+        const esbuildResult = await esbuild.transform(code, {
+          logLevel: "silent",
+          format: "esm",
+          target: "es2020",
+          loader: TS_EXTENSION_PATTERN.test(ext) ? "tsx" : "jsx",
+        });
+
+        const babelResult = await babel.transformAsync(esbuildResult.code, {
+          caller,
+
+          code: true,
+          babelrc: false,
+          configFile: false,
+          filename: args.path,
+
+          plugins: options.plugins,
+          presets: options.presets,
+        });
+
+        return {
+          loader: "js",
+          contents:
+            /** @type {string} */
+            (/** @type {babel.BabelFileResult} */ (babelResult).code),
+        };
+      });
+    },
+  };
+}
 
 /**
  * @param {string} cwd
@@ -67,6 +133,30 @@ export function bundleNodePackage(cwd, packageJSON) {
         if (packageJSON.engines && packageJSON.engines.node) {
           baseNodeOptions.target = `node${packageJSON.engines.node}`;
           task.output = `Using '.engines.node' entry: ${packageJSON.engines.node}`;
+        }
+
+        if (
+          packageJSON.babel &&
+          (packageJSON.babel.presets || packageJSON.babel.plugins)
+        ) {
+          if (packageJSON.babel.test) {
+            task.output = `Using '.babel.test' entry.`;
+          }
+
+          if (packageJSON.babel.presets) {
+            task.output = `Using '.babel.presets' entry.`;
+          }
+
+          if (packageJSON.babel.plugins) {
+            task.output = `Using '.babel.plugins' entry.`;
+          }
+
+          baseOptions.plugins = [
+            buildESBuildBabelPlugin(
+              /** @type {import('@babel/core').TransformOptions}*/
+              (packageJSON.babel)
+            ),
+          ];
         }
       },
     },

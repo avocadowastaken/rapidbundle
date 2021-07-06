@@ -1,0 +1,8 @@
+{
+  "module": "./dist/index.js",
+  "babel": {
+    "presets": [
+      "./babel-preset-test.js"
+    ]
+  }
+}
