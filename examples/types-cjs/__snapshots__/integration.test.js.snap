@@ -51,9 +51,9 @@ exports[`types-cjs: logs 1`] = `
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js
 [SUCCESS] Making '.main' entry bundle
-[STARTED] Making 'types' entry bundle
+[STARTED] Making '.types' entry bundle
 [DATA] Generating 'd.ts' files
 [DATA] Bundle into single 'd.ts' file
-[SUCCESS] Making 'types' entry bundle
+[SUCCESS] Making '.types' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;

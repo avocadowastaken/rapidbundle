@@ -281,7 +281,7 @@ export function bundleNodePackage(cwd, packageJSON) {
     },
 
     {
-      title: "Making 'types' entry bundle",
+      title: "Making '.types' entry bundle",
       enabled() {
         return !!packageJSON.types;
       },
