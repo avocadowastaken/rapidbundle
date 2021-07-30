@@ -1,5 +1,5 @@
 {
-  "include": ["src", "test"],
+  "include": ["src", "test", "scripts"],
   "exclude": ["test/errors"],
   "compilerOptions": {
     "noEmit": true,

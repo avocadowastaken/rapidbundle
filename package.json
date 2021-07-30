@@ -12,13 +12,12 @@
   "scripts": {
     "prepare": "husky install",
     "build": "node ./src/cli.js",
-    "esjest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "cover": "c8 --reporter lcov npm run esjest",
+    "cover": "npm run test -- --coverage",
     "pretest": "npm run build",
-    "test": "cross-env TEST_BUNDLE=true npm run esjest",
+    "test": "node ./scripts/test.js",
     "lint": "eslint .",
     "format": "prettier . --write --check",
-    "tdd": "npm run esjest -- --watch",
+    "tdd": "npm run test -- --watch",
     "prerelease": "npx tsc && npm run lint && npm run test",
     "release": "np --no-2fa"
   },
@@ -61,6 +60,7 @@
   "jest": {
     "modulePathIgnorePatterns": [
       "/dist",
+      "<rootDir>/scripts/",
       "<rootDir>/node_modules/"
     ],
     "resetMocks": true,
@@ -91,7 +91,6 @@
     "@types/rimraf": "^3.0.0",
     "@types/semver": "^7.3.8",
     "c8": "^7.7.3",
-    "cross-env": "^7.0.3",
     "eslint": "^7.31.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "^7.0.1",
