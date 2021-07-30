@@ -13,18 +13,17 @@
     "prepare": "husky install",
     "build": "node ./src/cli.js",
     "esjest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "cover": "c8 --reporter lcov yarn esjest",
-    "pretest": "yarn build",
-    "test": "cross-env TEST_BUNDLE=true yarn esjest",
+    "cover": "c8 --reporter lcov npm run esjest",
+    "pretest": "npm run build",
+    "test": "cross-env TEST_BUNDLE=true npm run esjest",
     "lint": "eslint .",
-    "format": "prettier . --write",
-    "tdd": "yarn esjest --watch",
-    "prerelease": "yarn tsc && yarn lint && yarn test",
+    "format": "prettier . --write --check",
+    "tdd": "npm run esjest -- --watch",
+    "prerelease": "npx tsc && npm run lint && npm run test",
     "release": "np --no-2fa"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
-    "yarn.lock": "npx yarn-deduplicate",
     "*.*": "prettier --write --ignore-unknown"
   },
   "eslintConfig": {

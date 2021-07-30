@@ -71,7 +71,7 @@ exports[`universal: logs 1`] = `
 [STARTED] Making '.module' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js
-[DATA] Setting build target: chrome90, edge90, firefox78, ios13.4, safari14
+[DATA] Setting build target: chrome90, edge91, firefox78, ios13.4, safari14
 [SUCCESS] Making '.module' entry bundle
 [STARTED] Making '.types' entry bundle
 [DATA] Generating 'd.ts' files

@@ -17,9 +17,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
 
-      - run: yarn tsc
-      - run: yarn lint
-      - run: yarn format --check
+      - run: npx tsc
+      - run: npm run lint
+      - run: npm run format -- --no-write
 
   tests:
     runs-on: ${{ matrix.os }}
@@ -41,8 +41,8 @@ jobs:
         with:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
-      - run: yarn test
-      - run: yarn cover
+      - run: npm test
+      - run: npm run cover
 
       - uses: actions/upload-artifact@v2
         if: failure()
