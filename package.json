@@ -87,7 +87,7 @@
     "rollup-plugin-dts": "^3.0.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^26.0.24",
     "@types/rimraf": "^3.0.1",
     "@types/semver": "^7.3.8",
     "c8": "^7.7.3",
