@@ -92,7 +92,7 @@
     "@types/rimraf": "^3.0.1",
     "@types/semver": "^7.3.8",
     "c8": "^7.8.0",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-node": "^11.1.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
