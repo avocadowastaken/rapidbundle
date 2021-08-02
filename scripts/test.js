@@ -4,7 +4,9 @@ const mode = process.argv.includes("--watch")
   ? "watch"
   : process.argv.includes("--coverage")
   ? "coverage"
-  : "integration";
+  : process.argv.includes("--e2e")
+  ? "e2e"
+  : null;
 
 /** @type {string[]} */
 const command = ["npx", "jest"];
@@ -15,7 +17,7 @@ if (mode === "coverage") command.unshift("c8", "--reporter", "lcov");
 execa.commandSync(command.join(" "), {
   stdio: "inherit",
   env: {
-    TEST_BUNDLE: String(mode === "integration"),
+    TEST_BUNDLE: String(mode === "e2e"),
     NODE_OPTIONS: "--no-warnings --experimental-vm-modules",
   },
 });

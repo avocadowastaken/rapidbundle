@@ -20,6 +20,8 @@ jobs:
       - run: npx tsc
       - run: npm run lint
       - run: npm run format -- --no-write
+      - run: npm run cover
+      - uses: codecov/codecov-action@v2.0.2
 
   tests:
     runs-on: ${{ matrix.os }}
@@ -41,9 +43,7 @@ jobs:
         with:
           cache-key: npm-${{ matrix.os }}-${{ matrix.node }}-
 
-      - run: npm test
-      - run: npm run cover
-
+      - run: npm run e2e
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
@@ -52,6 +52,3 @@ jobs:
           path: |
             examples/*/dist
             test/errors/*/dist
-
-      - uses: codecov/codecov-action@v2.0.2
-        if: matrix.os == 'ubuntu-latest' && matrix.node == '14'

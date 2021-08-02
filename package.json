@@ -13,12 +13,13 @@
     "prepare": "husky install",
     "build": "node ./src/cli.js",
     "cover": "npm run test -- --coverage",
-    "pretest": "npm run build",
     "test": "node ./scripts/test.js",
     "lint": "eslint .",
     "format": "prettier . --write --check",
+    "pree2e": "npm run build",
+    "e2e": "npm run test -- --e2e",
     "tdd": "npm run test -- --watch",
-    "prerelease": "npx tsc && npm run lint && npm run test",
+    "prerelease": "npx tsc && npm run lint && npm run e2e",
     "release": "np --no-2fa"
   },
   "lint-staged": {
