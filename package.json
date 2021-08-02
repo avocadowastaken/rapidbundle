@@ -82,7 +82,7 @@
     "enquirer": "^2.3.6",
     "esbuild": "^0.12.17",
     "execa": "^5.1.1",
-    "listr2": "^3.10.0",
+    "listr2": "^3.11.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.55.1",
     "rollup-plugin-dts": "^3.0.2"
