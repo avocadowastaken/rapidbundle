@@ -79,7 +79,7 @@
     "@babel/core": "^7.14.6",
     "browserslist": "^4.16.6",
     "enquirer": "^2.3.6",
-    "esbuild": "^0.12.15",
+    "esbuild": "^0.12.17",
     "execa": "^5.1.1",
     "listr2": "^3.10.0",
     "rimraf": "^3.0.2",
