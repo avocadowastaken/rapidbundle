@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.14.8",
-    "browserslist": "^4.16.6",
+    "browserslist": "^4.16.7",
     "enquirer": "^2.3.6",
     "esbuild": "^0.12.17",
     "execa": "^5.1.1",
