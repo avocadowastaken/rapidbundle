@@ -97,7 +97,7 @@
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "jest-watch-typeahead": "^0.6.4",
-    "lint-staged": "^11.1.1",
+    "lint-staged": "^11.1.2",
     "lodash": "^4.17.21",
     "np": "^7.5.0",
     "prettier": "^2.3.2",
