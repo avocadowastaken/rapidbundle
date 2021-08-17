@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "group:all"],
+  "extends": ["config:js-lib", "group:all"],
   "lockFileMaintenance": { "enabled": true, "automerge": true },
   "packageRules": [
     {
