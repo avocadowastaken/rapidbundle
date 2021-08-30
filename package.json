@@ -85,7 +85,7 @@
     "listr2": "^3.11.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.56.2",
-    "rollup-plugin-dts": "^3.0.2"
+    "rollup-plugin-dts": "^4.0.0"
   },
   "devDependencies": {
     "@types/jest": "27.0.1",
@@ -94,8 +94,8 @@
     "c8": "7.8.0",
     "eslint": "7.32.0",
     "eslint-plugin-node": "11.1.0",
-    "husky": "7.0.1",
-    "jest": "27.0.6",
+    "husky": "7.0.2",
+    "jest": "27.1.0",
     "jest-watch-typeahead": "0.6.4",
     "lint-staged": "11.1.2",
     "lodash": "4.17.21",
@@ -107,7 +107,7 @@
     "semver": "7.3.5",
     "strip-ansi": "7.0.0",
     "yaml": "1.10.2",
-    "zod": "3.7.2"
+    "zod": "3.8.1"
   },
   "optionalDependencies": {
     "typescript": "^4.3.5"
