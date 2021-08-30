@@ -69,16 +69,19 @@ function* extractZodErrors(error) {
 export class ValidationError extends Error {
   /**
    * @param {string} message
-   * @param {Error} originalError
+   * @param {unknown} originalError
    */
   constructor(message, originalError) {
-    let errorMessage = originalError.message;
+    let errorMessage =
+      originalError instanceof ZodError
+        ? Array.from(extractZodErrors(originalError)).join("\n")
+        : originalError instanceof Error
+        ? originalError.message
+        : null;
 
-    if (originalError instanceof ZodError) {
-      errorMessage = Array.from(extractZodErrors(originalError)).join("\n");
-    }
-
-    if (errorMessage.includes("\n")) {
+    if (!errorMessage) {
+      super(message);
+    } else if (errorMessage.includes("\n")) {
       super(
         `${message}:\n${errorMessage
           .split("\n")
