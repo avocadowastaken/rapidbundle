@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
       - uses: actions/checkout@v2
-      - uses: setup/node@v2
+      - uses: actions/setup-node@v2
         with:
           cache: "npm"
           node-version: "14"
