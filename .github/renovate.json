@@ -8,5 +8,5 @@
     ":maintainLockFilesWeekly"
   ],
   "postUpdateOptions": ["npmDedupe"],
-  "ignoreDeps": ["browserslist"]
+  "ignoreDeps": ["browserslist", "caniuse-lite"]
 }
