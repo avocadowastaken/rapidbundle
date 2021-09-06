@@ -101,13 +101,13 @@
     "lodash": "4.17.21",
     "np": "7.5.0",
     "prettier": "2.3.2",
-    "prettier-plugin-jsdoc": "0.3.23",
+    "prettier-plugin-jsdoc": "0.3.24",
     "prettier-plugin-organize-imports": "2.3.3",
     "prettier-plugin-packagejson": "2.2.11",
     "semver": "7.3.5",
     "strip-ansi": "7.0.0",
     "yaml": "1.10.2",
-    "zod": "3.8.1"
+    "zod": "3.8.2"
   },
   "optionalDependencies": {
     "typescript": "^4.3.5"
