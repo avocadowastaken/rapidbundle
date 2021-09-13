@@ -11,6 +11,9 @@ Array [
 exports[`github-action-multientry: dist/cleanup.js 1`] = `
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __require = typeof require !== "undefined" ? require : (x) => {
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+};
 
 // src/cleanup.ts
 function cleanup() {
@@ -24,6 +27,9 @@ cleanup();
 exports[`github-action-multientry: dist/index.js 1`] = `
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __require = typeof require !== "undefined" ? require : (x) => {
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+};
 
 // src/index.ts
 function main() {
@@ -37,6 +43,9 @@ main();
 exports[`github-action-multientry: dist/setup.js 1`] = `
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __require = typeof require !== "undefined" ? require : (x) => {
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+};
 
 // src/setup.ts
 function setup() {

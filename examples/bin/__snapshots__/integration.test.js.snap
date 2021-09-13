@@ -8,7 +8,7 @@ Array [
 
 exports[`bin: dist/cli.js 1`] = `
 #!/usr/bin/env node
-var n=Object.defineProperty;var r=(o,l)=>n(o,"name",{value:l,configurable:!0});function e(o){return\`Hello, \${o}\`}r(e,"hello");console.log(e(process.argv[3]));
+var n=Object.defineProperty;var r=(o,l)=>n(o,"name",{value:l,configurable:!0}),s=typeof require!="undefined"?require:o=>{throw new Error('Dynamic require of "'+o+'" is not supported')};function e(o){return\`Hello, \${o}\`}r(e,"hello");console.log(e(process.argv[3]));
 
 `;
 
