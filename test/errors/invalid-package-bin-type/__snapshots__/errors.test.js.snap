@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-bin-type: stderr 1`] = `
-[FAILED] Invalid 'package.json':
-[FAILED]   '.bin': expected "string", received "number"
-[FAILED]   '.bin': expected "object", received "number"
-`;
+exports[`invalid-package-bin-type: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin': expected "object", received "number"`;
 
 exports[`invalid-package-bin-type: stdout 1`] = `
 [STARTED] Resolving build manifests

@@ -16,13 +16,16 @@ const packageEntrySchema = z
   );
 
 const packageJSONSchema = z.object({
-  bin: z
-    .union([packageEntrySchema, z.record(packageEntrySchema)])
-    .refine(
-      (bin) => typeof bin == "string" || Object.keys(bin).length > 0,
-      "expected to have at least one command, received '{}'"
-    )
-    .optional(),
+  bin: z.preprocess(
+    (input) => (typeof input == "string" ? { "": input } : input),
+    z
+      .record(packageEntrySchema)
+      .refine(
+        (bin) => Object.keys(bin).length > 0,
+        "expected to have at least one command, received '{}'"
+      )
+      .optional()
+  ),
   main: packageEntrySchema.optional(),
   types: packageEntrySchema.optional(),
   module: packageEntrySchema.optional(),

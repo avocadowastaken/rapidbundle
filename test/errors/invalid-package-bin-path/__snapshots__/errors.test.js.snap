@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-bin-path: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin': expected to be in the 'dist' directory, received 'bin'`;
+exports[`invalid-package-bin-path: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin.': expected to be in the 'dist' directory, received 'bin'`;
 
 exports[`invalid-package-bin-path: stdout 1`] = `
 [STARTED] Resolving build manifests

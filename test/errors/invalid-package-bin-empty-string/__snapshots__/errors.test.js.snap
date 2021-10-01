@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-bin-empty-string: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin': expected to be a valid file path, received, '""'`;
+exports[`invalid-package-bin-empty-string: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin.': expected to be a valid file path, received, '""'`;
 
 exports[`invalid-package-bin-empty-string: stdout 1`] = `
 [STARTED] Resolving build manifests
