@@ -92,7 +92,7 @@
     "@types/rimraf": "3.0.2",
     "@types/semver": "7.3.8",
     "c8": "7.9.0",
-    "eslint": "7.32.0",
+    "eslint": "8.1.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "7.0.2",
     "jest": "27.2.4",
