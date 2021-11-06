@@ -7,7 +7,7 @@ import { registerRawSnapshot } from "./registerRawSnapshot";
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(DIR, "..", "..");
 const BIN =
-  process.env.TEST_BUNDLE !== "true"
+  process.env["TEST_BUNDLE"] !== "true"
     ? path.join(ROOT_DIR, "src", "cli.js")
     : path.join(ROOT_DIR, "dist", "cli.js");
 

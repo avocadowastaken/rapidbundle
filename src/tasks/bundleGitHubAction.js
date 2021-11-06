@@ -61,7 +61,7 @@ export async function* bundleGitHubAction(cwd, actionYML) {
 
   await esbuild.build(options);
 
-  if (process.env.CI === "true") {
+  if (process.env["CI"] === "true") {
     yield "Checking build difference";
 
     const { stdout: status } = await execa(
