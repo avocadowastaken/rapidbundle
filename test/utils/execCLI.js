@@ -22,6 +22,7 @@ function cleanupLogs(input) {
       line
         .replace(ROOT_DIR, "<rootDir>")
         .replace(/index \w{7}\.\.\w{7} \w{6}/, "index abcdef0..abcdef1 123456")
+        .replace(/\b(chrome|edge|firefox|ios|safari)[\d.]+\b/gm, "$1<version>")
     )
     .join("\n");
 }

@@ -7,7 +7,7 @@ expect.addSnapshotSerializer({
   test(value) {
     return typeof value == "string" && snapshots.has(value);
   },
-  print(value) {
+  serialize(value) {
     return String(value);
   },
 });

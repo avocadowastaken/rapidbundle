@@ -99,7 +99,7 @@ exports[`dependencies: logs 1`] = `
 [STARTED] Making '.module' entry bundle
 [DATA] Setting entry point: ./src/index
 [DATA] Setting output file: ./dist/index.js
-[DATA] Setting build target: chrome91, edge92, firefox78, ios12.2, safari13.1
+[DATA] Setting build target: chrome<version>, edge<version>, firefox<version>, ios<version>, safari<version>
 [SUCCESS] Making '.module' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;
