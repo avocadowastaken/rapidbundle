@@ -90,7 +90,7 @@
   "devDependencies": {
     "@types/jest": "27.0.2",
     "@types/rimraf": "3.0.2",
-    "@types/semver": "7.3.8",
+    "@types/semver": "7.3.9",
     "@umidbekk/configs": "0.1.0",
     "c8": "7.9.0",
     "eslint": "8.1.0",
