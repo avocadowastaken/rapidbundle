@@ -102,7 +102,7 @@
     "lodash": "4.17.21",
     "np": "7.5.0",
     "prettier": "2.4.1",
-    "prettier-plugin-jsdoc": "0.3.24",
+    "prettier-plugin-jsdoc": "0.3.30",
     "prettier-plugin-organize-imports": "2.3.4",
     "prettier-plugin-packagejson": "2.2.13",
     "semver": "7.3.5",
