@@ -18,7 +18,7 @@ const actionYAMLSchema = z.object({
     pre: actionEntrySchema.optional(),
     post: actionEntrySchema.optional(),
 
-    using: z.enum(["node12", "node14", "node16"]),
+    using: z.enum(["node12", "node16"]),
   }),
 });
 

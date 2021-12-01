@@ -3,7 +3,7 @@
 exports[`invalid-action: stderr 1`] = `
 [FAILED] Invalid 'action.yml':
 [FAILED]   '.runs.main': expected to be in the 'dist' directory, received 'action.js'
-[FAILED]   '.runs.using': expected "node12" or "node14" or "node16" but received "undefined"
+[FAILED]   '.runs.using': expected "node12" or "node16" but received "undefined"
 `;
 
 exports[`invalid-action: stdout 1`] = `
