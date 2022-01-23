@@ -1,5 +1,5 @@
 import assert from "assert";
-import execa from "execa";
+import { execa } from "execa";
 import path from "path";
 import { rollup } from "rollup";
 import rollupPluginDTS from "rollup-plugin-dts";

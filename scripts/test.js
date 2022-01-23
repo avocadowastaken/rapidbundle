@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execaCommandSync } from "execa";
 
 const mode = process.argv.includes("--watch")
   ? "watch"
@@ -14,7 +14,7 @@ const command = ["npx", "jest"];
 if (mode === "watch") command.push("--watch");
 if (mode === "coverage") command.unshift("c8", "--reporter", "lcov");
 
-execa.commandSync(command.join(" "), {
+execaCommandSync(command.join(" "), {
   stdio: "inherit",
   env: {
     TEST_BUNDLE: String(mode === "e2e"),

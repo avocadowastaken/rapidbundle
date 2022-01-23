@@ -1,7 +1,7 @@
 import * as babel from "@babel/core";
 import assert from "assert";
 import esbuild from "esbuild";
-import execa from "execa";
+import { execa } from "execa";
 import fs from "fs";
 import { Listr } from "listr2";
 import path from "path";

@@ -8,7 +8,7 @@ Array [
 
 exports[`bin-module: dist/cli.js 1`] = `
 #!/usr/bin/env node
-var n=Object.defineProperty;var e=(o,r)=>n(o,"name",{value:r,configurable:!0});function l(o){return\`Hello, \${o}\`}e(l,"hello");console.log(l(process.argv[3]));
+var l=Object.defineProperty;var r=(o,n)=>l(o,"name",{value:n,configurable:!0});function e(o){return\`Hello, \${o}\`}r(e,"hello");console.log(e(process.argv[3]));
 
 `;
 

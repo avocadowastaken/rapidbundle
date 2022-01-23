@@ -7,8 +7,10 @@ Array [
 `;
 
 exports[`module-cjs: dist/index.js 1`] = `
+"use strict";
+var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 
 // src/hello.js
@@ -23,10 +25,10 @@ var require_hello = __commonJS({
 // src/index.js
 var require_src = __commonJS({
   "src/index.js"(exports, module) {
-    "use strict";
     module.exports.hello = require_hello();
   }
 });
+"use strict";
 export default require_src();
 
 `;

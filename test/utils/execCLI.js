@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execaNode } from "execa";
 import path from "path";
 import stripAnsi from "strip-ansi";
 import { fileURLToPath } from "url";
@@ -34,7 +34,7 @@ function cleanupLogs(input) {
  * @returns {Promise<[stdout: string, stderr: string, exitCode: number]>}
  */
 export async function execCLI(cwd, args = [], env = { CI: "false" }) {
-  const result = await execa.node(BIN, args, { env, cwd, reject: false });
+  const result = await execaNode(BIN, args, { env, cwd, reject: false });
 
   const stdout = cleanupLogs(result.stdout);
   const stderr = cleanupLogs(result.stderr);

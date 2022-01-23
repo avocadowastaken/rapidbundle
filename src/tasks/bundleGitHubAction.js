@@ -1,5 +1,5 @@
 import esbuild from "esbuild";
-import execa from "execa";
+import { execa } from "execa";
 import {
   formatRelativePath,
   resolveDistDir,
