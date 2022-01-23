@@ -10,7 +10,7 @@ Array [
 
 exports[`github-action-multientry: dist/cleanup.js 1`] = `
 var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
 // src/cleanup.ts
 function cleanup() {
@@ -23,7 +23,7 @@ cleanup();
 
 exports[`github-action-multientry: dist/index.js 1`] = `
 var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
 // src/index.ts
 function main() {
@@ -36,7 +36,7 @@ main();
 
 exports[`github-action-multientry: dist/setup.js 1`] = `
 var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
 // src/setup.ts
 function setup() {

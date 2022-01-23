@@ -8,11 +8,11 @@ Array [
 
 exports[`github-action: dist/main.js 1`] = `
 var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
 // ../../node_modules/strip-ansi/node_modules/ansi-regex/index.js
-function ansiRegex({ onlyFirst = false } = {}) {
-  const pattern = [
+function ansiRegex({ onlyFirst = !1 } = {}) {
+  let pattern = [
     "[\\\\u001B\\\\u009B][[\\\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\\\d\\\\/#&.:=?%@~_]+)*|[a-zA-Z\\\\d]+(?:;[-a-zA-Z\\\\d\\\\/#&.:=?%@~_]*)*)?\\\\u0007)",
     "(?:(?:\\\\d{1,4}(?:;\\\\d{0,4})*)?[\\\\dA-PR-TZcf-ntqry=><~]))"
   ].join("|");
@@ -22,9 +22,8 @@ __name(ansiRegex, "ansiRegex");
 
 // ../../node_modules/strip-ansi/index.js
 function stripAnsi(string) {
-  if (typeof string !== "string") {
+  if (typeof string != "string")
     throw new TypeError(\`Expected a \\\`string\\\`, got \\\`\${typeof string}\\\`\`);
-  }
   return string.replace(ansiRegex(), "");
 }
 __name(stripAnsi, "stripAnsi");
@@ -37,7 +36,8 @@ __name(hello, "hello");
 
 // src/main.ts
 function main() {
-  console.log(hello(process.env.INPUT_NAME || "unknown"));
+  let name = process.env.INPUT_NAME || "unknown";
+  process.env.INPUT_NAME, console.log(hello(name));
 }
 __name(main, "main");
 main();

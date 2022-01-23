@@ -34,6 +34,11 @@ export async function* bundleGitHubAction(cwd, actionYML) {
       // Optional dependency of the `node-fetch`.
       "encoding",
     ],
+
+    minifySyntax: true,
+    define: {
+      "process.env.NODE_ENV": JSON.stringify("production"),
+    },
   };
 
   {
