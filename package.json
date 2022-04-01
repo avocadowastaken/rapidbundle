@@ -98,7 +98,7 @@
     "husky": "7.0.4",
     "jest": "27.4.7",
     "jest-watch-typeahead": "1.0.0",
-    "lint-staged": "12.3.4",
+    "lint-staged": "12.3.7",
     "lodash": "4.17.21",
     "np": "7.6.0",
     "prettier": "2.5.1",
