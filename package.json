@@ -100,7 +100,7 @@
     "jest-watch-typeahead": "1.0.0",
     "lint-staged": "12.3.7",
     "lodash": "4.17.21",
-    "np": "7.6.0",
+    "np": "7.6.1",
     "prettier": "2.5.1",
     "prettier-plugin-jsdoc": "0.3.30",
     "prettier-plugin-organize-imports": "2.3.4",
