@@ -16,6 +16,7 @@ const packageEntrySchema = z
   );
 
 const packageJSONSchema = z.object({
+  version: z.string().optional(),
   bin: z.preprocess(
     (input) => (typeof input == "string" ? { "": input } : input),
     z

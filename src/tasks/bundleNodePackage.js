@@ -104,6 +104,13 @@ export function bundleNodePackage(cwd, packageJSON) {
     {
       title: "Parsing 'package.json'",
       task(_, task) {
+        if (packageJSON.version) {
+          baseOptions.define = {
+            ...baseOptions.define,
+            "import.meta.env.__VERSION__": JSON.stringify(packageJSON.version),
+          };
+        }
+
         {
           /** @type {ReadonlyArray<'dependencies' | 'peerDependencies' | 'optionalDependencies'>} */
           const dependenciesFields = [
@@ -299,7 +306,7 @@ export function bundleNodePackage(cwd, packageJSON) {
             // Suppress output from npx itself.
             "--quiet",
 
-            // Ensure that it will pickup TypeScript package.
+            // Ensure that it will pick project TypeScript package.
             "--package",
             "typescript",
 
