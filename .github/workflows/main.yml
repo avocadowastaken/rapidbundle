@@ -41,7 +41,7 @@ jobs:
       - run: npm run e2e
 
       - if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           if-no-files-found: ignore
           name: build-examples-${{ matrix.os }}-${{ matrix.node }}-
