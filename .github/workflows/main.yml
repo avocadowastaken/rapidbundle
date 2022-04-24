@@ -21,7 +21,7 @@ jobs:
       - run: npm run lint
       - run: npm run format -- --no-write
       - run: npm run cover
-      - uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v3.1.0
 
   tests:
     runs-on: ${{ matrix.os }}
@@ -41,7 +41,7 @@ jobs:
       - run: npm run e2e
 
       - if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           if-no-files-found: ignore
           name: build-examples-${{ matrix.os }}-${{ matrix.node }}-
