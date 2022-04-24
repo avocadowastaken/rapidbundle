@@ -21,7 +21,7 @@ jobs:
       - run: npm run lint
       - run: npm run format -- --no-write
       - run: npm run cover
-      - uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v3.1.0
 
   tests:
     runs-on: ${{ matrix.os }}
