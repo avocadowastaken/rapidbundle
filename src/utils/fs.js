@@ -1,17 +1,11 @@
-import { promises as fs } from "fs";
-import rimraf from "rimraf";
+import fs from "node:fs/promises";
 
 /**
  * @param {string} input
  * @returns {Promise<void>}
  */
 export function rmrf(input) {
-  return new Promise((resolve, reject) => {
-    rimraf(input, (error) => {
-      if (error) reject(error);
-      else resolve();
-    });
-  });
+  return fs.rm(input, { force: true, recursive: true });
 }
 
 /**

@@ -83,13 +83,11 @@
     "esbuild": "^0.14.38",
     "execa": "^6.1.0",
     "listr2": "^4.0.5",
-    "rimraf": "^3.0.2",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1"
   },
   "devDependencies": {
     "@types/jest": "27.4.1",
-    "@types/rimraf": "3.0.2",
     "@types/semver": "7.3.9",
     "@umidbekk/configs": "0.1.0",
     "c8": "7.11.2",

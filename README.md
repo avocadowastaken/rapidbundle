@@ -1,6 +1,7 @@
 # RapidBundle
 
 [![Build](https://github.com/umidbekk/rapidbundle/workflows/Main/badge.svg)](https://github.com/umidbekk/rapidbundle/actions/workflows/main.yml)
+[![install size](https://packagephobia.com/badge?p=rapidbundle)](https://packagephobia.com/result?p=rapidbundle)
 [![npm version](https://img.shields.io/npm/v/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 [![npm downloads](https://img.shields.io/npm/dm/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 [![Codecov](https://img.shields.io/codecov/c/gh/umidbekk/rapidbundle.svg)](https://codecov.io/gh/umidbekk/rapidbundle)
