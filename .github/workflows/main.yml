@@ -37,7 +37,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - run: npm ci
       - run: npm run e2e
 
       - if: failure()
