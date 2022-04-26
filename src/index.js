@@ -5,7 +5,7 @@ import { tryParsePackageJSON } from "./manifests/PackageJSON.js";
 import { bundleGitHubAction } from "./tasks/bundleGitHubAction.js";
 import { bundleNodePackage } from "./tasks/bundleNodePackage.js";
 import { rmrf } from "./utils/fs.js";
-import { resolveDistDir } from "./utils/path.js";
+import { getDistDir } from "./utils/path.js";
 
 /**
  * @typedef {object} TasksContext
@@ -37,7 +37,7 @@ const tasks = new Listr(
       title: "Run preparations",
       async task(ctx, task) {
         task.output = "Removing 'dist' directory";
-        await rmrf(resolveDistDir(ctx.cwd));
+        await rmrf(getDistDir(ctx.cwd));
       },
     },
 

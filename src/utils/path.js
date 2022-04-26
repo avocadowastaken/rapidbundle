@@ -1,39 +1,63 @@
-import path from "path";
+import path from "node:path";
+import { isFile } from "./fs.js";
+
+const SRC_DIR = "src";
+const DIST_DIR = "dist";
 
 /**
  * @param {string} rootDir
  * @returns {string}
  */
-export function resolveSrcDir(rootDir) {
-  return path.join(rootDir, "src");
+export function getDistDir(rootDir) {
+  return path.join(rootDir, DIST_DIR);
 }
 
 /**
- * @param {string} rootDir
- * @returns {string}
+ * @param {string} outputFileExtension
+ * @return {string[]}
  */
-export function resolveDistDir(rootDir) {
-  return path.join(rootDir, "dist");
+function getEntryExtensions(outputFileExtension) {
+  switch (outputFileExtension) {
+    case ".cjs":
+      return [".cts", ".cjs", ".ts", ".tsx", ".js"];
+    case ".mjs":
+      return [".mts", ".mjs", ".ts", ".tsx", ".js"];
+    case ".d.ts":
+      return [".mts", ".mjs", ".cts", ".cjs", ".ts", ".tsx", ".js"];
+
+    default:
+      return [".ts", ".tsx", ".js"];
+  }
 }
 
 /**
- * @param {string} rootDir
+ * @param {string} entry
+ * @param {string[]} extensions
+ */
+async function resolveFile(entry, extensions) {
+  for (const extension of extensions) {
+    const entryPath = entry + extension;
+
+    if (await isFile(entryPath)) {
+      return entryPath;
+    }
+  }
+
+  return entry;
+}
+
+/**
+ * @param {string} baseDir
  * @param {string} outputFile
- * @param {string} [outputFileExt]
+ * @return {Promise<string>}
  */
-export function resolveEntry(
-  rootDir,
-  outputFile,
-  outputFileExt = path.extname(outputFile)
-) {
-  const srcDir = resolveSrcDir(rootDir);
-  const distDir = resolveDistDir(rootDir);
-  const outputDir = path.dirname(path.join(rootDir, outputFile));
-
-  const entryDir = path.relative(distDir, outputDir);
-  const entryBaseName = path.basename(outputFile, outputFileExt);
-
-  return path.join(srcDir, entryDir, entryBaseName);
+export async function resolveEntry(baseDir, outputFile) {
+  const outputFileExt = path.extname(outputFile);
+  const entryExtensions = getEntryExtensions(outputFileExt);
+  const entryName = path.basename(outputFile, outputFileExt);
+  const entryDir = path.dirname(outputFile.replace(DIST_DIR, SRC_DIR));
+  const entry = path.join(baseDir, entryDir, entryName);
+  return resolveFile(entry, entryExtensions);
 }
 
 /**

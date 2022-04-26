@@ -67,7 +67,7 @@ exports[`types-js: logs 1`] = `
 [STARTED] Parsing 'package.json'
 [SUCCESS] Parsing 'package.json'
 [STARTED] Making '.main' entry bundle
-[DATA] Setting entry point: ./src/hello
+[DATA] Setting entry point: ./src/hello.js
 [DATA] Setting output file: ./dist/hello.cjs
 [SUCCESS] Making '.main' entry bundle
 [STARTED] Making '.types' entry bundle

@@ -9,11 +9,7 @@ import { rollup } from "rollup";
 import rollupPluginDTS from "rollup-plugin-dts";
 import { getESBuildBrowsers } from "../utils/browsers.js";
 import { rmrf } from "../utils/fs.js";
-import {
-  formatRelativePath,
-  resolveDistDir,
-  resolveEntry,
-} from "../utils/path.js";
+import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path.js";
 
 /**
  * @typedef {import('@babel/core').TransformCaller} ESBuildTransformCaller
@@ -173,14 +169,14 @@ export function bundleNodePackage(cwd, packageJSON) {
       enabled() {
         return !!packageJSON.bin;
       },
-      task(_, task) {
+      async task(_, task) {
         /** @type {esbuild.BuildOptions} */
         const options = {
           ...baseOptions,
           ...baseNodeOptions,
 
           minify: true,
-          outdir: resolveDistDir(cwd),
+          outdir: getDistDir(cwd),
         };
 
         assert(packageJSON.bin);
@@ -188,14 +184,14 @@ export function bundleNodePackage(cwd, packageJSON) {
         options.entryPoints = [];
 
         if (typeof packageJSON.bin == "string") {
-          const entry = resolveEntry(cwd, packageJSON.bin);
+          const entry = await resolveEntry(cwd, packageJSON.bin);
           task.output = `Using '.bin' entry: ${formatRelativePath(cwd, entry)}`;
           options.entryPoints.push(entry);
         } else {
           const bins = Object.entries(packageJSON.bin);
 
           for (const [name, bin] of bins) {
-            const entry = resolveEntry(cwd, bin);
+            const entry = await resolveEntry(cwd, bin);
             options.entryPoints.push(entry);
             task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
               cwd,
@@ -209,7 +205,7 @@ export function bundleNodePackage(cwd, packageJSON) {
           task.output = `Using '.type' entry: ${packageJSON.type}`;
         }
 
-        return esbuild.build(options);
+        await esbuild.build(options);
       },
     },
 
@@ -218,7 +214,7 @@ export function bundleNodePackage(cwd, packageJSON) {
       enabled() {
         return !!packageJSON.main;
       },
-      task(_, task) {
+      async task(_, task) {
         /** @type {esbuild.BuildOptions} */
         const options = {
           ...baseOptions,
@@ -228,7 +224,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         assert(packageJSON.main);
 
         {
-          const entry = resolveEntry(cwd, packageJSON.main);
+          const entry = await resolveEntry(cwd, packageJSON.main);
           options.entryPoints = [entry];
           task.output = `Setting entry point: ${formatRelativePath(
             cwd,
@@ -241,7 +237,7 @@ export function bundleNodePackage(cwd, packageJSON) {
           task.output = `Setting output file: ${packageJSON.main}`;
         }
 
-        return esbuild.build(options);
+        await esbuild.build(options);
       },
     },
 
@@ -250,7 +246,7 @@ export function bundleNodePackage(cwd, packageJSON) {
       enabled() {
         return !!packageJSON.module;
       },
-      task(_, task) {
+      async task(_, task) {
         assert(packageJSON.module);
 
         /** @type {esbuild.BuildOptions} */
@@ -262,7 +258,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         };
 
         {
-          const entry = resolveEntry(cwd, packageJSON.module);
+          const entry = await resolveEntry(cwd, packageJSON.module);
           options.entryPoints = [entry];
           task.output = `Setting entry point: ${formatRelativePath(
             cwd,
@@ -283,7 +279,7 @@ export function bundleNodePackage(cwd, packageJSON) {
           task.output = `Setting build target: ${options.target.join(", ")}`;
         }
 
-        return esbuild.build(options);
+        await esbuild.build(options);
       },
     },
 
@@ -295,7 +291,7 @@ export function bundleNodePackage(cwd, packageJSON) {
       async task(_, task) {
         assert(packageJSON.types);
 
-        const distDir = resolveDistDir(cwd);
+        const distDir = getDistDir(cwd);
         const tmpDir = path.join(distDir, "__tmp_declarations");
 
         task.output = "Generating 'd.ts' files";
@@ -331,7 +327,7 @@ export function bundleNodePackage(cwd, packageJSON) {
 
         task.output = "Bundle into single 'd.ts' file";
 
-        const entry = resolveEntry(tmpDir, packageJSON.types, "");
+        const entry = await resolveEntry(tmpDir, packageJSON.types);
 
         const result = await rollup({
           input: entry,

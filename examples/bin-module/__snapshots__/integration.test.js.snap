@@ -24,7 +24,7 @@ exports[`bin-module: logs 1`] = `
 [STARTED] Parsing 'package.json'
 [SUCCESS] Parsing 'package.json'
 [STARTED] Making '.bin' entry bundle
-[DATA] Using '.bin.' entry: ./src/cli
+[DATA] Using '.bin.' entry: ./src/cli.ts
 [DATA] Using '.type' entry: module
 [SUCCESS] Making '.bin' entry bundle
 [SUCCESS] Making bundle from 'package.json'

@@ -1,10 +1,6 @@
 import esbuild from "esbuild";
 import { execa } from "execa";
-import {
-  formatRelativePath,
-  resolveDistDir,
-  resolveEntry,
-} from "../utils/path.js";
+import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path.js";
 
 /**
  * @typedef {object} GitHubActionBundleOptions
@@ -19,7 +15,7 @@ import {
  * @returns {AsyncGenerator<string, void>}
  */
 export async function* bundleGitHubAction(cwd, actionYML) {
-  const distDir = resolveDistDir(cwd);
+  const distDir = getDistDir(cwd);
 
   /** @type {esbuild.BuildOptions}*/
   const options = {
@@ -43,18 +39,18 @@ export async function* bundleGitHubAction(cwd, actionYML) {
   };
 
   {
-    const mainEntry = resolveEntry(cwd, actionYML.runs.main);
+    const mainEntry = await resolveEntry(cwd, actionYML.runs.main);
     options.entryPoints = [mainEntry];
     yield "Using '.runs.main' entry: " + formatRelativePath(cwd, mainEntry);
 
     if (actionYML.runs.pre) {
-      const preEntry = resolveEntry(cwd, actionYML.runs.pre);
+      const preEntry = await resolveEntry(cwd, actionYML.runs.pre);
       yield "Using '.runs.pre' entry: " + formatRelativePath(cwd, preEntry);
       options.entryPoints.push(preEntry);
     }
 
     if (actionYML.runs.post) {
-      const postEntry = resolveEntry(cwd, actionYML.runs.post);
+      const postEntry = await resolveEntry(cwd, actionYML.runs.post);
       yield "Using '.runs.post' entry: " + formatRelativePath(cwd, postEntry);
       options.entryPoints.push(postEntry);
     }
