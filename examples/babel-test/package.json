@@ -1,9 +1,0 @@
-{
-  "main": "./dist/index.js",
-  "babel": {
-    "plugins": [
-      "../babel/babel-plugin-no-warning.js"
-    ],
-    "test": "hello\\.ts"
-  }
-}
