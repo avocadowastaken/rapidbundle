@@ -1,7 +1,7 @@
-import { execaNode } from "execa";
-import path from "path";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import stripAnsi from "strip-ansi";
-import { fileURLToPath } from "url";
+import { execNode } from "../../src/utils/exec.js";
 import { registerRawSnapshot } from "./registerRawSnapshot.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -31,16 +31,17 @@ function cleanupLogs(input) {
  * @param {string} cwd
  * @param {string[]} [args]
  * @param {NodeJS.ProcessEnv} [env]
- * @returns {Promise<[stdout: string, stderr: string, exitCode: number]>}
+ * @returns {Promise<[stdout: string, exitCode: number]>}
  */
 export async function execCLI(cwd, args = [], env = { CI: "false" }) {
-  const result = await execaNode(BIN, args, { env, cwd, reject: false });
+  const [rawStdout, exitCode] = await execNode(BIN, args, {
+    env,
+    cwd,
+  });
 
-  const stdout = cleanupLogs(result.stdout);
-  const stderr = cleanupLogs(result.stderr);
+  const output = cleanupLogs(rawStdout);
 
-  registerRawSnapshot(stdout);
-  registerRawSnapshot(stderr);
+  registerRawSnapshot(output);
 
-  return [stdout, stderr, result.exitCode];
+  return [output, exitCode];
 }

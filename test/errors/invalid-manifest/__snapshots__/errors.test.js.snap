@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-manifest: stderr 1`] = `[FAILED] Manifest file (package.json or action.yml) not found.`;
-
-exports[`invalid-manifest: stdout 1`] = `
+exports[`invalid-manifest: output 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
+[FAILED] Manifest file (package.json or action.yml) not found.
 `;

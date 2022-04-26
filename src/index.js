@@ -1,5 +1,5 @@
-import assert from "assert";
 import { Listr } from "listr2";
+import assert from "node:assert";
 import { tryParseActionYML } from "./manifests/ActionYML.js";
 import { tryParsePackageJSON } from "./manifests/PackageJSON.js";
 import { bundleGitHubAction } from "./tasks/bundleGitHubAction.js";

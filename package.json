@@ -84,7 +84,6 @@
     "browserslist": "^4.20.3",
     "enquirer": "^2.3.6",
     "esbuild": "^0.14.38",
-    "execa": "^6.1.0",
     "listr2": "^4.0.5",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1"

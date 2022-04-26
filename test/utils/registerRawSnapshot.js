@@ -1,5 +1,3 @@
-"use strict";
-
 /** @type {Set<string>} */
 const snapshots = new Set();
 
