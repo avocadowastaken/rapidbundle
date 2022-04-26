@@ -1,17 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-action-diff: stderr 1`] = `
-[FAILED] Found build difference:
-[FAILED] diff --git a/test/errors/invalid-action-diff/dist/main.js b/test/errors/invalid-action-diff/dist/main.js
-[FAILED] index abcdef0..abcdef1 123456
-[FAILED] --- a/test/errors/invalid-action-diff/dist/main.js
-[FAILED] +++ b/test/errors/invalid-action-diff/dist/main.js
-[FAILED] @@ -2 +2 @@
-[FAILED] -console.log("Hello?");
-[FAILED] +console.log("Hello");
-`;
-
-exports[`invalid-action-diff: stdout 1`] = `
+exports[`invalid-action-diff: output 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
@@ -23,4 +12,12 @@ exports[`invalid-action-diff: stdout 1`] = `
 [DATA] Using '.runs.main' entry: ./src/main.ts
 [DATA] Using '.runs.using' entry: node12
 [DATA] Checking build difference
+[FAILED] Found build difference:
+[FAILED] diff --git a/test/errors/invalid-action-diff/dist/main.js b/test/errors/invalid-action-diff/dist/main.js
+[FAILED] index abcdef0..abcdef1 123456
+[FAILED] --- a/test/errors/invalid-action-diff/dist/main.js
+[FAILED] +++ b/test/errors/invalid-action-diff/dist/main.js
+[FAILED] @@ -2 +2 @@
+[FAILED] -console.log("Hello?");
+[FAILED] +console.log("Hello");
 `;

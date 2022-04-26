@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-package-bin-empty-object: stderr 1`] = `[FAILED] Invalid 'package.json': '.bin': expected to have at least one command, received '{}'`;
-
-exports[`invalid-package-bin-empty-object: stdout 1`] = `
+exports[`invalid-package-bin-empty-object: output 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
+[FAILED] Invalid 'package.json': '.bin': expected to have at least one command, received '{}'
 `;

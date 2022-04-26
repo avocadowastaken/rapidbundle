@@ -1,5 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 import semver from "semver";
 import { z } from "zod";
 import { isFile } from "../utils/fs.js";

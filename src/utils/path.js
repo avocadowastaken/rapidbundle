@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import { isFile } from "./fs.js";
 
@@ -67,4 +68,31 @@ export async function resolveEntry(baseDir, outputFile) {
  */
 export function formatRelativePath(rootDir, input) {
   return `./${path.relative(rootDir, input).replace(/\\/g, "/")}`;
+}
+
+/**
+ * @param {string} cwd
+ * @param {string} id
+ * @param {string} [bin]
+ * @returns {string}
+ */
+export function resolvePackageBin(cwd, id, bin = id) {
+  const require = createRequire(cwd);
+
+  const packageJSONPath = require.resolve(`${id}/package.json`);
+  /** @type {{ bin?: string | Record<string, string> }} */
+  const packageJSON = require(packageJSONPath);
+
+  const binPath =
+    typeof packageJSON.bin === "string"
+      ? packageJSON.bin
+      : packageJSON.bin?.[bin];
+
+  if (!binPath) {
+    throw new Error(`Failed to resolve: ${bin} from ${id}`);
+  }
+
+  const packageDir = path.dirname(packageJSONPath);
+
+  return path.join(packageDir, binPath);
 }

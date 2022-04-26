@@ -1,15 +1,20 @@
 import * as babel from "@babel/core";
 import assert from "assert";
 import esbuild from "esbuild";
-import { execa } from "execa";
 import fs from "fs";
 import { Listr } from "listr2";
 import path from "path";
 import { rollup } from "rollup";
 import rollupPluginDTS from "rollup-plugin-dts";
 import { getESBuildBrowsers } from "../utils/browsers.js";
+import { execNode } from "../utils/exec.js";
 import { rmrf } from "../utils/fs.js";
-import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path.js";
+import {
+  formatRelativePath,
+  getDistDir,
+  resolveEntry,
+  resolvePackageBin,
+} from "../utils/path.js";
 
 /**
  * @typedef {import('@babel/core').TransformCaller} ESBuildTransformCaller
@@ -296,18 +301,11 @@ export function bundleNodePackage(cwd, packageJSON) {
 
         task.output = "Generating 'd.ts' files";
 
-        await execa(
-          "npx",
+        const tsc = resolvePackageBin(cwd, "typescript", "tsc");
+
+        await execNode(
+          tsc,
           [
-            // Suppress output from npx itself.
-            "--quiet",
-
-            // Ensure that it will pick project TypeScript package.
-            "--package",
-            "typescript",
-
-            "tsc",
-
             // Override `"noEmit": true` config.
             "--noEmit",
             "false",

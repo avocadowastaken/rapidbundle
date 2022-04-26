@@ -1,5 +1,5 @@
 import esbuild from "esbuild";
-import { execa } from "execa";
+import { gitDiff, gitStatus } from "../utils/git.js";
 import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path.js";
 
 /**
@@ -66,19 +66,10 @@ export async function* bundleGitHubAction(cwd, actionYML) {
   if (process.env["CI"] === "true") {
     yield "Checking build difference";
 
-    const { stdout: status } = await execa(
-      "git",
-      ["status", "--porcelain", distDir],
-      { stderr: "inherit" }
-    );
+    const status = await gitStatus(distDir);
 
     if (status) {
-      const { stdout: diff } = await execa(
-        "git",
-        ["diff", "--minimal", "--unified=0", distDir],
-        { stderr: "inherit" }
-      );
-
+      const diff = await gitDiff(distDir);
       throw new Error(`Found build difference:\n${diff || status}`);
     }
   }
