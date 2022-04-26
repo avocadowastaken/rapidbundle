@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import YAML from "yaml";
 import { z } from "zod";
 import { isFile } from "../utils/fs.js";
 import { ValidationError } from "../utils/validation.js";
@@ -28,8 +27,9 @@ const actionYAMLSchema = z.object({
  */
 async function readActionYML(manifestPath) {
   try {
+    const yaml = await import("js-yaml");
     const content = await fs.readFile(manifestPath, "utf-8");
-    return actionYAMLSchema.parse(YAML.parse(content));
+    return actionYAMLSchema.parse(yaml.load(content));
   } catch (error) {
     throw new ValidationError("Invalid 'action.yml'", error);
   }

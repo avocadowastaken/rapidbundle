@@ -1,5 +1,3 @@
-import browserslist from "browserslist";
-
 const BROWSERSLIST_ESBUILD_NAMES = {
   chrome: "chrome",
   edge: "edge",
@@ -10,12 +8,11 @@ const BROWSERSLIST_ESBUILD_NAMES = {
 
 /**
  * @param {string | string[]} input
- * @returns {string[]}
+ * @returns {Promise<string[]>}
  */
-export function getESBuildBrowsers(input) {
-  const browsers = browserslist(input, {
-    mobileToDesktop: true,
-  });
+export async function getESBuildBrowsers(input) {
+  const { default: browserslist } = await import("browserslist");
+  const browsers = browserslist(input, { mobileToDesktop: true });
 
   /** @type {Map<string, string>} */
   const targets = new Map();
