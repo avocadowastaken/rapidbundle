@@ -1,11 +1,8 @@
-import * as babel from "@babel/core";
-import assert from "assert";
 import esbuild from "esbuild";
-import fs from "fs";
 import { Listr } from "listr2";
-import path from "path";
-import { rollup } from "rollup";
-import rollupPluginDTS from "rollup-plugin-dts";
+import assert from "node:assert";
+import fs from "node:fs";
+import path from "node:path";
 import { getESBuildBrowsers } from "../utils/browsers.js";
 import { execNode } from "../utils/exec.js";
 import { rmrf } from "../utils/fs.js";
@@ -57,6 +54,7 @@ function buildESBuildBabelPlugin(options) {
           loader: TS_EXTENSION_PATTERN.test(ext) ? "tsx" : "jsx",
         });
 
+        const babel = await import("@babel/core");
         const babelResult = await babel.transformAsync(esbuildResult.code, {
           caller,
 
@@ -73,7 +71,10 @@ function buildESBuildBabelPlugin(options) {
           loader: "js",
           contents:
             /** @type {string} */
-            (/** @type {babel.BabelFileResult} */ (babelResult).code),
+            (
+              /** @type {import('@babel/core').BabelFileResult} */ (babelResult)
+                .code
+            ),
         };
       });
     },
@@ -277,7 +278,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         }
 
         {
-          options.target = getESBuildBrowsers(
+          options.target = await getESBuildBrowsers(
             "defaults, Firefox ESR, not IE 11"
           );
 
@@ -326,6 +327,8 @@ export function bundleNodePackage(cwd, packageJSON) {
         task.output = "Bundle into single 'd.ts' file";
 
         const entry = await resolveEntry(tmpDir, packageJSON.types);
+        const { rollup } = await import("rollup");
+        const { default: rollupPluginDTS } = await import("rollup-plugin-dts");
 
         const result = await rollup({
           input: entry,

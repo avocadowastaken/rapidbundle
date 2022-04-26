@@ -35,7 +35,16 @@
       "plugin:node/recommended-module"
     ],
     "rules": {
-      "node/file-extension-in-import": "error"
+      "node/file-extension-in-import": "error",
+      "node/no-unsupported-features/es-syntax": [
+        "error",
+        {
+          "ignores": [
+            "modules",
+            "dynamicImport"
+          ]
+        }
+      ]
     },
     "overrides": [
       {
@@ -80,16 +89,17 @@
     ]
   },
   "dependencies": {
-    "@babel/core": "^7.17.9",
     "browserslist": "^4.20.3",
     "enquirer": "^2.3.6",
     "esbuild": "^0.14.38",
+    "js-yaml": "^4.1.0",
     "listr2": "^4.0.5",
     "rollup": "^2.70.2",
     "rollup-plugin-dts": "^4.2.1"
   },
   "devDependencies": {
     "@types/jest": "27.4.1",
+    "@types/js-yaml": "^4.0.5",
     "@types/semver": "7.3.9",
     "@umidbekk/configs": "0.2.0",
     "c8": "7.11.2",
@@ -108,10 +118,10 @@
     "prettier-plugin-packagejson": "2.2.17",
     "semver": "7.3.7",
     "strip-ansi": "7.0.1",
-    "yaml": "2.0.1",
     "zod": "3.14.4"
   },
   "optionalDependencies": {
+    "@babel/core": "^7.17.9",
     "typescript": "^4.6.3"
   },
   "engines": {
