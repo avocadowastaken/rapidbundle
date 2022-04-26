@@ -99,11 +99,11 @@
   },
   "devDependencies": {
     "@types/jest": "27.4.1",
-    "@types/js-yaml": "^4.0.5",
+    "@types/js-yaml": "4.0.5",
     "@types/semver": "7.3.9",
     "@umidbekk/configs": "0.2.0",
     "c8": "7.11.2",
-    "cross-env": "^7.0.3",
+    "cross-env": "7.0.3",
     "eslint": "8.14.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "7.0.4",
