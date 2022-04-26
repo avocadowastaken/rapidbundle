@@ -1,8 +1,8 @@
 import { execa } from "execa";
 import { promises as fs } from "fs";
 import path from "path";
-import { execCLI } from "./execCLI";
-import { registerRawSnapshot } from "./registerRawSnapshot";
+import { execCLI } from "./execCLI.js";
+import { registerRawSnapshot } from "./registerRawSnapshot.js";
 
 /**
  * @typedef {object} IntegrationTestOptions

@@ -2,7 +2,7 @@ import { execaNode } from "execa";
 import path from "path";
 import stripAnsi from "strip-ansi";
 import { fileURLToPath } from "url";
-import { registerRawSnapshot } from "./registerRawSnapshot";
+import { registerRawSnapshot } from "./registerRawSnapshot.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(DIR, "..", "..");
