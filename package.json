@@ -11,16 +11,16 @@
   ],
   "scripts": {
     "build": "node ./src/cli.js",
-    "cover": "npm run test -- --coverage",
+    "cover": "c8 npm test",
     "pree2e": "npm run build",
-    "e2e": "npm run test -- --e2e",
+    "e2e": "cross-env TEST_BUNDLE=true npm test",
     "format": "prettier . --write --check",
     "lint": "eslint .",
     "prepare": "husky install",
     "prerelease": "npx tsc && npm run lint && npm run e2e",
     "release": "np --no-2fa",
-    "tdd": "npm run test -- --watch",
-    "test": "node ./scripts/test.js"
+    "tdd": "npm test -- --watch",
+    "test": "cross-env NODE_OPTIONS=\"--no-warnings --experimental-vm-modules\" jest"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
@@ -91,6 +91,7 @@
     "@types/semver": "7.3.9",
     "@umidbekk/configs": "0.2.0",
     "c8": "7.11.2",
+    "cross-env": "^7.0.3",
     "eslint": "8.14.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "7.0.4",
