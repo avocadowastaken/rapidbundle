@@ -1,9 +1,0 @@
-{
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "babel": {
-    "plugins": [
-      "./babel-plugin-no-warning.js"
-    ]
-  }
-}

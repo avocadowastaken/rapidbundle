@@ -121,7 +121,6 @@
     "zod": "3.14.4"
   },
   "optionalDependencies": {
-    "@babel/core": "^7.17.9",
     "typescript": "^4.6.3"
   },
   "engines": {
