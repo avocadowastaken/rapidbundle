@@ -31,8 +31,8 @@ exports[`bin-multiple: logs 1`] = `
 [STARTED] Parsing 'package.json'
 [SUCCESS] Parsing 'package.json'
 [STARTED] Making '.bin' entry bundle
-[DATA] Using '.bin.hello' entry: ./src/hello
-[DATA] Using '.bin.hi' entry: ./src/hi
+[DATA] Using '.bin.hello' entry: ./src/hello.ts
+[DATA] Using '.bin.hi' entry: ./src/hi.ts
 [SUCCESS] Making '.bin' entry bundle
 [SUCCESS] Making bundle from 'package.json'
 `;

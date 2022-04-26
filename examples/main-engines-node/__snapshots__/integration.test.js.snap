@@ -61,7 +61,7 @@ exports[`main-engines-node: logs 1`] = `
 [DATA] Using '.engines.node' entry: 16.0.0
 [SUCCESS] Parsing 'package.json'
 [STARTED] Making '.main' entry bundle
-[DATA] Setting entry point: ./src/index
+[DATA] Setting entry point: ./src/index.ts
 [DATA] Setting output file: ./dist/index.js
 [SUCCESS] Making '.main' entry bundle
 [SUCCESS] Making bundle from 'package.json'

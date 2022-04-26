@@ -56,9 +56,9 @@ exports[`github-action-multientry: logs 1`] = `
 [DATA] Removing 'dist' directory
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'action.yml'
-[DATA] Using '.runs.main' entry: ./src/index
-[DATA] Using '.runs.pre' entry: ./src/setup
-[DATA] Using '.runs.post' entry: ./src/cleanup
+[DATA] Using '.runs.main' entry: ./src/index.ts
+[DATA] Using '.runs.pre' entry: ./src/setup.ts
+[DATA] Using '.runs.post' entry: ./src/cleanup.ts
 [DATA] Using '.runs.using' entry: node12
 [SUCCESS] Making bundle from 'action.yml'
 `;

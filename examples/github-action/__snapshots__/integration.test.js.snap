@@ -53,7 +53,7 @@ exports[`github-action: logs 1`] = `
 [DATA] Removing 'dist' directory
 [SUCCESS] Run preparations
 [STARTED] Making bundle from 'action.yml'
-[DATA] Using '.runs.main' entry: ./src/main
+[DATA] Using '.runs.main' entry: ./src/main.ts
 [DATA] Using '.runs.using' entry: node12
 [SUCCESS] Making bundle from 'action.yml'
 `;

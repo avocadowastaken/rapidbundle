@@ -24,7 +24,7 @@ exports[`version: logs 1`] = `
 [STARTED] Parsing 'package.json'
 [SUCCESS] Parsing 'package.json'
 [STARTED] Making '.main' entry bundle
-[DATA] Setting entry point: ./src/index
+[DATA] Setting entry point: ./src/index.js
 [DATA] Setting output file: ./dist/index.cjs
 [SUCCESS] Making '.main' entry bundle
 [SUCCESS] Making bundle from 'package.json'
