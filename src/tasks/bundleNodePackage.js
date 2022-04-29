@@ -37,13 +37,6 @@ export function bundleNodePackage(cwd, packageJSON) {
     {
       title: "Parsing 'package.json'",
       task(_, task) {
-        if (packageJSON.version) {
-          baseOptions.define = {
-            ...baseOptions.define,
-            "import.meta.env.__VERSION__": JSON.stringify(packageJSON.version),
-          };
-        }
-
         {
           /** @type {ReadonlyArray<'dependencies' | 'peerDependencies' | 'optionalDependencies'>} */
           const dependenciesFields = [
