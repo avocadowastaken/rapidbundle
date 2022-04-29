@@ -77,8 +77,7 @@ export function formatRelativePath(rootDir, input) {
  * @returns {string}
  */
 export function resolvePackageBin(cwd, id, bin = id) {
-  const require = createRequire(cwd);
-
+  const require = createRequire(path.join(cwd, "package.json"));
   const packageJSONPath = require.resolve(`${id}/package.json`);
   /** @type {{ bin?: string | Record<string, string> }} */
   const packageJSON = require(packageJSONPath);
