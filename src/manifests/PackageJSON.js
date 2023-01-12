@@ -7,7 +7,7 @@ import { ValidationError } from "../utils/validation.js";
 
 const packageEntrySchema = z
   .string()
-  .nonempty("expected to be a valid file path, received, '\"\"'")
+  .min(1, "expected to be a valid file path, received, '\"\"'")
   .refine(
     (value) => path.posix.normalize(value).startsWith("dist/"),
     (value) => ({
