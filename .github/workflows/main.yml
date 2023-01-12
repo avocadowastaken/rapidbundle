@@ -17,14 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: umidbekk/actions/prepare-node-repo@v2
+      - uses: avocadowastaken/actions/prepare-node-repo@v2
         with:
           node-version: 16
-
-      - run: npx tsc
-      - run: npm run lint
-      - run: npm run format -- --no-write
-      - run: npm run cover
+      - run: npm run checks
       - uses: codecov/codecov-action@v3.1.0
 
   tests:
@@ -37,7 +33,7 @@ jobs:
         node: [14, 16, 18]
 
     steps:
-      - uses: umidbekk/actions/prepare-node-repo@v2
+      - uses: avocadowastaken/actions/prepare-node-repo@v2
         with:
           node-version: ${{ matrix.node }}
 
