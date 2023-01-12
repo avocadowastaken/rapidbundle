@@ -35,8 +35,8 @@ function cleanupLogs(input) {
  */
 export async function execCLI(cwd, args = [], env = { CI: "false" }) {
   const [rawStdout, exitCode] = await execNode(BIN, args, {
-    env,
     cwd,
+    env: { ...env, BROWSERSLIST_IGNORE_OLD_DATA: "true" },
   });
 
   const output = cleanupLogs(rawStdout);
