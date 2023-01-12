@@ -11,16 +11,16 @@
   ],
   "scripts": {
     "build": "node ./src/cli.js",
-    "cover": "c8 npm test",
+    "checks": "npm run format -- --no-write && npx tsc && npm run lint && npm run test && npm run e2e",
     "pree2e": "npm run build",
-    "e2e": "cross-env TEST_BUNDLE=true npm test",
+    "e2e": "cross-env TEST_BUNDLE=true npm run jest",
     "format": "prettier . --write --check",
+    "jest": "cross-env NODE_OPTIONS=\"--no-warnings --experimental-vm-modules\" jest",
     "lint": "eslint .",
     "prepare": "husky install",
-    "prerelease": "npx tsc && npm run lint && npm run e2e",
-    "release": "np --no-2fa",
-    "tdd": "npm test -- --watch",
-    "test": "cross-env NODE_OPTIONS=\"--no-warnings --experimental-vm-modules\" jest"
+    "release": "np --test-script checks",
+    "tdd": "npm run jest -- --watch",
+    "test": "c8 npm run jest"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
