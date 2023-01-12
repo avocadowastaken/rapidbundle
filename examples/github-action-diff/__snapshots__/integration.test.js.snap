@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`github-action-diff: dist 1`] = `
-Array [
+[
   "main.js",
 ]
 `;
 
 exports[`github-action-diff: dist/main.js 1`] = `
+"use strict";
+
 // src/main.ts
 console.log("Hello");
 

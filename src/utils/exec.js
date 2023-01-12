@@ -13,11 +13,8 @@ import { spawn } from "node:child_process";
  * @param {ExecOptions} [options]
  * @returns {Promise<[output: string, exitCode: number]>}
  */
-export async function exec(
-  command,
-  args = [],
-  { env, cwd, stderr = "pipe" } = {}
-) {
+export async function exec(command, args = [], options = {}) {
+  const { env, cwd, stderr = "pipe" } = options;
   const child = spawn(command, args, {
     cwd,
     env: { ...process.env, ...env },

@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`types-cjs: dist 1`] = `
-Array [
+[
   "index.d.ts",
   "index.js",
 ]
 `;
 
 exports[`types-cjs: dist/index.d.ts 1`] = `
-declare var hello: (name: string) => string;
+declare const hello: (name: string) => string;
 
 export { hello };
 

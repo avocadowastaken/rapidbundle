@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bin: dist 1`] = `
-Array [
+[
   "cli.js",
 ]
 `;
 
 exports[`bin: dist/cli.js 1`] = `
 #!/usr/bin/env node
-var l=Object.defineProperty;var r=(o,e)=>l(o,"name",{value:e,configurable:!0});function n(o){return\`Hello, \${o}\`}r(n,"hello");console.log(n(process.argv[3]));
+"use strict";var l=Object.defineProperty;var r=(o,e)=>l(o,"name",{value:e,configurable:!0});function n(o){return\`Hello, \${o}\`}r(n,"hello");console.log(n(process.argv[3]));
 
 `;
 

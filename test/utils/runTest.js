@@ -11,8 +11,9 @@ import { registerRawSnapshot } from "./registerRawSnapshot.js";
  */
 
 /** @param {IntegrationTestOptions} [options] */
-export function runIntegrationTest({ env } = {}) {
-  const { testPath } = expect.getState();
+export function runIntegrationTest(options = {}) {
+  const { env } = options;
+  const { testPath = "" } = expect.getState();
 
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);
@@ -44,8 +45,9 @@ export function runIntegrationTest({ env } = {}) {
  */
 
 /** @param {ErrorTestOptions} [options] */
-export function runErrorTest({ env } = {}) {
-  const { testPath } = expect.getState();
+export function runErrorTest(options = {}) {
+  const { env } = options;
+  const { testPath = "" } = expect.getState();
 
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);

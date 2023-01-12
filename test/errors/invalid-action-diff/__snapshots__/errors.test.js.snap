@@ -17,7 +17,10 @@ exports[`invalid-action-diff: output 1`] = `
 [FAILED] index abcdef0..abcdef1 123456
 [FAILED] --- a/test/errors/invalid-action-diff/dist/main.js
 [FAILED] +++ b/test/errors/invalid-action-diff/dist/main.js
-[FAILED] @@ -2 +2 @@
+[FAILED] @@ -0,0 +1,2 @@
+[FAILED] +"use strict";
+[FAILED] +
+[FAILED] @@ -2 +4 @@
 [FAILED] -console.log("Hello?");
 [FAILED] +console.log("Hello");
 `;

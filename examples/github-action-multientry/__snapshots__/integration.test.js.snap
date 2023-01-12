@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`github-action-multientry: dist 1`] = `
-Array [
+[
   "cleanup.js",
   "index.js",
   "setup.js",
@@ -9,6 +9,7 @@ Array [
 `;
 
 exports[`github-action-multientry: dist/cleanup.js 1`] = `
+"use strict";
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
@@ -22,6 +23,7 @@ cleanup();
 `;
 
 exports[`github-action-multientry: dist/index.js 1`] = `
+"use strict";
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
@@ -35,6 +37,7 @@ main();
 `;
 
 exports[`github-action-multientry: dist/setup.js 1`] = `
+"use strict";
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: !0 });
 
