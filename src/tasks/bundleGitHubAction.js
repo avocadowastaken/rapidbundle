@@ -32,7 +32,6 @@ export async function* bundleGitHubAction(cwd, actionYML) {
     ],
 
     treeShaking: true,
-    minifySyntax: true,
     define: {
       "process.env.NODE_ENV": JSON.stringify("production"),
     },
