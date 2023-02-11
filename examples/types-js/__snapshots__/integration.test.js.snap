@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`types-js: dist 1`] = `
+exports[`types-js > dist 1`] = `
 [
   "hello.cjs",
   "hello.d.ts",
 ]
 `;
 
-exports[`types-js: dist/hello.cjs 1`] = `
+exports[`types-js > dist/hello.cjs 1`] = `
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -44,7 +44,7 @@ __name(hello, "hello");
 
 `;
 
-exports[`types-js: dist/hello.d.ts 1`] = `
+exports[`types-js > dist/hello.d.ts 1`] = `
 /**
  * @param {string} name
  * @returns {string}
@@ -55,7 +55,7 @@ export { hello };
 
 `;
 
-exports[`types-js: logs 1`] = `
+exports[`types-js > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

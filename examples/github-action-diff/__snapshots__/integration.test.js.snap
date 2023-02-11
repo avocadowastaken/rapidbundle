@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`github-action-diff: dist 1`] = `
+exports[`github-action-diff > dist 1`] = `
 [
   "main.js",
 ]
 `;
 
-exports[`github-action-diff: dist/main.js 1`] = `
+exports[`github-action-diff > dist/main.js 1`] = `
 "use strict";
 
 // src/main.ts
@@ -14,7 +14,7 @@ console.log("Hello");
 
 `;
 
-exports[`github-action-diff: logs 1`] = `
+exports[`github-action-diff > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

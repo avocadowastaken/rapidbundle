@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`module: dist 1`] = `
+exports[`module > dist 1`] = `
 [
   "index.js",
 ]
 `;
 
-exports[`module: dist/index.js 1`] = `
+exports[`module > dist/index.js 1`] = `
 // src/hello.ts
 function hello(name) {
   return \`Hello, \${name}\`;
@@ -17,7 +17,7 @@ export {
 
 `;
 
-exports[`module: logs 1`] = `
+exports[`module > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

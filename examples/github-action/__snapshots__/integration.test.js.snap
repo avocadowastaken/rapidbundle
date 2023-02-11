@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`github-action: dist 1`] = `
+exports[`github-action > dist 1`] = `
 [
   "main.js",
 ]
 `;
 
-exports[`github-action: dist/main.js 1`] = `
+exports[`github-action > dist/main.js 1`] = `
 "use strict";
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
@@ -51,7 +51,7 @@ main();
 
 `;
 
-exports[`github-action: logs 1`] = `
+exports[`github-action > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

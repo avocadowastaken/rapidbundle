@@ -1,3 +1,5 @@
+import { expect } from "vitest";
+
 /** @type {Set<string>} */
 const snapshots = new Set();
 
