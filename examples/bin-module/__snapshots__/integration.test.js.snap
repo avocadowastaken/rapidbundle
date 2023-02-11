@@ -1,18 +1,18 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`bin-module: dist 1`] = `
+exports[`bin-module > dist 1`] = `
 [
   "cli.js",
 ]
 `;
 
-exports[`bin-module: dist/cli.js 1`] = `
+exports[`bin-module > dist/cli.js 1`] = `
 #!/usr/bin/env node
 var l=Object.defineProperty;var r=(o,n)=>l(o,"name",{value:n,configurable:!0});function e(o){return\`Hello, \${o}\`}r(e,"hello");console.log(e(process.argv[3]));
 
 `;
 
-exports[`bin-module: logs 1`] = `
+exports[`bin-module > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`module-cjs: dist 1`] = `
+exports[`module-cjs > dist 1`] = `
 [
   "index.js",
 ]
 `;
 
-exports[`module-cjs: dist/index.js 1`] = `
+exports[`module-cjs > dist/index.js 1`] = `
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -32,7 +32,7 @@ export default require_src();
 
 `;
 
-exports[`module-cjs: logs 1`] = `
+exports[`module-cjs > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

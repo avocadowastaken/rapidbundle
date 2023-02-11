@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`universal: dist 1`] = `
+exports[`universal > dist 1`] = `
 [
   "index.cjs",
   "index.d.ts",
@@ -8,7 +8,7 @@ exports[`universal: dist 1`] = `
 ]
 `;
 
-exports[`universal: dist/index.cjs 1`] = `
+exports[`universal > dist/index.cjs 1`] = `
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -47,14 +47,14 @@ __name(hello, "hello");
 
 `;
 
-exports[`universal: dist/index.d.ts 1`] = `
+exports[`universal > dist/index.d.ts 1`] = `
 declare function hello(name: string): string;
 
 export { hello };
 
 `;
 
-exports[`universal: dist/index.js 1`] = `
+exports[`universal > dist/index.js 1`] = `
 // src/hello.ts
 function hello(name) {
   return \`Hello, \${name}\`;
@@ -65,7 +65,7 @@ export {
 
 `;
 
-exports[`universal: logs 1`] = `
+exports[`universal > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

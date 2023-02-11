@@ -1,25 +1,25 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`bin-multiple: dist 1`] = `
+exports[`bin-multiple > dist 1`] = `
 [
   "hello.js",
   "hi.js",
 ]
 `;
 
-exports[`bin-multiple: dist/hello.js 1`] = `
+exports[`bin-multiple > dist/hello.js 1`] = `
 #!/usr/bin/env node
 "use strict";console.log(\`Hello, \${process.argv[3]}\`);
 
 `;
 
-exports[`bin-multiple: dist/hi.js 1`] = `
+exports[`bin-multiple > dist/hi.js 1`] = `
 #!/usr/bin/env node
 "use strict";console.log(\`Hello, \${process.argv[3]}\`);
 
 `;
 
-exports[`bin-multiple: logs 1`] = `
+exports[`bin-multiple > logs 1`] = `
 [STARTED] Resolving build manifests
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'

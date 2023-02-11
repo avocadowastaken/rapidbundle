@@ -13,14 +13,13 @@
     "build": "node ./src/cli.js",
     "checks": "npm run format -- --no-write && npx tsc && npm run lint && npm run test && npm run e2e",
     "pree2e": "npm run build",
-    "e2e": "cross-env TEST_BUNDLE=true npm run jest",
+    "e2e": "cross-env TEST_BUNDLE=true npx vitest",
     "format": "prettier . --write --check",
-    "jest": "cross-env NODE_OPTIONS=\"--no-warnings --experimental-vm-modules\" jest",
     "lint": "eslint .",
     "prepare": "husky install",
     "release": "np --test-script checks",
-    "tdd": "npm run jest -- --watch",
-    "test": "c8 npm run jest --"
+    "tdd": "npx vitest",
+    "test": "npx vitest --coverage"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
@@ -36,6 +35,7 @@
     ],
     "rules": {
       "node/file-extension-in-import": "error",
+      "node/no-missing-import": "off",
       "node/no-unsupported-features/es-syntax": [
         "error",
         {
@@ -50,17 +50,12 @@
       {
         "files": [
           "test/**",
-          "*.spec.js"
+          "*.spec.js",
+          "vitest.config.js"
         ],
-        "env": {
-          "jest": true
-        },
         "rules": {
-          "node/no-extraneous-require": "off"
-        },
-        "globals": {
-          "runErrorTest": true,
-          "runIntegrationTest": true
+          "node/no-extraneous-require": "off",
+          "node/no-unpublished-import": "off"
         }
       }
     ]
@@ -70,24 +65,6 @@
     "examples",
     "src/cli.js"
   ],
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "/dist",
-      "<rootDir>/scripts/",
-      "<rootDir>/node_modules/"
-    ],
-    "resetMocks": true,
-    "resetModules": true,
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/setup.js"
-    ],
-    "testTimeout": 60000,
-    "transform": {},
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ]
-  },
   "dependencies": {
     "browserslist": "^4.21.4",
     "enquirer": "^2.3.6",
@@ -98,17 +75,14 @@
     "rollup-plugin-dts": "^5.1.1"
   },
   "devDependencies": {
-    "@types/jest": "29.2.6",
     "@types/js-yaml": "4.0.5",
     "@types/semver": "7.3.13",
     "@umidbekk/configs": "0.2.0",
-    "c8": "7.12.0",
+    "@vitest/coverage-c8": "0.28.4",
     "cross-env": "7.0.3",
     "eslint": "8.31.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "8.0.3",
-    "jest": "29.3.1",
-    "jest-watch-typeahead": "2.2.1",
     "lint-staged": "13.1.0",
     "lodash": "4.17.21",
     "np": "7.6.3",
@@ -118,6 +92,8 @@
     "prettier-plugin-packagejson": "2.3.0",
     "semver": "7.3.8",
     "strip-ansi": "7.0.1",
+    "vitest": "^0.28.4",
+    "vitest-github-actions-reporter": "^0.9.0",
     "zod": "3.20.2"
   },
   "optionalDependencies": {

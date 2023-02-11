@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "url";
+import { expect, test } from "vitest";
 import { exec } from "../../src/utils/exec.js";
 import { gitStatus } from "../../src/utils/git.js";
 import { execCLI } from "./execCLI.js";
@@ -10,11 +12,13 @@ import { registerRawSnapshot } from "./registerRawSnapshot.js";
  * @property {NodeJS.ProcessEnv} [env]
  */
 
-/** @param {IntegrationTestOptions} [options] */
-export function runIntegrationTest(options = {}) {
+/**
+ *  @param {string} fileUrl
+ * @param {IntegrationTestOptions} [options]
+ * */
+export function runIntegrationTest(fileUrl, options = {}) {
   const { env } = options;
-  const { testPath = "" } = expect.getState();
-
+  const testPath = fileURLToPath(fileUrl);
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);
   const distDir = path.join(fixtureDir, "dist");
@@ -44,11 +48,13 @@ export function runIntegrationTest(options = {}) {
  * @property {NodeJS.ProcessEnv} [env]
  */
 
-/** @param {ErrorTestOptions} [options] */
-export function runErrorTest(options = {}) {
+/**
+ * @param {string} fileUrl
+ * @param {ErrorTestOptions} [options]
+ * */
+export function runErrorTest(fileUrl, options = {}) {
   const { env } = options;
-  const { testPath = "" } = expect.getState();
-
+  const testPath = fileURLToPath(fileUrl);
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);
   const distDir = path.join(fixtureDir, "dist");
