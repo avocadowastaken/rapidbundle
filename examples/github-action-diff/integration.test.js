@@ -1,3 +1,3 @@
-import { runIntegrationTest } from "../../test/utils/runTest.js";
+import { testExample } from "../../test/testExample.js";
 
-runIntegrationTest(import.meta.url, { env: { CI: "true" } });
+testExample(import.meta.url, { env: { CI: "true" } });

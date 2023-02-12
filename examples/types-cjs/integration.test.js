@@ -1,3 +1,3 @@
-import { runIntegrationTest } from "../../test/utils/runTest";
+import { testExample } from "../../test/testExample.js";
 
-runIntegrationTest(import.meta.url);
+testExample(import.meta.url);
