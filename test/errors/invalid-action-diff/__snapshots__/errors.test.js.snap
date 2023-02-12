@@ -23,4 +23,6 @@ exports[`invalid-action-diff > output 1`] = `
 [FAILED] @@ -2 +4 @@
 [FAILED] -console.log("Hello?");
 [FAILED] +console.log("Hello");
+------
+Exit Code: 1
 `;

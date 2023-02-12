@@ -108,4 +108,6 @@ exports[`dependencies > logs 1`] = `
 [DATA] Setting build target: chrome<version>, edge<version>, firefox<version>, ios<version>, safari<version>
 [SUCCESS] Making '.module' entry bundle
 [SUCCESS] Making bundle from 'package.json'
+------
+Exit Code: 0
 `;

@@ -31,7 +31,7 @@ function cleanupLogs(input) {
  * @param {string} cwd
  * @param {string[]} [args]
  * @param {NodeJS.ProcessEnv} [env]
- * @returns {Promise<[stdout: string, exitCode: number]>}
+ * @returns {Promise<string>}
  */
 export async function execCLI(cwd, args = [], env = { CI: "false" }) {
   const [rawStdout, exitCode] = await execNode(BIN, args, {
@@ -39,9 +39,8 @@ export async function execCLI(cwd, args = [], env = { CI: "false" }) {
     env: { ...env, BROWSERSLIST_IGNORE_OLD_DATA: "true" },
   });
 
-  const output = cleanupLogs(rawStdout);
-
+  const cleanStdout = cleanupLogs(rawStdout);
+  const output = `${cleanStdout}\n------\nExit Code: ${exitCode}`;
   registerRawSnapshot(output);
-
-  return [output, exitCode];
+  return output;
 }

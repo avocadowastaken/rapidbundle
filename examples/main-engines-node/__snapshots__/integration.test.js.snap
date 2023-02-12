@@ -65,4 +65,6 @@ exports[`main-engines-node > logs 1`] = `
 [DATA] Setting output file: ./dist/index.js
 [SUCCESS] Making '.main' entry bundle
 [SUCCESS] Making bundle from 'package.json'
+------
+Exit Code: 0
 `;

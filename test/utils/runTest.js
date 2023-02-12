@@ -24,10 +24,9 @@ export function runIntegrationTest(fileUrl, options = {}) {
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const [output, exitCode] = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, [], env);
 
     expect(output).toMatchSnapshot("logs");
-    expect(exitCode).toBe(0);
 
     const distFiles = await fs.readdir(distDir);
 
@@ -60,10 +59,9 @@ export function runErrorTest(fileUrl, options = {}) {
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const [output, exitCode] = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, [], env);
 
     expect(output).toMatchSnapshot("output");
-    expect(exitCode).toBe(1);
 
     const status = await gitStatus(distDir);
 
