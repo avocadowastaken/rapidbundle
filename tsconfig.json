@@ -1,7 +1,7 @@
 {
   "extends": "@umidbekk/configs/tsconfig.json",
-  "include": ["src", "test", "scripts"],
-  "exclude": ["test/errors"],
+  "include": ["src", "test", "examples/*/integration.test.js"],
+  "exclude": ["test/errors/*/src", "test/errors/*/dist"],
   "compilerOptions": {
     // Support ES modules
     "module": "ES2020",
