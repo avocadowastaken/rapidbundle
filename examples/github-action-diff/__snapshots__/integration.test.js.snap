@@ -27,4 +27,6 @@ exports[`github-action-diff > logs 1`] = `
 [DATA] Using '.runs.using' entry: node16
 [DATA] Checking build difference
 [SUCCESS] Making bundle from 'action.yml'
+------
+Exit Code: 0
 `;

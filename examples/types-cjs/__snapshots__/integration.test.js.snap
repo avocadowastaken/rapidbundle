@@ -57,4 +57,6 @@ exports[`types-cjs > logs 1`] = `
 [DATA] Bundle into single 'd.ts' file
 [SUCCESS] Making '.types' entry bundle
 [SUCCESS] Making bundle from 'package.json'
+------
+Exit Code: 0
 `;

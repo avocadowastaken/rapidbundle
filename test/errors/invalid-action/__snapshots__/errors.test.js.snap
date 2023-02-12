@@ -6,4 +6,6 @@ exports[`invalid-action > output 1`] = `
 [FAILED] Invalid 'action.yml':
 [FAILED]   '.runs.main': expected to be in the 'dist' directory, received 'action.js'
 [FAILED]   '.runs.using': expected "'node12' | 'node16'", received "undefined"
+------
+Exit Code: 1
 `;

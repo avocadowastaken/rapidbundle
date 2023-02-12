@@ -13,13 +13,13 @@
     "build": "node ./src/cli.js",
     "checks": "npm run format -- --no-write && npx tsc && npm run lint && npm run test && npm run e2e",
     "pree2e": "npm run build",
-    "e2e": "cross-env TEST_BUNDLE=true npx vitest",
+    "e2e": "cross-env TEST_BUNDLE=true npx vitest --run",
     "format": "prettier . --write --check",
     "lint": "eslint .",
     "prepare": "husky install",
     "release": "np --test-script checks",
-    "tdd": "npx vitest",
-    "test": "npx vitest --coverage"
+    "tdd": "npx vitest --watch",
+    "test": "npx vitest --run --coverage"
   },
   "lint-staged": {
     "*.js": "eslint --fix",

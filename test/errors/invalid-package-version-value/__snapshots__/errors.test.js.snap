@@ -5,4 +5,6 @@ exports[`invalid-package-version-value > output 1`] = `
 [DATA] Checking 'action.yml'
 [DATA] Checking 'package.json'
 [FAILED] Invalid 'package.json': '.engines.node': expected "string", received "number"
+------
+Exit Code: 1
 `;

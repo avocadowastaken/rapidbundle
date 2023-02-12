@@ -63,4 +63,6 @@ exports[`github-action > logs 1`] = `
 [DATA] Using '.runs.main' entry: ./src/main.ts
 [DATA] Using '.runs.using' entry: node16
 [SUCCESS] Making bundle from 'action.yml'
+------
+Exit Code: 0
 `;
