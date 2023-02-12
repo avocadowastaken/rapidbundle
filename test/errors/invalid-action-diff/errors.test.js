@@ -1,3 +1,3 @@
-import { runErrorTest } from "../../utils/runTest.js";
+import { testError } from "../../testError.js";
 
-runErrorTest(import.meta.url, { env: { CI: true } });
+testError(import.meta.url, { env: { CI: true } });
