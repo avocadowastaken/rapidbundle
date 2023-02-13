@@ -2,8 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "url";
 import { expect, test } from "vitest";
-import { execCLI } from "./utils/execCLI.js";
-import { registerRawSnapshot } from "./utils/registerRawSnapshot.js";
+import { execCLI } from "./utils/execCLI";
+import { registerRawSnapshot } from "./utils/registerRawSnapshot";
 
 export function testExample(fileUrl: string, isCI?: boolean) {
   const testPath = fileURLToPath(fileUrl);

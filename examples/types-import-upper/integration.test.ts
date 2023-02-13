@@ -1,3 +1,3 @@
-import { testExample } from "../../test/testExample.js";
+import { testExample } from "../../test/testExample";
 
 testExample(import.meta.url);

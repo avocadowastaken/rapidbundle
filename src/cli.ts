@@ -1,2 +1,9 @@
 #!/usr/bin/env node
-import("./index");
+import { run } from "./index";
+
+run({
+  cwd: process.cwd(),
+  isCI: process.env["CI"] === "true",
+}).catch(() => {
+  process.exitCode = 1;
+});
