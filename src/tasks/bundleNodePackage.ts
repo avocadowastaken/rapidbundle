@@ -18,6 +18,7 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
   const baseOptions: BuildOptions = {
     bundle: true,
     logLevel: "silent",
+    absWorkingDir: cwd,
   };
 
   const baseNodeOptions: BuildOptions = {

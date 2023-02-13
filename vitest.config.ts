@@ -7,5 +7,12 @@ export default defineConfig({
     reporters: process.env["GITHUB_ACTIONS"]
       ? ["default", new GithubActionsReporter()]
       : "default",
+
+    coverage: {
+      branches: 91,
+      functions: 100,
+      lines: 95,
+      statements: 95,
+    },
   },
 });

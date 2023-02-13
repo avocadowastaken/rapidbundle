@@ -5,6 +5,7 @@ import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path";
 
 export async function* bundleGitHubAction(
   cwd: string,
+  isCI: boolean,
   actionYML: ActionYML
 ): AsyncGenerator<string, void> {
   const distDir = getDistDir(cwd);
@@ -16,6 +17,7 @@ export async function* bundleGitHubAction(
     outdir: distDir,
     keepNames: true,
     platform: "node",
+    absWorkingDir: cwd,
 
     external: [
       // Optional dependency of the `node-fetch`.
@@ -53,7 +55,7 @@ export async function* bundleGitHubAction(
 
   await esbuild.build(options);
 
-  if (process.env["CI"] === "true") {
+  if (isCI) {
     yield "Checking build difference";
 
     const status = await gitStatus(distDir);

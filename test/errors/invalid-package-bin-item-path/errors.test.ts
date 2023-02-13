@@ -1,3 +1,3 @@
-import { testError } from "../../testError.js";
+import { testError } from "../../testError";
 
 testError(import.meta.url);
