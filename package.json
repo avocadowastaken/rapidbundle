@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "node ./src/cli.js",
+    "build": "tsx ./src/cli.ts",
     "checks": "npm run format -- --no-write && npx tsc && npm run lint && npm run test && npm run e2e",
     "pree2e": "npm run build",
     "e2e": "cross-env TEST_BUNDLE=true npx vitest --run",
@@ -22,7 +22,7 @@
     "test": "npx vitest --run --coverage"
   },
   "lint-staged": {
-    "*.js": "eslint --fix",
+    "*.{js,ts}": "eslint --fix",
     "*.*": "prettier --write --ignore-unknown"
   },
   "eslintConfig": {
@@ -49,9 +49,33 @@
     "overrides": [
       {
         "files": [
+          "*.ts"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "extends": [
+          "eslint:recommended",
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "rules": {
+          "node/file-extension-in-import": "off"
+        }
+      },
+      {
+        "files": [
+          "src/cli.ts"
+        ],
+        "rules": {
+          "node/shebang": "off"
+        }
+      },
+      {
+        "files": [
           "test/**",
-          "*.spec.js",
-          "vitest.config.js"
+          "*.spec.ts",
+          "vitest.config.ts"
         ],
         "rules": {
           "node/no-extraneous-require": "off",
@@ -77,6 +101,8 @@
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
     "@types/semver": "7.3.13",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "@umidbekk/configs": "0.2.0",
     "@vitest/coverage-c8": "0.28.4",
     "cross-env": "7.0.3",
@@ -92,6 +118,7 @@
     "prettier-plugin-packagejson": "2.3.0",
     "semver": "7.3.8",
     "strip-ansi": "7.0.1",
+    "tsx": "^3.12.3",
     "vitest": "^0.28.4",
     "vitest-github-actions-reporter": "^0.9.0",
     "zod": "3.20.2"

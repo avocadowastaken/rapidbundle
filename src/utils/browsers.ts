@@ -4,31 +4,26 @@ const BROWSERSLIST_ESBUILD_NAMES = {
   firefox: "firefox",
   ios_saf: "ios",
   safari: "safari",
-};
+} as const;
 
-/**
- * @param {string | string[]} input
- * @returns {Promise<string[]>}
- */
-export async function getESBuildBrowsers(input) {
+export async function getESBuildBrowsers(
+  input: string | string[]
+): Promise<string[]> {
   const { default: browserslist } = await import("browserslist");
   const browsers = browserslist(input, { mobileToDesktop: true });
 
-  /** @type {Map<string, string>} */
-  const targets = new Map();
+  const targets = new Map<string, string>();
 
   for (const browser of browsers) {
-    const [name, versionRange] =
-      /** @type {[keyof typeof BROWSERSLIST_ESBUILD_NAMES, string]}*/ (
-        browser.split(" ")
-      );
+    const [name, versionRange] = browser.split(" ", 2) as [
+      keyof typeof BROWSERSLIST_ESBUILD_NAMES,
+      string
+    ];
 
     const target = BROWSERSLIST_ESBUILD_NAMES[name];
 
     if (target) {
-      const [version] = /** @type {[string, ...string[]]} */ (
-        versionRange.split("-")
-      );
+      const [version] = versionRange.split("-", 2) as [string, string];
 
       targets.set(target, version);
     }

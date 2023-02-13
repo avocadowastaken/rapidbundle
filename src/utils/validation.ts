@@ -1,4 +1,10 @@
-import { setErrorMap, ZodError, ZodIssueCode } from "zod";
+import {
+  setErrorMap,
+  ZodError,
+  ZodInvalidTypeIssue,
+  ZodIssueBase,
+  ZodIssueCode,
+} from "zod";
 
 setErrorMap((error, ctx) => {
   switch (error.code) {
@@ -18,25 +24,16 @@ setErrorMap((error, ctx) => {
   return { message: ctx.defaultError };
 });
 
-/**
- * @param {import('zod').ZodIssueBase} issue
- * @returns {string}
- */
-function formatZodIssue(issue) {
+function formatZodIssue(issue: ZodIssueBase): string {
   return `'.${issue.path.join(".")}': ${issue.message}`;
 }
 
-/**
- * @param {import('zod').ZodError} error
- * @returns {Generator<string, number, void>}
- */
-function* extractZodErrors(error) {
+function* extractZodErrors(error: ZodError): Generator<string, number, void> {
   let issues = 0;
 
   for (const issue of error.issues) {
     if (issue.code === ZodIssueCode.invalid_union) {
-      /** @type {import('zod').ZodInvalidTypeIssue[]} */
-      const typeIssues = [];
+      const typeIssues: ZodInvalidTypeIssue[] = [];
       let nonTypeIssues = 0;
 
       for (const unionError of issue.unionErrors) {
@@ -67,12 +64,8 @@ function* extractZodErrors(error) {
 }
 
 export class ValidationError extends Error {
-  /**
-   * @param {string} message
-   * @param {unknown} originalError
-   */
-  constructor(message, originalError) {
-    let errorMessage =
+  constructor(message: string, originalError: unknown) {
+    const errorMessage =
       originalError instanceof ZodError
         ? Array.from(extractZodErrors(originalError)).join("\n")
         : originalError instanceof Error

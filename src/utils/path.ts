@@ -1,23 +1,15 @@
 import { createRequire } from "node:module";
 import path from "node:path";
-import { isFile } from "./fs.js";
+import { isFile } from "./fs";
 
 const SRC_DIR = "src";
 const DIST_DIR = "dist";
 
-/**
- * @param {string} rootDir
- * @returns {string}
- */
-export function getDistDir(rootDir) {
+export function getDistDir(rootDir: string): string {
   return path.join(rootDir, DIST_DIR);
 }
 
-/**
- * @param {string} outputFileExtension
- * @return {string[]}
- */
-function getEntryExtensions(outputFileExtension) {
+function getEntryExtensions(outputFileExtension: string): string[] {
   switch (outputFileExtension) {
     case ".cjs":
       return [".cts", ".cjs", ".ts", ".tsx", ".js"];
@@ -31,11 +23,10 @@ function getEntryExtensions(outputFileExtension) {
   }
 }
 
-/**
- * @param {string} entry
- * @param {string[]} extensions
- */
-async function resolveFile(entry, extensions) {
+async function resolveFile(
+  entry: string,
+  extensions: string[]
+): Promise<string> {
   for (const extension of extensions) {
     const entryPath = entry + extension;
 
@@ -47,12 +38,10 @@ async function resolveFile(entry, extensions) {
   return entry;
 }
 
-/**
- * @param {string} baseDir
- * @param {string} outputFile
- * @return {Promise<string>}
- */
-export async function resolveEntry(baseDir, outputFile) {
+export async function resolveEntry(
+  baseDir: string,
+  outputFile: string
+): Promise<string> {
   const outputFileExt = path.extname(outputFile);
   const entryExtensions = getEntryExtensions(outputFileExt);
   const entryName = path.basename(outputFile, outputFileExt);
@@ -61,26 +50,20 @@ export async function resolveEntry(baseDir, outputFile) {
   return resolveFile(entry, entryExtensions);
 }
 
-/**
- * @param {string} rootDir
- * @param {string} input
- * @returns {string}
- */
-export function formatRelativePath(rootDir, input) {
+export function formatRelativePath(rootDir: string, input: string): string {
   return `./${path.relative(rootDir, input).replace(/\\/g, "/")}`;
 }
 
-/**
- * @param {string} cwd
- * @param {string} id
- * @param {string} [bin]
- * @returns {string}
- */
-export function resolvePackageBin(cwd, id, bin = id) {
+export function resolvePackageBin(
+  cwd: string,
+  id: string,
+  bin: string = id
+): string {
   const require = createRequire(path.join(cwd, "package.json"));
   const packageJSONPath = require.resolve(`${id}/package.json`);
-  /** @type {{ bin?: string | Record<string, string> }} */
-  const packageJSON = require(packageJSONPath);
+  const packageJSON = require(packageJSONPath) as {
+    bin?: string | Record<string, string>;
+  };
 
   const binPath =
     typeof packageJSON.bin === "string"

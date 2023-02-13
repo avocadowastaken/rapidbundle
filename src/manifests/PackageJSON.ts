@@ -2,8 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import semver from "semver";
 import { z } from "zod";
-import { isFile } from "../utils/fs.js";
-import { ValidationError } from "../utils/validation.js";
+import { isFile } from "../utils/fs";
+import { ValidationError } from "../utils/validation";
 
 const packageEntrySchema = z
   .string()
@@ -15,6 +15,7 @@ const packageEntrySchema = z
     })
   );
 
+export type PackageJSON = z.infer<typeof packageJSONSchema>;
 const packageJSONSchema = z.object({
   bin: z.preprocess(
     (input) => (typeof input == "string" ? { "": input } : input),
@@ -51,13 +52,7 @@ const packageJSONSchema = z.object({
   optionalDependencies: z.record(z.string()).default({}),
 });
 
-/** @typedef {z.infer<typeof packageJSONSchema>} PackageJSON */
-
-/**
- *  @param {string} packagePath
- *  @returns {Promise<PackageJSON>}
- */
-async function readPackageJSON(packagePath) {
+async function readPackageJSON(packagePath: string): Promise<PackageJSON> {
   try {
     const content = await fs.readFile(packagePath, "utf-8");
     return packageJSONSchema.parse(JSON.parse(content));
@@ -66,11 +61,9 @@ async function readPackageJSON(packagePath) {
   }
 }
 
-/**
- * @param {string} cwd
- * @returns {Promise<undefined | PackageJSON>}
- */
-export async function tryParsePackageJSON(cwd) {
+export async function tryParsePackageJSON(
+  cwd: string
+): Promise<undefined | PackageJSON> {
   const packagePath = path.join(cwd, "package.json");
   return (await isFile(packagePath)) ? readPackageJSON(packagePath) : undefined;
 }
