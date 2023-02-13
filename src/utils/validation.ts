@@ -64,13 +64,23 @@ function* extractZodErrors(error: ZodError): Generator<string, number, void> {
 }
 
 export class ValidationError extends Error {
-  constructor(message: string, originalError: unknown) {
+  public static process(message: string, reason: unknown): void {
+    if (reason instanceof Error) {
+      if ("code" in reason && reason.code === "ENOENT") {
+        return;
+      }
+
+      throw new ValidationError(message, reason);
+    }
+
+    throw reason;
+  }
+
+  constructor(message: string, originalError: Error) {
     const errorMessage =
       originalError instanceof ZodError
         ? Array.from(extractZodErrors(originalError)).join("\n")
-        : originalError instanceof Error
-        ? originalError.message
-        : null;
+        : originalError.message;
 
     if (!errorMessage) {
       super(message);

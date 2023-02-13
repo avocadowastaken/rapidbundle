@@ -13,13 +13,13 @@
     "build": "tsx ./src/cli.ts",
     "checks": "npm run format -- --no-write && npx tsc && npm run lint && npm run test && npm run e2e",
     "pree2e": "npm run build",
-    "e2e": "cross-env TEST_BUNDLE=true npx vitest --run",
+    "e2e": "cross-env TEST_BUNDLE=true npx vitest run",
     "format": "prettier . --write --check",
     "lint": "eslint .",
     "prepare": "husky install",
     "release": "np --test-script checks",
-    "tdd": "npx vitest --watch",
-    "test": "npx vitest --run --coverage"
+    "tdd": "npx vitest watch",
+    "test": "npx vitest run --coverage"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
@@ -90,41 +90,41 @@
     "src/cli.js"
   ],
   "dependencies": {
-    "browserslist": "^4.21.4",
+    "browserslist": "^4.21.5",
     "enquirer": "^2.3.6",
-    "esbuild": "^0.16.17",
+    "esbuild": "^0.17.8",
     "js-yaml": "^4.1.0",
-    "listr2": "^5.0.6",
-    "rollup": "^3.10.0",
-    "rollup-plugin-dts": "^5.1.1"
+    "listr2": "^5.0.7",
+    "rollup": "^3.15.0",
+    "rollup-plugin-dts": "^5.2.0"
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
     "@types/semver": "7.3.13",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "5.52.0",
+    "@typescript-eslint/parser": "5.52.0",
     "@umidbekk/configs": "0.2.0",
-    "@vitest/coverage-c8": "0.28.4",
+    "@vitest/coverage-c8": "0.28.5",
     "cross-env": "7.0.3",
-    "eslint": "8.31.0",
+    "eslint": "8.34.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "8.0.3",
-    "lint-staged": "13.1.0",
+    "lint-staged": "13.1.2",
     "lodash": "4.17.21",
     "np": "7.6.3",
-    "prettier": "2.8.2",
+    "prettier": "2.8.4",
     "prettier-plugin-jsdoc": "0.4.2",
-    "prettier-plugin-organize-imports": "3.2.1",
-    "prettier-plugin-packagejson": "2.3.0",
+    "prettier-plugin-organize-imports": "3.2.2",
+    "prettier-plugin-packagejson": "2.4.3",
     "semver": "7.3.8",
     "strip-ansi": "7.0.1",
-    "tsx": "^3.12.3",
-    "vitest": "^0.28.4",
-    "vitest-github-actions-reporter": "^0.9.0",
-    "zod": "3.20.2"
+    "tsx": "3.12.3",
+    "vitest": "0.28.5",
+    "vitest-github-actions-reporter": "0.9.0",
+    "zod": "3.20.6"
   },
   "optionalDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=14.19",

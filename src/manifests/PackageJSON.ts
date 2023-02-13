@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import semver from "semver";
 import { z } from "zod";
-import { isFile } from "../utils/fs";
 import { ValidationError } from "../utils/validation";
 
 const packageEntrySchema = z
@@ -52,18 +51,15 @@ const packageJSONSchema = z.object({
   optionalDependencies: z.record(z.string()).default({}),
 });
 
-async function readPackageJSON(packagePath: string): Promise<PackageJSON> {
-  try {
-    const content = await fs.readFile(packagePath, "utf-8");
-    return packageJSONSchema.parse(JSON.parse(content));
-  } catch (error) {
-    throw new ValidationError("Invalid 'package.json'", error);
-  }
-}
-
 export async function tryParsePackageJSON(
   cwd: string
 ): Promise<undefined | PackageJSON> {
-  const packagePath = path.join(cwd, "package.json");
-  return (await isFile(packagePath)) ? readPackageJSON(packagePath) : undefined;
+  try {
+    const packagePath = path.join(cwd, "package.json");
+    const content = await fs.readFile(packagePath, "utf-8");
+    return packageJSONSchema.parse(JSON.parse(content));
+  } catch (error) {
+    ValidationError.process("Invalid 'package.json'", error);
+    return undefined;
+  }
 }
