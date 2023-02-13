@@ -96,7 +96,9 @@
     "js-yaml": "^4.1.0",
     "listr2": "^5.0.7",
     "rollup": "^3.15.0",
-    "rollup-plugin-dts": "^5.2.0"
+    "rollup-plugin-dts": "^5.2.0",
+    "semver": "^7.3.8",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
@@ -116,12 +118,10 @@
     "prettier-plugin-jsdoc": "0.4.2",
     "prettier-plugin-organize-imports": "3.2.2",
     "prettier-plugin-packagejson": "2.4.3",
-    "semver": "7.3.8",
     "strip-ansi": "7.0.1",
     "tsx": "3.12.3",
     "vitest": "0.28.5",
-    "vitest-github-actions-reporter": "0.9.0",
-    "zod": "3.20.6"
+    "vitest-github-actions-reporter": "0.9.0"
   },
   "optionalDependencies": {
     "typescript": "^4.9.5"
