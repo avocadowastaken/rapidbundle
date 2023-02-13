@@ -158,9 +158,7 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
         }
 
         {
-          options.target = await getESBuildBrowsers(
-            "defaults, Firefox ESR, not IE 11"
-          );
+          options.target = await getESBuildBrowsers("defaults, Firefox ESR");
 
           task.output = `Setting build target: ${options.target.join(", ")}`;
         }
