@@ -1,6 +1,6 @@
 {
   "extends": "@umidbekk/configs/tsconfig.json",
-  "include": ["src", "test", "examples/*/integration.test.js"],
+  "include": ["src", "test", "examples/*/integration.test.ts"],
   "exclude": ["test/errors/*/src", "test/errors/*/dist"],
   "compilerOptions": {
     // Support ES modules

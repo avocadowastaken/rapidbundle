@@ -6,23 +6,13 @@ import { gitStatus } from "../src/utils/git.js";
 import { getDistDir } from "../src/utils/path.js";
 import { execCLI } from "./utils/execCLI.js";
 
-/**
- * @typedef {object} ErrorTestOptions
- * @property {NodeJS.ProcessEnv} [env]
- */
-
-/**
- * @param {string} fileUrl
- * @param {ErrorTestOptions} [options]
- * */
-export function testError(fileUrl, options = {}) {
-  const { env } = options;
+export function testError(fileUrl: string, isCI?: boolean) {
   const testPath = fileURLToPath(fileUrl);
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);
 
   test(fixtureName, async () => {
-    const output = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, isCI);
 
     expect(output).toMatchSnapshot("output");
   });

@@ -1,24 +1,15 @@
-import esbuild from "esbuild";
-import { gitDiff, gitStatus } from "../utils/git.js";
-import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path.js";
+import esbuild, { BuildOptions } from "esbuild";
+import type { ActionYML } from "../manifests/ActionYML";
+import { gitDiff, gitStatus } from "../utils/git";
+import { formatRelativePath, getDistDir, resolveEntry } from "../utils/path";
 
-/**
- * @typedef {object} GitHubActionBundleOptions
- * @property {string} entryPoint
- * @property {string} outputFile
- * @property {string} targetVersion
- */
-
-/**
- * @param {string} cwd
- * @param {import("../manifests/ActionYML.js").ActionYML} actionYML
- * @returns {AsyncGenerator<string, void>}
- */
-export async function* bundleGitHubAction(cwd, actionYML) {
+export async function* bundleGitHubAction(
+  cwd: string,
+  actionYML: ActionYML
+): AsyncGenerator<string, void> {
   const distDir = getDistDir(cwd);
 
-  /** @type {esbuild.BuildOptions}*/
-  const options = {
+  const options: BuildOptions = {
     logLevel: "silent",
 
     bundle: true,

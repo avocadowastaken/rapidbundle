@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
-import { isFile } from "../utils/fs.js";
-import { ValidationError } from "../utils/validation.js";
+import { isFile } from "../utils/fs";
+import { ValidationError } from "../utils/validation";
 
 const actionEntrySchema = z.string().refine(
   (value) => path.posix.normalize(value).startsWith("dist/"),
@@ -11,7 +11,8 @@ const actionEntrySchema = z.string().refine(
   })
 );
 
-const actionYAMLSchema = z.object({
+export type ActionYML = z.infer<typeof actionYMLSchema>;
+const actionYMLSchema = z.object({
   runs: z.object({
     main: actionEntrySchema,
     pre: actionEntrySchema.optional(),
@@ -21,27 +22,19 @@ const actionYAMLSchema = z.object({
   }),
 });
 
-/**
- * @param {string} manifestPath
- * @returns {Promise<ActionYML>}
- */
-async function readActionYML(manifestPath) {
+async function readActionYML(manifestPath: string): Promise<ActionYML> {
   try {
     const yaml = await import("js-yaml");
     const content = await fs.readFile(manifestPath, "utf-8");
-    return actionYAMLSchema.parse(yaml.load(content));
+    return actionYMLSchema.parse(yaml.load(content));
   } catch (error) {
     throw new ValidationError("Invalid 'action.yml'", error);
   }
 }
 
-/** @typedef {z.infer<typeof actionYAMLSchema>} ActionYML */
-
-/**
- * @param {string} cwd
- * @returns {Promise<undefined | ActionYML>}
- */
-export async function tryParseActionYML(cwd) {
+export async function tryParseActionYML(
+  cwd: string
+): Promise<undefined | ActionYML> {
   const manifestPath = path.join(cwd, "action.yml");
   return (await isFile(manifestPath)) ? readActionYML(manifestPath) : undefined;
 }

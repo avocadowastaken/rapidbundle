@@ -1,21 +1,19 @@
 import { Listr } from "listr2";
 import assert from "node:assert";
-import { tryParseActionYML } from "./manifests/ActionYML.js";
-import { tryParsePackageJSON } from "./manifests/PackageJSON.js";
-import { bundleGitHubAction } from "./tasks/bundleGitHubAction.js";
-import { bundleNodePackage } from "./tasks/bundleNodePackage.js";
-import { rmrf } from "./utils/fs.js";
-import { getDistDir } from "./utils/path.js";
+import { ActionYML, tryParseActionYML } from "./manifests/ActionYML";
+import { PackageJSON, tryParsePackageJSON } from "./manifests/PackageJSON";
+import { bundleGitHubAction } from "./tasks/bundleGitHubAction";
+import { bundleNodePackage } from "./tasks/bundleNodePackage";
+import { rmrf } from "./utils/fs";
+import { getDistDir } from "./utils/path";
 
-/**
- * @typedef {object} TasksContext
- * @property {string} cwd
- * @property {import('./manifests/PackageJSON.js').PackageJSON} [packageJSON]
- * @property {import('./manifests/ActionYML.js').ActionYML} [actionYML]
- */
+type TasksContext = {
+  cwd: string;
+  actionYML: undefined | ActionYML;
+  packageJSON: undefined | PackageJSON;
+};
 
-/** @type {Listr<TasksContext>} */
-const tasks = new Listr(
+const tasks = new Listr<TasksContext>(
   [
     {
       title: "Resolving build manifests",
@@ -75,6 +73,8 @@ const tasks = new Listr(
   }
 );
 
-tasks.run({ cwd: process.cwd() }).catch(() => {
-  process.exitCode = 1;
-});
+tasks
+  .run({ cwd: process.cwd(), actionYML: undefined, packageJSON: undefined })
+  .catch(() => {
+    process.exitCode = 1;
+  });

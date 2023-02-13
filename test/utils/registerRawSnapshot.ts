@@ -1,7 +1,6 @@
 import { expect } from "vitest";
 
-/** @type {Set<string>} */
-const snapshots = new Set();
+const snapshots = new Set<string>();
 
 expect.addSnapshotSerializer({
   test(value) {
@@ -12,7 +11,6 @@ expect.addSnapshotSerializer({
   },
 });
 
-/** @param {string} value */
-export function registerRawSnapshot(value) {
+export function registerRawSnapshot(value: string): void {
   snapshots.add(value);
 }

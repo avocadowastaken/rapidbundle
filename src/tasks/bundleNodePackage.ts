@@ -1,30 +1,25 @@
-import esbuild from "esbuild";
+import esbuild, { BuildOptions } from "esbuild";
 import { Listr } from "listr2";
 import assert from "node:assert";
 import path from "node:path";
-import { getESBuildBrowsers } from "../utils/browsers.js";
-import { execNode } from "../utils/exec.js";
-import { rmrf } from "../utils/fs.js";
+import type { PackageJSON } from "../manifests/PackageJSON";
+import { getESBuildBrowsers } from "../utils/browsers";
+import { execNode } from "../utils/exec";
+import { rmrf } from "../utils/fs";
 import {
   formatRelativePath,
   getDistDir,
   resolveEntry,
   resolvePackageBin,
-} from "../utils/path.js";
+} from "../utils/path";
 
-/**
- * @param {string} cwd
- * @param {import('../manifests/PackageJSON.js').PackageJSON} packageJSON
- * */
-export function bundleNodePackage(cwd, packageJSON) {
-  /** @type {esbuild.BuildOptions} */
-  const baseOptions = {
+export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
+  const baseOptions: BuildOptions = {
     bundle: true,
     logLevel: "silent",
   };
 
-  /** @type {esbuild.BuildOptions} */
-  const baseNodeOptions = {
+  const baseNodeOptions: BuildOptions = {
     format: "cjs",
     target: "node12",
     platform: "node",
@@ -38,27 +33,21 @@ export function bundleNodePackage(cwd, packageJSON) {
       title: "Parsing 'package.json'",
       task(_, task) {
         {
-          /** @type {ReadonlyArray<'dependencies' | 'peerDependencies' | 'optionalDependencies'>} */
           const dependenciesFields = [
             "dependencies",
             "peerDependencies",
             "optionalDependencies",
-          ];
+          ] as const;
 
           baseOptions.external = [];
 
           for (const field of dependenciesFields) {
-            const dependencies = packageJSON[field];
-
-            if (dependencies) {
-              const external = Object.keys(dependencies);
-
-              if (external.length) {
-                baseOptions.external.push(...external);
-                task.output = `Using ".${field}" as external: ${external.join(
-                  ", "
-                )}`;
-              }
+            const external = Object.keys(packageJSON[field]);
+            if (external.length) {
+              baseOptions.external.push(...external);
+              task.output = `Using ".${field}" as external: ${external.join(
+                ", "
+              )}`;
             }
           }
         }
@@ -76,8 +65,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         return !!packageJSON.bin;
       },
       async task(_, task) {
-        /** @type {esbuild.BuildOptions} */
-        const options = {
+        const options: BuildOptions = {
           ...baseOptions,
           ...baseNodeOptions,
 
@@ -89,21 +77,15 @@ export function bundleNodePackage(cwd, packageJSON) {
 
         options.entryPoints = [];
 
-        if (typeof packageJSON.bin == "string") {
-          const entry = await resolveEntry(cwd, packageJSON.bin);
-          task.output = `Using '.bin' entry: ${formatRelativePath(cwd, entry)}`;
-          options.entryPoints.push(entry);
-        } else {
-          const bins = Object.entries(packageJSON.bin);
+        const bins = Object.entries(packageJSON.bin);
 
-          for (const [name, bin] of bins) {
-            const entry = await resolveEntry(cwd, bin);
-            options.entryPoints.push(entry);
-            task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
-              cwd,
-              entry
-            )}`;
-          }
+        for (const [name, bin] of bins) {
+          const entry = await resolveEntry(cwd, bin);
+          options.entryPoints.push(entry);
+          task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
+            cwd,
+            entry
+          )}`;
         }
 
         if (packageJSON.type === "module") {
@@ -121,8 +103,7 @@ export function bundleNodePackage(cwd, packageJSON) {
         return !!packageJSON.main;
       },
       async task(_, task) {
-        /** @type {esbuild.BuildOptions} */
-        const options = {
+        const options: BuildOptions = {
           ...baseOptions,
           ...baseNodeOptions,
         };
@@ -155,8 +136,7 @@ export function bundleNodePackage(cwd, packageJSON) {
       async task(_, task) {
         assert(packageJSON.module);
 
-        /** @type {esbuild.BuildOptions} */
-        const options = {
+        const options: BuildOptions = {
           ...baseOptions,
 
           format: "esm",

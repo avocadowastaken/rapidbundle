@@ -5,24 +5,14 @@ import { expect, test } from "vitest";
 import { execCLI } from "./utils/execCLI.js";
 import { registerRawSnapshot } from "./utils/registerRawSnapshot.js";
 
-/**
- * @typedef {object} IntegrationTestOptions
- * @property {NodeJS.ProcessEnv} [env]
- */
-
-/**
- *  @param {string} fileUrl
- * @param {IntegrationTestOptions} [options]
- * */
-export function testExample(fileUrl, options = {}) {
-  const { env } = options;
+export function testExample(fileUrl: string, isCI?: boolean) {
   const testPath = fileURLToPath(fileUrl);
   const fixtureDir = path.dirname(testPath);
   const fixtureName = path.basename(fixtureDir);
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const output = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, isCI);
 
     expect(output).toMatchSnapshot("logs");
 
