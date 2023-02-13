@@ -2,6 +2,7 @@ import esbuild, { BuildOptions } from "esbuild";
 import { Listr } from "listr2";
 import assert from "node:assert";
 import path from "node:path";
+import type { Plugin } from "rollup";
 import type { PackageJSON } from "../manifests/PackageJSON";
 import { getESBuildBrowsers } from "../utils/browsers";
 import { execNode } from "../utils/exec";
@@ -65,6 +66,8 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
         return !!packageJSON.bin;
       },
       async task(_, task) {
+        assert(packageJSON.bin);
+
         const options: BuildOptions = {
           ...baseOptions,
           ...baseNodeOptions,
@@ -73,20 +76,16 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
           outdir: getDistDir(cwd),
         };
 
-        assert(packageJSON.bin);
-
-        options.entryPoints = [];
-
-        const bins = Object.entries(packageJSON.bin);
-
-        for (const [name, bin] of bins) {
+        const entryPoints: string[] = [];
+        for (const [name, bin] of Object.entries(packageJSON.bin)) {
           const entry = await resolveEntry(cwd, bin);
-          options.entryPoints.push(entry);
+          entryPoints.push(entry);
           task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
             cwd,
             entry
           )}`;
         }
+        options.entryPoints = entryPoints;
 
         if (packageJSON.type === "module") {
           options.format = "esm";
@@ -103,12 +102,12 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
         return !!packageJSON.main;
       },
       async task(_, task) {
+        assert(packageJSON.main);
+
         const options: BuildOptions = {
           ...baseOptions,
           ...baseNodeOptions,
         };
-
-        assert(packageJSON.main);
 
         {
           const entry = await resolveEntry(cwd, packageJSON.main);
@@ -212,7 +211,7 @@ export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
 
         const result = await rollup({
           input: entry,
-          plugins: [rollupPluginDTS()],
+          plugins: [rollupPluginDTS() as Plugin],
         });
 
         await rmrf(tmpDir);

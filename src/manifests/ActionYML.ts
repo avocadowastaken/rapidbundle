@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
-import { isFile } from "../utils/fs";
 import { ValidationError } from "../utils/validation";
 
 const actionEntrySchema = z.string().refine(
@@ -22,19 +21,16 @@ const actionYMLSchema = z.object({
   }),
 });
 
-async function readActionYML(manifestPath: string): Promise<ActionYML> {
+export async function tryParseActionYML(
+  cwd: string
+): Promise<undefined | ActionYML> {
   try {
+    const manifestPath = path.join(cwd, "action.yml");
     const yaml = await import("js-yaml");
     const content = await fs.readFile(manifestPath, "utf-8");
     return actionYMLSchema.parse(yaml.load(content));
   } catch (error) {
-    throw new ValidationError("Invalid 'action.yml'", error);
+    ValidationError.process("Invalid 'action.yml'", error);
+    return undefined;
   }
-}
-
-export async function tryParseActionYML(
-  cwd: string
-): Promise<undefined | ActionYML> {
-  const manifestPath = path.join(cwd, "action.yml");
-  return (await isFile(manifestPath)) ? readActionYML(manifestPath) : undefined;
 }
