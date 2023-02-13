@@ -1,15 +1,11 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import stripAnsi from "strip-ansi";
-import { execNode } from "../../src/utils/exec.js";
+import { exec, execNode } from "../../src/utils/exec.js";
 import { registerRawSnapshot } from "./registerRawSnapshot.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(DIR, "..", "..");
-const BIN =
-  process.env["TEST_BUNDLE"] !== "true"
-    ? path.join(ROOT_DIR, "src", "cli.js")
-    : path.join(ROOT_DIR, "dist", "cli.js");
 
 /**
  * @param {string} input
@@ -28,13 +24,26 @@ function cleanupLogs(input) {
 }
 
 /**
+ *
+ * @param {import('../../src/utils/exec.js').ExecOptions} options
+ * @returns {Promise<[string, number]>}
+ */
+function execBin(options) {
+  if (process.env["TEST_BUNDLE"] === "true") {
+    return exec("npx", [ROOT_DIR], options);
+  }
+
+  const binPath = path.join(ROOT_DIR, "src", "cli.js");
+  return execNode(binPath, [], options);
+}
+
+/**
  * @param {string} cwd
- * @param {string[]} [args]
  * @param {NodeJS.ProcessEnv} [env]
  * @returns {Promise<string>}
  */
-export async function execCLI(cwd, args = [], env = { CI: "false" }) {
-  const [rawStdout, exitCode] = await execNode(BIN, args, {
+export async function execCLI(cwd, env = { CI: "false" }) {
+  const [rawStdout, exitCode] = await execBin({
     cwd,
     env: { ...env, BROWSERSLIST_IGNORE_OLD_DATA: "true" },
   });

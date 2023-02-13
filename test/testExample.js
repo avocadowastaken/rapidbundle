@@ -22,7 +22,7 @@ export function testExample(fileUrl, options = {}) {
   const distDir = path.join(fixtureDir, "dist");
 
   test(fixtureName, async () => {
-    const output = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, env);
 
     expect(output).toMatchSnapshot("logs");
 

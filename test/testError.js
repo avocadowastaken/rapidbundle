@@ -22,7 +22,7 @@ export function testError(fileUrl, options = {}) {
   const fixtureName = path.basename(fixtureDir);
 
   test(fixtureName, async () => {
-    const output = await execCLI(fixtureDir, [], env);
+    const output = await execCLI(fixtureDir, env);
 
     expect(output).toMatchSnapshot("output");
   });
