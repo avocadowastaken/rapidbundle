@@ -21,6 +21,12 @@ jobs:
         with:
           node-version: 16
       - run: npm run checks
+      - uses: paambaati/codeclimate-action@v3.1.1
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/coverage/lcov.info:lcov
 
   tests:
     runs-on: ${{ matrix.os }}
