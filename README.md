@@ -4,7 +4,8 @@
 [![install size](https://packagephobia.com/badge?p=rapidbundle)](https://packagephobia.com/result?p=rapidbundle)
 [![npm version](https://img.shields.io/npm/v/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
 [![npm downloads](https://img.shields.io/npm/dm/rapidbundle.svg)](https://www.npmjs.com/package/rapidbundle)
-[![Codecov](https://img.shields.io/codecov/c/gh/umidbekk/rapidbundle.svg)](https://codecov.io/gh/umidbekk/rapidbundle)
+[![Maintainability](https://api.codeclimate.com/v1/badges/423373df446e501b32f9/maintainability)](https://codeclimate.com/github/avocadowastaken/rapidbundle/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/423373df446e501b32f9/test_coverage)](https://codeclimate.com/github/avocadowastaken/rapidbundle/test_coverage)
 
 ## Installation
 
