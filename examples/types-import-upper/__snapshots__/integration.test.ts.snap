@@ -54,25 +54,19 @@ export { hello };
 `;
 
 exports[`types-import-upper > logs 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[SUCCESS] Resolving build manifests
-[STARTED] Run preparations
-[DATA] Removing 'dist' directory
-[SUCCESS] Run preparations
-[STARTED] Making bundle from 'package.json'
-[STARTED] Parsing 'package.json'
-[SUCCESS] Parsing 'package.json'
-[STARTED] Making '.main' entry bundle
-[DATA] Setting entry point: ./src/index.ts
-[DATA] Setting output file: ./dist/index.cjs
-[SUCCESS] Making '.main' entry bundle
-[STARTED] Making '.types' entry bundle
-[DATA] Generating 'd.ts' files
-[DATA] Bundle into single 'd.ts' file
-[SUCCESS] Making '.types' entry bundle
-[SUCCESS] Making bundle from 'package.json'
+✔ Resolving build manifests
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
+  ✔ Run preparations
+  ─ ℹ Removing 'dist' directory
+  ✔ Making bundle from 'package.json'
+  › ✔ Parsing 'package.json'
+  › ✔ Making '.main' entry bundle
+    ─ ℹ Setting entry point: ./src/index.ts
+    ─ ℹ Setting output file: ./dist/index.cjs
+  › ✔ Making '.types' entry bundle
+    ─ ℹ Generating 'd.ts' files
+    ─ ℹ Bundle into single 'd.ts' file
 ------
 Exit Code: 0
 `;

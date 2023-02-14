@@ -47,11 +47,12 @@ export async function resolveEntry(
   const entryName = path.basename(outputFile, outputFileExt);
   const entryDir = path.dirname(outputFile.replace(DIST_DIR, SRC_DIR));
   const entry = path.join(baseDir, entryDir, entryName);
-  return resolveFile(entry, entryExtensions);
+  const filePath = await resolveFile(entry, entryExtensions);
+  return `.${path.sep}${path.relative(baseDir, filePath)}`;
 }
 
-export function formatRelativePath(rootDir: string, input: string): string {
-  return `./${path.relative(rootDir, input).replace(/\\/g, "/")}`;
+export function toModuleID(input: string): string {
+  return input.replace(/\\/g, "/");
 }
 
 export function resolvePackageBin(

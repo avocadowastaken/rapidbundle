@@ -22,7 +22,7 @@ const packageJSONSchema = z.object({
       .record(packageEntrySchema)
       .refine(
         (bin) => Object.keys(bin).length > 0,
-        "expected to have at least one command, received '{}'"
+        "expected to have at least one command"
       )
       .optional()
   ),
@@ -30,7 +30,7 @@ const packageJSONSchema = z.object({
   types: packageEntrySchema.optional(),
   module: packageEntrySchema.optional(),
 
-  type: z.enum(["module", "commonjs"]).optional(),
+  type: z.enum(["module", "commonjs"]).default("commonjs"),
 
   engines: z
     .object({

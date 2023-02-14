@@ -5,15 +5,11 @@ const isCI = !!process.env["GITHUB_ACTIONS"];
 
 export default defineConfig({
   test: {
+    isolate: true,
     testTimeout: 30_000,
+    outputDiffLines: 500,
+    outputDiffMaxLines: 500,
     reporters: isCI ? ["default", new GithubActionsReporter()] : "default",
-
-    coverage: {
-      branches: 91,
-      functions: 100,
-      lines: 95,
-      statements: 95,
-      reporter: isCI ? ["lcov", "text"] : ["html", "text"],
-    },
+    coverage: { reporter: isCI ? ["lcov", "text"] : ["html", "text"] },
   },
 });

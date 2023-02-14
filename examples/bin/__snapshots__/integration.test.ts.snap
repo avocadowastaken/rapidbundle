@@ -13,20 +13,15 @@ exports[`bin > dist/cli.js 1`] = `
 `;
 
 exports[`bin > logs 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[SUCCESS] Resolving build manifests
-[STARTED] Run preparations
-[DATA] Removing 'dist' directory
-[SUCCESS] Run preparations
-[STARTED] Making bundle from 'package.json'
-[STARTED] Parsing 'package.json'
-[SUCCESS] Parsing 'package.json'
-[STARTED] Making '.bin' entry bundle
-[DATA] Using '.bin.' entry: ./src/cli.ts
-[SUCCESS] Making '.bin' entry bundle
-[SUCCESS] Making bundle from 'package.json'
+✔ Resolving build manifests
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
+  ✔ Run preparations
+  ─ ℹ Removing 'dist' directory
+  ✔ Making bundle from 'package.json'
+  › ✔ Parsing 'package.json'
+  › ✔ Making '.bin' entry bundle
+    ─ ℹ Using '.bin.' entry: ./src/cli.ts
 ------
 Exit Code: 0
 `;

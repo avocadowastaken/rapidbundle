@@ -1,10 +1,10 @@
 // Vitest Snapshot v1
 
 exports[`invalid-package-version-value > output 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[FAILED] Invalid 'package.json': '.engines.node': expected "string", received "number"
+✘ Resolving build manifests [fail]
+  ─ ✘ Invalid 'package.json': '.engines.node': expected "string", received "number"
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
 ------
 Exit Code: 1
 `;

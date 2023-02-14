@@ -1,28 +1,42 @@
 // Vitest Snapshot v1
 
 exports[`invalid-action-diff > output 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[SUCCESS] Resolving build manifests
-[STARTED] Run preparations
-[DATA] Removing 'dist' directory
-[SUCCESS] Run preparations
-[STARTED] Making bundle from 'action.yml'
-[DATA] Using '.runs.main' entry: ./src/main.ts
-[DATA] Using '.runs.using' entry: node12
-[DATA] Checking build difference
-[FAILED] Found build difference:
-[FAILED] diff --git a/test/errors/invalid-action-diff/dist/main.js b/test/errors/invalid-action-diff/dist/main.js
-[FAILED] index abcdef0..abcdef1 123456
-[FAILED] --- a/test/errors/invalid-action-diff/dist/main.js
-[FAILED] +++ b/test/errors/invalid-action-diff/dist/main.js
-[FAILED] @@ -0,0 +1,2 @@
-[FAILED] +"use strict";
-[FAILED] +
-[FAILED] @@ -2 +4 @@
-[FAILED] -console.log("Hello?");
-[FAILED] +console.log("Hello");
+✔ Resolving build manifests
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
+  ✔ Run preparations
+  ─ ℹ Removing 'dist' directory
+  ✘ Making bundle from 'action.yml' [fail]
+  ─ ✘ Found build difference:
+      --- a/test/errors/invalid-action-diff/dist/index.js
+      @@ -1 +0,0 @@
+      -console.log("Hello?");
+      
+      +++ b/test/errors/invalid-action-diff/dist/main.js
+      @@ -0,0 +1,4 @@
+      +"use strict";
+      +
+      +// src/main.ts
+      +console.log("Main");
+      
+      +++ b/test/errors/invalid-action-diff/dist/post.js
+      @@ -0,0 +1,4 @@
+      +"use strict";
+      +
+      +// src/post.ts
+      +console.log("Post");
+      
+      --- a/test/errors/invalid-action-diff/dist/pre.js
+      +++ b/test/errors/invalid-action-diff/dist/pre.js
+      @@ -0,0 +1,3 @@
+      +"use strict";
+      +
+      +// src/pre.ts
+  ─ ℹ Using '.runs.main' entry: ./src/main.ts
+  ─ ℹ Using '.runs.pre' entry: ./src/pre.ts
+  ─ ℹ Using '.runs.post' entry: ./src/post.ts
+  ─ ℹ Using '.runs.using' entry: node12
+  ─ ℹ Checking build difference
 ------
 Exit Code: 1
 `;

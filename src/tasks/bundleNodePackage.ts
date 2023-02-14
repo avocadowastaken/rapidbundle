@@ -1,225 +1,245 @@
 import esbuild, { BuildOptions } from "esbuild";
-import { Listr } from "listr2";
-import assert from "node:assert";
 import path from "node:path";
 import type { Plugin } from "rollup";
+import type TaskTree from "tasktree-cli";
+import type { Task } from "tasktree-cli/lib/Task";
 import type { PackageJSON } from "../manifests/PackageJSON";
 import { getESBuildBrowsers } from "../utils/browsers";
 import { execNode } from "../utils/exec";
 import { rmrf } from "../utils/fs";
 import {
-  formatRelativePath,
   getDistDir,
   resolveEntry,
   resolvePackageBin,
+  toModuleID,
 } from "../utils/path";
+import { runTask, TaskGenerator } from "../utils/task";
 
-export function bundleNodePackage(cwd: string, packageJSON: PackageJSON) {
-  const baseOptions: BuildOptions = {
-    bundle: true,
-    logLevel: "silent",
-    absWorkingDir: cwd,
-  };
+async function prepareBuildOptions(
+  cwd: string,
+  task: Task,
+  { engines, dependencies, peerDependencies, optionalDependencies }: PackageJSON
+): Promise<[base: BuildOptions, node: BuildOptions]> {
+  return runTask(task.add("Parsing 'package.json'"), async function* () {
+    const baseOptions = {
+      bundle: true,
+      logLevel: "silent",
+      absWorkingDir: cwd,
+      external: [] as string[],
+    } satisfies BuildOptions;
 
-  const baseNodeOptions: BuildOptions = {
-    format: "cjs",
-    target: "node12",
-    platform: "node",
+    for (const [field, values] of Object.entries({
+      dependencies,
+      peerDependencies,
+      optionalDependencies,
+    })) {
+      const external = Object.keys(values);
+      if (external.length) {
+        baseOptions.external.push(...external);
+        yield `Using ".${field}" as external: ${external.join(", ")}`;
+      }
+    }
 
-    // `node-fetch` checks for the `AbortController` name.
-    keepNames: true,
-  };
+    const baseNodeOptions = {
+      ...baseOptions,
+      format: "cjs",
+      target: "node12",
+      platform: "node",
 
-  return new Listr([
-    {
-      title: "Parsing 'package.json'",
-      task(_, task) {
-        {
-          const dependenciesFields = [
-            "dependencies",
-            "peerDependencies",
-            "optionalDependencies",
-          ] as const;
+      // `node-fetch` checks for the `AbortController` name.
+      keepNames: true,
+    } satisfies BuildOptions;
 
-          baseOptions.external = [];
+    if (engines?.node) {
+      baseNodeOptions.target = `node${engines.node}`;
+      yield `Using '.engines.node' entry: ${engines.node}`;
+    }
 
-          for (const field of dependenciesFields) {
-            const external = Object.keys(packageJSON[field]);
-            if (external.length) {
-              baseOptions.external.push(...external);
-              task.output = `Using ".${field}" as external: ${external.join(
-                ", "
-              )}`;
-            }
-          }
-        }
+    return [baseOptions, baseNodeOptions];
+  });
+}
 
-        if (packageJSON.engines && packageJSON.engines.node) {
-          baseNodeOptions.target = `node${packageJSON.engines.node}`;
-          task.output = `Using '.engines.node' entry: ${packageJSON.engines.node}`;
-        }
-      },
-    },
+async function bundleBin(
+  cwd: string,
+  task: Task,
+  baseOptions: BuildOptions,
+  { bin, type }: PackageJSON
+): Promise<void> {
+  if (!bin) {
+    return;
+  }
 
-    {
-      title: "Making '.bin' entry bundle",
-      enabled() {
-        return !!packageJSON.bin;
-      },
-      async task(_, task) {
-        assert(packageJSON.bin);
+  await runTask(task.add("Making '.bin' entry bundle"), async function* () {
+    const options = {
+      ...baseOptions,
+      minify: true,
+      outdir: getDistDir(cwd),
+      entryPoints: [] as string[],
+    } satisfies BuildOptions;
 
-        const options: BuildOptions = {
-          ...baseOptions,
-          ...baseNodeOptions,
+    for (const [name, filePath] of Object.entries(bin)) {
+      const entry = await resolveEntry(cwd, filePath);
+      options.entryPoints.push(entry);
+      yield `Using '.bin.${name}' entry: ${toModuleID(entry)}`;
+    }
 
-          minify: true,
-          outdir: getDistDir(cwd),
-        };
+    if (type === "module") {
+      options.format = "esm";
+      yield `Using '.type' entry: ${type}`;
+    }
 
-        const entryPoints: string[] = [];
-        for (const [name, bin] of Object.entries(packageJSON.bin)) {
-          const entry = await resolveEntry(cwd, bin);
-          entryPoints.push(entry);
-          task.output = `Using '.bin.${name}' entry: ${formatRelativePath(
-            cwd,
-            entry
-          )}`;
-        }
-        options.entryPoints = entryPoints;
+    await esbuild.build(options);
+  });
+}
 
-        if (packageJSON.type === "module") {
-          options.format = "esm";
-          task.output = `Using '.type' entry: ${packageJSON.type}`;
-        }
+async function* bundleEntry(
+  cwd: string,
+  entryName: string,
+  buildOptions: BuildOptions
+): TaskGenerator {
+  const options = { ...buildOptions } satisfies BuildOptions;
 
-        await esbuild.build(options);
-      },
-    },
+  {
+    const entry = await resolveEntry(cwd, entryName);
+    options.entryPoints = [entry];
+    yield `Setting entry point: ${toModuleID(entry)}`;
+  }
 
-    {
-      title: "Making '.main' entry bundle",
-      enabled() {
-        return !!packageJSON.main;
-      },
-      async task(_, task) {
-        assert(packageJSON.main);
+  {
+    options.outfile = path.join(cwd, entryName);
+    yield `Setting output file: ${entryName}`;
+  }
 
-        const options: BuildOptions = {
-          ...baseOptions,
-          ...baseNodeOptions,
-        };
+  if (options.platform === "browser") {
+    options.target = await getESBuildBrowsers("defaults, Firefox ESR");
+    yield `Setting build target: ${options.target.join(", ")}`;
+  }
 
-        {
-          const entry = await resolveEntry(cwd, packageJSON.main);
-          options.entryPoints = [entry];
-          task.output = `Setting entry point: ${formatRelativePath(
-            cwd,
-            entry
-          )}`;
-        }
+  await esbuild.build(options);
+}
 
-        {
-          options.outfile = path.join(cwd, packageJSON.main);
-          task.output = `Setting output file: ${packageJSON.main}`;
-        }
+async function bundleMain(
+  cwd: string,
+  task: Task,
+  baseOptions: BuildOptions,
+  { main }: PackageJSON
+): Promise<void> {
+  if (!main) {
+    return;
+  }
 
-        await esbuild.build(options);
-      },
-    },
+  await runTask(task.add("Making '.main' entry bundle"), async function* () {
+    const options = { ...baseOptions };
+    yield* bundleEntry(cwd, main, options);
+  });
+}
 
-    {
-      title: "Making '.module' entry bundle",
-      enabled() {
-        return !!packageJSON.module;
-      },
-      async task(_, task) {
-        assert(packageJSON.module);
+async function bundleModule(
+  cwd: string,
+  task: Task,
+  baseOptions: BuildOptions,
+  { module }: PackageJSON
+): Promise<void> {
+  if (!module) {
+    return;
+  }
 
-        const options: BuildOptions = {
-          ...baseOptions,
+  await runTask(task.add("Making '.module' entry bundle"), async function* () {
+    const options = {
+      ...baseOptions,
+      format: "esm",
+      platform: "browser",
+    } satisfies BuildOptions;
 
-          format: "esm",
-          platform: "browser",
-        };
+    yield* bundleEntry(cwd, module, options);
+  });
+}
 
-        {
-          const entry = await resolveEntry(cwd, packageJSON.module);
-          options.entryPoints = [entry];
-          task.output = `Setting entry point: ${formatRelativePath(
-            cwd,
-            entry
-          )}`;
-        }
+async function compileTypeDeclarations(cwd: string): Promise<string> {
+  const distDir = getDistDir(cwd);
+  const declarationDir = path.join(distDir, "__tmp_declarations");
 
-        {
-          options.outfile = path.join(cwd, packageJSON.module);
-          task.output = `Setting output file: ${packageJSON.module}`;
-        }
+  const tsc = resolvePackageBin(cwd, "typescript", "tsc");
 
-        {
-          options.target = await getESBuildBrowsers("defaults, Firefox ESR");
+  await execNode(
+    tsc,
+    [
+      // Override `"noEmit": true` config.
+      "--noEmit",
+      "false",
 
-          task.output = `Setting build target: ${options.target.join(", ")}`;
-        }
+      // Preserve file structure.
+      "--rootDir",
+      cwd,
 
-        await esbuild.build(options);
-      },
-    },
+      // Emit into temporary directory.
+      "--declaration",
+      "--emitDeclarationOnly",
+      "--declarationDir",
+      declarationDir,
+    ],
+    { cwd }
+  );
 
-    {
-      title: "Making '.types' entry bundle",
-      enabled() {
-        return !!packageJSON.types;
-      },
-      async task(_, task) {
-        assert(packageJSON.types);
+  return declarationDir;
+}
 
-        const distDir = getDistDir(cwd);
-        const tmpDir = path.join(distDir, "__tmp_declarations");
+async function rollupTypeDeclarations(
+  cwd: string,
+  typesEntry: string,
+  declarationDir: string
+) {
+  const entry = await resolveEntry(declarationDir, typesEntry);
+  const { rollup } = await import("rollup");
+  const { default: rollupPluginDTS } = await import("rollup-plugin-dts");
 
-        task.output = "Generating 'd.ts' files";
+  const result = await rollup({
+    input: path.join(declarationDir, entry),
+    plugins: [rollupPluginDTS() as Plugin],
+  });
 
-        const tsc = resolvePackageBin(cwd, "typescript", "tsc");
+  await rmrf(declarationDir);
 
-        await execNode(
-          tsc,
-          [
-            // Override `"noEmit": true` config.
-            "--noEmit",
-            "false",
+  await result.write({
+    format: "es",
+    file: path.join(cwd, typesEntry),
+  });
+}
 
-            // Preserve file structure.
-            "--rootDir",
-            cwd,
+async function bundleTypes(
+  cwd: string,
+  task: Task,
+  { types }: PackageJSON
+): Promise<void> {
+  if (!types) {
+    return;
+  }
 
-            // Emit into temporary directory.
-            "--declaration",
-            "--emitDeclarationOnly",
-            "--declarationDir",
-            tmpDir,
-          ],
-          { cwd }
-        );
+  await runTask(task.add("Making '.types' entry bundle"), async function* () {
+    yield "Generating 'd.ts' files";
+    const declarationDir = await compileTypeDeclarations(cwd);
 
-        task.output = "Bundle into single 'd.ts' file";
+    yield "Bundle into single 'd.ts' file";
+    await rollupTypeDeclarations(cwd, types, declarationDir);
+  });
+}
 
-        const entry = await resolveEntry(tmpDir, packageJSON.types);
-        const { rollup } = await import("rollup");
-        const { default: rollupPluginDTS } = await import("rollup-plugin-dts");
+export async function bundleNodePackage(
+  cwd: string,
+  tree: TaskTree,
+  packageJSON: PackageJSON
+): Promise<void> {
+  const task = tree.add("Making bundle from 'package.json'");
+  return runTask(task, async () => {
+    const [baseOptions, baseNodeOptions] = await prepareBuildOptions(
+      cwd,
+      task,
+      packageJSON
+    );
 
-        const result = await rollup({
-          input: entry,
-          plugins: [rollupPluginDTS() as Plugin],
-        });
-
-        await rmrf(tmpDir);
-
-        await result.write({
-          format: "es",
-          file: path.join(cwd, packageJSON.types),
-        });
-      },
-    },
-  ]);
+    await bundleBin(cwd, task, baseNodeOptions, packageJSON);
+    await bundleMain(cwd, task, baseNodeOptions, packageJSON);
+    await bundleModule(cwd, task, baseOptions, packageJSON);
+    await bundleTypes(cwd, task, packageJSON);
+  });
 }

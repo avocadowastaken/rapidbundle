@@ -1,14 +1,12 @@
 import { exec } from "./exec";
+import { ValidationError } from "./validation";
 
-export async function gitCommand(...args: string[]): Promise<string> {
-  const [stdout] = await exec("git", args, { stderr: "inherit" });
+export async function git(...args: string[]): Promise<string> {
+  const [stdout, stderr] = await exec("git", args);
+  if (stderr) {
+    throw new ValidationError(
+      `Git command failed:\ngit ${args.join(" ")}\n\n${stdout}`
+    );
+  }
   return stdout;
-}
-
-export async function gitStatus(directory: string): Promise<string> {
-  return gitCommand("status", "--porcelain", directory);
-}
-
-export async function gitDiff(directory: string): Promise<string> {
-  return gitCommand("diff", "--minimal", "--unified=0", directory);
 }

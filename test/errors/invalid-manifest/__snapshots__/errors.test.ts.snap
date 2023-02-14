@@ -1,10 +1,10 @@
 // Vitest Snapshot v1
 
 exports[`invalid-manifest > output 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[FAILED] Manifest file (package.json or action.yml) not found.
+✘ Resolving build manifests [fail]
+  ─ ✘ Manifest file (package.json or action.yml) not found.
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
 ------
 Exit Code: 1
 `;
