@@ -3,3 +3,4 @@
 /coverage
 /node_modules
 /examples/*/dist
+/test/errors/*/dist

@@ -1,9 +1,8 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import stripAnsi from "strip-ansi";
+import TaskTree from "tasktree-cli";
 import { vi } from "vitest";
-import { execNode, ExecResult } from "../../src/utils/exec";
-import { getDistDir } from "../../src/utils/path";
 import { registerRawSnapshot } from "./registerRawSnapshot";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -15,61 +14,31 @@ function cleanupLogs(input: string): string {
     .map((line) =>
       line
         .replace(ROOT_DIR, "<rootDir>")
-        .replace(/index \w{7}\.\.\w{7} \w{6}/, "index abcdef0..abcdef1 123456")
         .replace(/\b(chrome|edge|firefox|ios|safari)[\d.]+\b/gm, "$1<version>")
     )
-    .join("\n");
+    .join("\n")
+    .trim();
 }
 
-function spyLogs(): string[] {
-  const logs: string[] = [];
-  const onLog = (...args: unknown[]) => {
-    logs.push(args.join(" "));
-  };
+async function runSrc(): Promise<string> {
+  process.argv.push("--silent");
+  vi.spyOn(process, "exit").mockRejectedValue(new Error("exit"));
 
-  vi.spyOn(console, "log").mockImplementation(onLog);
-  vi.spyOn(console, "info").mockImplementation(onLog);
-  vi.spyOn(console, "warn").mockImplementation(onLog);
-  vi.spyOn(console, "error").mockImplementation(onLog);
+  const tree = TaskTree.tree();
 
-  return logs;
+  if (process.env["TEST_BUNDLE"] !== "true") {
+    await import("../../src/cli");
+  } else {
+    await import(path.join(ROOT_DIR, "dist", "cli.js"));
+  }
+
+  return tree.render().join("\n");
 }
 
-async function execBin(
-  cwd: string,
-  env: NodeJS.ProcessEnv
-): Promise<ExecResult> {
-  if (process.env["TEST_BUNDLE"] === "true") {
-    const binPath = path.join(getDistDir(ROOT_DIR), "cli.js");
-    return execNode(binPath, [], { cwd, env });
-  }
-
-  for (const [key, value] of Object.entries(env)) {
-    if (value) {
-      vi.stubEnv(key, value);
-    }
-  }
-
-  const { run } = await import("../../src");
-  const logs = spyLogs();
-  let exitCode = 0;
-  try {
-    await run({ cwd, isCI: env["CI"] === "true" });
-  } catch (e) {
-    exitCode = 1;
-  }
-
-  return [logs.join("\n"), exitCode];
-}
-
-export async function execCLI(cwd: string, isCI = false): Promise<string> {
-  const [rawStdout, exitCode] = await execBin(cwd, {
-    CI: String(isCI),
-    BROWSERSLIST_IGNORE_OLD_DATA: "true",
-  });
-
+export async function execCLI(): Promise<string> {
+  const rawStdout = await runSrc();
   const cleanStdout = cleanupLogs(rawStdout);
-  const output = `${cleanStdout}\n------\nExit Code: ${exitCode}`;
+  const output = `${cleanStdout}\n------\nExit Code: ${process.exitCode ?? 0}`;
   registerRawSnapshot(output);
   return output;
 }

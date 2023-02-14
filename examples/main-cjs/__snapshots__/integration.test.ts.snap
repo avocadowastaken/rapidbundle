@@ -28,22 +28,17 @@ module.exports.logger = require_logger();
 `;
 
 exports[`main-cjs > logs 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[SUCCESS] Resolving build manifests
-[STARTED] Run preparations
-[DATA] Removing 'dist' directory
-[SUCCESS] Run preparations
-[STARTED] Making bundle from 'package.json'
-[STARTED] Parsing 'package.json'
-[DATA] Using ".dependencies" as external: debug
-[SUCCESS] Parsing 'package.json'
-[STARTED] Making '.main' entry bundle
-[DATA] Setting entry point: ./src/index.js
-[DATA] Setting output file: ./dist/index.js
-[SUCCESS] Making '.main' entry bundle
-[SUCCESS] Making bundle from 'package.json'
+✔ Resolving build manifests
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
+  ✔ Run preparations
+  ─ ℹ Removing 'dist' directory
+  ✔ Making bundle from 'package.json'
+  › ✔ Parsing 'package.json'
+    ─ ℹ Using ".dependencies" as external: debug
+  › ✔ Making '.main' entry bundle
+    ─ ℹ Setting entry point: ./src/index.js
+    ─ ℹ Setting output file: ./dist/index.js
 ------
 Exit Code: 0
 `;

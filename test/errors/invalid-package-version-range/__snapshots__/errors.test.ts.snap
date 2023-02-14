@@ -1,10 +1,10 @@
 // Vitest Snapshot v1
 
 exports[`invalid-package-version-range > output 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[FAILED] Invalid 'package.json': invalid semver range: >=12 <10
+✘ Resolving build manifests [fail]
+  ─ ✘ Invalid 'package.json': invalid semver range: >=12 <10
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
 ------
 Exit Code: 1
 `;

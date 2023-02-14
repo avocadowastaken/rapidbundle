@@ -1,10 +1,10 @@
 // Vitest Snapshot v1
 
 exports[`invalid-package-bin-path > output 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[FAILED] Invalid 'package.json': '.bin.': expected to be in the 'dist' directory, received 'bin'
+✘ Resolving build manifests [fail]
+  ─ ✘ Invalid 'package.json': '.bin.': expected to be in the 'dist' directory, received 'bin'
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
 ------
 Exit Code: 1
 `;

@@ -2,8 +2,7 @@ import { spawn } from "node:child_process";
 
 export type ExecOptions = {
   cwd?: string;
-  env?: NodeJS.ProcessEnv;
-  stderr?: "pipe" | "inherit";
+  env?: Record<string, string>;
 };
 
 export type ExecResult = [output: string, exitCode: number];
@@ -11,12 +10,12 @@ export type ExecResult = [output: string, exitCode: number];
 export async function exec(
   command: string,
   args: string[] = [],
-  { env, cwd, stderr = "pipe" }: ExecOptions = {}
+  { env, cwd }: ExecOptions = {}
 ): Promise<ExecResult> {
   const child = spawn(command, args, {
     cwd,
     env: { ...process.env, ...env },
-    stdio: [null, "pipe", stderr],
+    stdio: [null, "pipe", "pipe"],
   });
 
   let output = "";

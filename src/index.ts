@@ -1,87 +1,60 @@
-import { Listr } from "listr2";
-import assert from "node:assert";
+import TaskTree from "tasktree-cli";
 import { ActionYML, tryParseActionYML } from "./manifests/ActionYML";
 import { PackageJSON, tryParsePackageJSON } from "./manifests/PackageJSON";
 import { bundleGitHubAction } from "./tasks/bundleGitHubAction";
 import { bundleNodePackage } from "./tasks/bundleNodePackage";
 import { rmrf } from "./utils/fs";
 import { getDistDir } from "./utils/path";
+import { runTask, runTaskTree } from "./utils/task";
+import { ValidationError } from "./utils/validation";
 
 type TaskContext = {
   cwd: string;
   isCI: boolean;
-  actionYML: undefined | ActionYML;
-  packageJSON: undefined | PackageJSON;
+  isSilent: boolean;
 };
 
-export async function run({
-  cwd,
-  isCI,
-}: Pick<TaskContext, "cwd" | "isCI">): Promise<void> {
-  const tasks = new Listr<TaskContext>(
-    [
-      {
-        title: "Resolving build manifests",
-        async task(ctx, task) {
-          task.output = "Checking 'action.yml'";
-          ctx.actionYML = await tryParseActionYML(ctx.cwd);
-          task.output = "Checking 'package.json'";
-          ctx.packageJSON = await tryParsePackageJSON(ctx.cwd);
+async function resolveBuildManifests(
+  cwd: string,
+  tree: TaskTree
+): Promise<[undefined | ActionYML, undefined | PackageJSON]> {
+  return runTask(tree.add("Resolving build manifests"), async function* () {
+    yield "Checking 'action.yml'";
+    const parsedActionYML = await tryParseActionYML(cwd);
 
-          if (!ctx.actionYML && !ctx.packageJSON) {
-            throw new Error(
-              "Manifest file (package.json or action.yml) not found."
-            );
-          }
-        },
-      },
+    yield "Checking 'package.json'";
+    const parsedPackageJSON = await tryParsePackageJSON(cwd);
 
-      {
-        title: "Run preparations",
-        async task(ctx, task) {
-          task.output = "Removing 'dist' directory";
-          await rmrf(getDistDir(ctx.cwd));
-        },
-      },
-
-      {
-        title: "Making bundle from 'action.yml'",
-        enabled(ctx) {
-          return !!ctx.actionYML;
-        },
-        async task(ctx, task) {
-          assert(ctx.actionYML);
-
-          for await (const output of bundleGitHubAction(
-            ctx.cwd,
-            ctx.isCI,
-            ctx.actionYML
-          )) {
-            task.output = output;
-          }
-        },
-      },
-
-      {
-        title: "Making bundle from 'package.json'",
-        enabled(ctx) {
-          return !!ctx.packageJSON;
-        },
-        task(ctx) {
-          assert(ctx.packageJSON);
-
-          return bundleNodePackage(ctx.cwd, ctx.packageJSON);
-        },
-      },
-    ],
-    {
-      rendererOptions: {
-        collapse: false,
-        clearOutput: false,
-        showSubtasks: true,
-      },
+    if (!parsedActionYML && !parsedPackageJSON) {
+      throw new ValidationError(
+        "Manifest file (package.json or action.yml) not found."
+      );
     }
-  );
 
-  await tasks.run({ cwd, isCI, actionYML: undefined, packageJSON: undefined });
+    return [parsedActionYML, parsedPackageJSON];
+  });
+}
+
+async function runPreparations(cwd: string, tree: TaskTree) {
+  return runTask(tree.add("Run preparations"), async function* () {
+    yield "Removing 'dist' directory";
+    await rmrf(getDistDir(cwd));
+  });
+}
+
+export async function run({ cwd, isCI, isSilent }: TaskContext): Promise<void> {
+  const tree = TaskTree.tree();
+  return runTaskTree(tree, { silent: isSilent, autoClear: false }, async () => {
+    const [actionYML, packageJSON] = await resolveBuildManifests(cwd, tree);
+
+    await runPreparations(cwd, tree);
+
+    if (actionYML) {
+      await bundleGitHubAction(cwd, isCI, tree, actionYML);
+    }
+
+    if (packageJSON) {
+      await bundleNodePackage(cwd, tree, packageJSON);
+    }
+  });
 }

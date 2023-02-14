@@ -15,18 +15,15 @@ console.log("Hello");
 `;
 
 exports[`github-action-diff > logs 1`] = `
-[STARTED] Resolving build manifests
-[DATA] Checking 'action.yml'
-[DATA] Checking 'package.json'
-[SUCCESS] Resolving build manifests
-[STARTED] Run preparations
-[DATA] Removing 'dist' directory
-[SUCCESS] Run preparations
-[STARTED] Making bundle from 'action.yml'
-[DATA] Using '.runs.main' entry: ./src/main.ts
-[DATA] Using '.runs.using' entry: node16
-[DATA] Checking build difference
-[SUCCESS] Making bundle from 'action.yml'
+✔ Resolving build manifests
+  ─ ℹ Checking 'action.yml'
+  ─ ℹ Checking 'package.json'
+  ✔ Run preparations
+  ─ ℹ Removing 'dist' directory
+  ✔ Making bundle from 'action.yml'
+  ─ ℹ Using '.runs.main' entry: ./src/main.ts
+  ─ ℹ Using '.runs.using' entry: node16
+  ─ ℹ Checking build difference
 ------
 Exit Code: 0
 `;

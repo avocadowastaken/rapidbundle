@@ -3,3 +3,5 @@ description: ""
 runs:
   using: "node12"
   main: "dist/main.js"
+  pre: "./dist/pre.js"
+  post: "./dist/post.js"

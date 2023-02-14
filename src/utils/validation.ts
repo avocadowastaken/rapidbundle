@@ -76,11 +76,11 @@ export class ValidationError extends Error {
     throw reason;
   }
 
-  constructor(message: string, originalError: Error) {
+  constructor(message: string, originalError?: Error) {
     const errorMessage =
       originalError instanceof ZodError
         ? Array.from(extractZodErrors(originalError)).join("\n")
-        : originalError.message;
+        : originalError?.message;
 
     if (!errorMessage) {
       super(message);
