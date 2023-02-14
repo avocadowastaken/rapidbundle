@@ -96,11 +96,11 @@ exports[`dependencies > logs 1`] = `
   › ✔ Parsing 'package.json'
     ─ ℹ Using ".dependencies" as external: ansi-regex
   › ✔ Making '.main' entry bundle
-    ─ ℹ Setting entry point: ./src/index.ts
-    ─ ℹ Setting output file: ./dist/index.cjs
+    ─ ℹ Setting entry point: src/index.ts
+    ─ ℹ Setting output file: dist/index.cjs
   › ✔ Making '.module' entry bundle
-    ─ ℹ Setting entry point: ./src/index.ts
-    ─ ℹ Setting output file: ./dist/index.js
+    ─ ℹ Setting entry point: src/index.ts
+    ─ ℹ Setting output file: dist/index.js
     ─ ℹ Setting build target: chrome<version>, edge<version>, firefox<version>, ios<version>, safari<version>
 ------
 Exit Code: 0

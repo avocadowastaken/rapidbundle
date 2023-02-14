@@ -37,8 +37,8 @@ exports[`main-cjs > logs 1`] = `
   › ✔ Parsing 'package.json'
     ─ ℹ Using ".dependencies" as external: debug
   › ✔ Making '.main' entry bundle
-    ─ ℹ Setting entry point: ./src/index.js
-    ─ ℹ Setting output file: ./dist/index.js
+    ─ ℹ Setting entry point: src/index.js
+    ─ ℹ Setting output file: dist/index.js
 ------
 Exit Code: 0
 `;

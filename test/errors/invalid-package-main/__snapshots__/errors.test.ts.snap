@@ -2,7 +2,8 @@
 
 exports[`invalid-package-main > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.main': expected to be in the 'dist' directory, received 'index.js'
+  ─ ✘ Invalid 'package.json':
+      '.main': Expected to be in the 'dist' directory, received 'index.js'
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

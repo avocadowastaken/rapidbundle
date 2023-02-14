@@ -58,8 +58,8 @@ exports[`main-engines-node > logs 1`] = `
   › ✔ Parsing 'package.json'
     ─ ℹ Using '.engines.node' entry: 16.0.0
   › ✔ Making '.main' entry bundle
-    ─ ℹ Setting entry point: ./src/index.ts
-    ─ ℹ Setting output file: ./dist/index.js
+    ─ ℹ Setting entry point: src/index.ts
+    ─ ℹ Setting output file: dist/index.js
 ------
 Exit Code: 0
 `;

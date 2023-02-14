@@ -1,22 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
-import { ValidationError } from "../utils/validation";
-
-const actionEntrySchema = z.string().refine(
-  (value) => path.posix.normalize(value).startsWith("dist/"),
-  (value) => ({
-    message: `expected to be in the 'dist' directory, received '${value}'`,
-  })
-);
+import { entryPathSchema, ValidationError } from "../utils/validation";
 
 export type ActionYML = z.infer<typeof actionYMLSchema>;
 const actionYMLSchema = z.object({
   runs: z.object({
-    main: actionEntrySchema,
-    pre: actionEntrySchema.optional(),
-    post: actionEntrySchema.optional(),
-
+    main: entryPathSchema,
+    pre: entryPathSchema.optional(),
+    post: entryPathSchema.optional(),
     using: z.enum(["node12", "node16"]),
   }),
 });

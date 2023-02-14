@@ -74,11 +74,11 @@ exports[`universal > logs 1`] = `
   ✔ Making bundle from 'package.json'
   › ✔ Parsing 'package.json'
   › ✔ Making '.main' entry bundle
-    ─ ℹ Setting entry point: ./src/index.ts
-    ─ ℹ Setting output file: ./dist/index.cjs
+    ─ ℹ Setting entry point: src/index.ts
+    ─ ℹ Setting output file: dist/index.cjs
   › ✔ Making '.module' entry bundle
-    ─ ℹ Setting entry point: ./src/index.ts
-    ─ ℹ Setting output file: ./dist/index.js
+    ─ ℹ Setting entry point: src/index.ts
+    ─ ℹ Setting output file: dist/index.js
     ─ ℹ Setting build target: chrome<version>, edge<version>, firefox<version>, ios<version>, safari<version>
   › ✔ Making '.types' entry bundle
     ─ ℹ Generating 'd.ts' files

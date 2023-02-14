@@ -2,7 +2,8 @@
 
 exports[`invalid-package-version-range > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': invalid semver range: >=12 <10
+  ─ ✘ Invalid 'package.json':
+      '.engines.node': Invalid semver range: >=12 <10
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

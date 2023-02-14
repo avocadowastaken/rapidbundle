@@ -2,7 +2,8 @@
 
 exports[`invalid-package-bin-item-path > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.bin.hi': expected to be in the 'dist' directory, received './hi.js'
+  ─ ✘ Invalid 'package.json':
+      '.bin.hi': Expected to be in the 'dist' directory, received './hi.js'
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

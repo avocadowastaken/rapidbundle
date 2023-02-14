@@ -2,7 +2,8 @@
 
 exports[`invalid-package-bin-type > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.bin': expected "object", received "number"
+  ─ ✘ Invalid 'package.json':
+      '.bin': Expected object, received number
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

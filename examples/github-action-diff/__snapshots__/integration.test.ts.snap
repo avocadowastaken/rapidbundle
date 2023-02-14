@@ -21,7 +21,7 @@ exports[`github-action-diff > logs 1`] = `
   ✔ Run preparations
   ─ ℹ Removing 'dist' directory
   ✔ Making bundle from 'action.yml'
-  ─ ℹ Using '.runs.main' entry: ./src/main.ts
+  ─ ℹ Using '.runs.main' entry: src/main.ts
   ─ ℹ Using '.runs.using' entry: node16
   ─ ℹ Checking build difference
 ------

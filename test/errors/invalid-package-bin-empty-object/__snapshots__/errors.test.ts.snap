@@ -2,7 +2,8 @@
 
 exports[`invalid-package-bin-empty-object > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.bin': expected to have at least one command
+  ─ ✘ Invalid 'package.json':
+      '.bin': Expected to have at least one command
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

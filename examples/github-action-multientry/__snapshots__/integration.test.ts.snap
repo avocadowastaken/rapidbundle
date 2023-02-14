@@ -57,9 +57,9 @@ exports[`github-action-multientry > logs 1`] = `
   ✔ Run preparations
   ─ ℹ Removing 'dist' directory
   ✔ Making bundle from 'action.yml'
-  ─ ℹ Using '.runs.main' entry: ./src/index.ts
-  ─ ℹ Using '.runs.pre' entry: ./src/setup.ts
-  ─ ℹ Using '.runs.post' entry: ./src/cleanup.ts
+  ─ ℹ Using '.runs.main' entry: src/index.ts
+  ─ ℹ Using '.runs.pre' entry: src/setup.ts
+  ─ ℹ Using '.runs.post' entry: src/cleanup.ts
   ─ ℹ Using '.runs.using' entry: node16
 ------
 Exit Code: 0
