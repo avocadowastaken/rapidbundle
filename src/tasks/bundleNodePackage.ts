@@ -1,18 +1,11 @@
 import esbuild, { BuildOptions } from "esbuild";
 import path from "node:path";
-import type { Plugin } from "rollup";
 import type TaskTree from "tasktree-cli";
 import type { Task } from "tasktree-cli/lib/Task";
+import { compileProjectDefinitions } from "../lib/tsc";
 import type { PackageJSON } from "../manifests/PackageJSON";
 import { getESBuildBrowsers } from "../utils/browsers";
-import { execNode } from "../utils/exec";
-import { rmrf } from "../utils/fs";
-import {
-  getDistDir,
-  resolveEntry,
-  resolvePackageBin,
-  toModuleID,
-} from "../utils/path";
+import { getDistDir, resolveEntry, toModuleID } from "../utils/path";
 import { runTask, TaskGenerator } from "../utils/task";
 
 async function prepareBuildOptions(
@@ -155,57 +148,6 @@ async function bundleModule(
   });
 }
 
-async function compileTypeDeclarations(cwd: string): Promise<string> {
-  const distDir = getDistDir(cwd);
-  const declarationDir = path.join(distDir, "__tmp_declarations");
-
-  const tsc = resolvePackageBin(cwd, "typescript", "tsc");
-
-  await execNode(
-    tsc,
-    [
-      // Override `"noEmit": true` config.
-      "--noEmit",
-      "false",
-
-      // Preserve file structure.
-      "--rootDir",
-      cwd,
-
-      // Emit into temporary directory.
-      "--declaration",
-      "--emitDeclarationOnly",
-      "--declarationDir",
-      declarationDir,
-    ],
-    { cwd }
-  );
-
-  return declarationDir;
-}
-
-async function rollupTypeDeclarations(
-  cwd: string,
-  typesEntry: string,
-  declarationDir: string
-) {
-  const entry = await resolveEntry(declarationDir, typesEntry);
-  const { rollup } = await import("rollup");
-  const { default: rollupPluginDTS } = await import("rollup-plugin-dts");
-
-  const result = await rollup({
-    input: path.join(declarationDir, entry),
-    plugins: [rollupPluginDTS() as Plugin],
-  });
-
-  await rmrf(declarationDir);
-
-  await result.write({
-    format: "es",
-    file: path.join(cwd, typesEntry),
-  });
-}
-
 async function bundleTypes(
   cwd: string,
   task: Task,
@@ -217,9 +159,10 @@ async function bundleTypes(
 
   await runTask(task.add("Making '.types' entry bundle"), async function* () {
     yield "Generating 'd.ts' files";
-    const declarationDir = await compileTypeDeclarations(cwd);
+    const declarationDir = await compileProjectDefinitions(cwd);
 
     yield "Bundle into single 'd.ts' file";
+    const { rollupTypeDeclarations } = await import("../lib/api-extractor");
     await rollupTypeDeclarations(cwd, types, declarationDir);
   });
 }

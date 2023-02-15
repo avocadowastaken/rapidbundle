@@ -1,4 +1,5 @@
 {
+  "name": "rapidbundle-types-cjs-example",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts"
 }

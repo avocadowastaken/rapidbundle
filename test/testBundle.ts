@@ -24,7 +24,11 @@ export function testBundle(
     vi.spyOn(process, "cwd").mockReturnValue(testDir);
   });
 
-  afterEach(async () => {
+  afterEach(async ({ meta }) => {
+    if (meta.result?.state === "fail") {
+      return;
+    }
+
     const distDir = getDistDir(testDir);
 
     await rmrf(distDir);

@@ -59,17 +59,9 @@ export async function exec(
   const result: ExecResult = [collectOutput(), exitCode || 0];
 
   if (shouldRetry?.(result)) {
-    await delay(10_000);
+    await delay(1_000);
     return exec(command, args, options);
   }
 
   return result;
-}
-
-export function execNode(
-  modulePath: string,
-  args: string[] = [],
-  options?: ExecOptions
-): Promise<ExecResult> {
-  return exec(process.execPath, [modulePath, ...args], options);
 }

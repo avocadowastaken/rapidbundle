@@ -8,9 +8,9 @@ exports[`types-cjs > dist 1`] = `
 `;
 
 exports[`types-cjs > dist/index.d.ts 1`] = `
-declare const hello: (name: string) => string;
+export declare const hello: (name: string) => string;
 
-export { hello };
+export { }
 
 `;
 

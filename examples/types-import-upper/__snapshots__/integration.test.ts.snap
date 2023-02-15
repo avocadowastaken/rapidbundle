@@ -47,9 +47,9 @@ __name(hello, "hello");
 `;
 
 exports[`types-import-upper > dist/index.d.ts 1`] = `
-declare function hello(name: string): string;
+export declare function hello(name: string): string;
 
-export { hello };
+export { }
 
 `;
 
