@@ -32,9 +32,9 @@ exports[`invalid-action-diff > output 1`] = `
       +"use strict";
       +
       +// src/pre.ts
-  ─ ℹ Using '.runs.main' entry: ./src/main.ts
-  ─ ℹ Using '.runs.pre' entry: ./src/pre.ts
-  ─ ℹ Using '.runs.post' entry: ./src/post.ts
+  ─ ℹ Using '.runs.main' entry: src/main.ts
+  ─ ℹ Using '.runs.pre' entry: src/pre.ts
+  ─ ℹ Using '.runs.post' entry: src/post.ts
   ─ ℹ Using '.runs.using' entry: node12
   ─ ℹ Checking build difference
 ------

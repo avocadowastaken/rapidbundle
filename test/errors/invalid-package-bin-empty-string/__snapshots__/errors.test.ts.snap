@@ -3,8 +3,7 @@
 exports[`invalid-package-bin-empty-string > output 1`] = `
 ✘ Resolving build manifests [fail]
   ─ ✘ Invalid 'package.json':
-      '.bin.': expected to be a valid file path, received, '""'
-      '.bin.': expected to be in the 'dist' directory, received ''
+      '.bin.': Expected to be a valid file path
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

@@ -2,33 +2,27 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import semver from "semver";
 import { z } from "zod";
-import { ValidationError } from "../utils/validation";
-
-const packageEntrySchema = z
-  .string()
-  .min(1, "expected to be a valid file path, received, '\"\"'")
-  .refine(
-    (value) => path.posix.normalize(value).startsWith("dist/"),
-    (value) => ({
-      message: `expected to be in the 'dist' directory, received '${value}'`,
-    })
-  );
+import {
+  addCustomIssue,
+  entryPathSchema,
+  ValidationError,
+} from "../utils/validation";
 
 export type PackageJSON = z.infer<typeof packageJSONSchema>;
 const packageJSONSchema = z.object({
   bin: z.preprocess(
     (input) => (typeof input == "string" ? { "": input } : input),
     z
-      .record(packageEntrySchema)
+      .record(entryPathSchema)
       .refine(
         (bin) => Object.keys(bin).length > 0,
-        "expected to have at least one command"
+        "Expected to have at least one command"
       )
       .optional()
   ),
-  main: packageEntrySchema.optional(),
-  types: packageEntrySchema.optional(),
-  module: packageEntrySchema.optional(),
+  main: entryPathSchema.optional(),
+  types: entryPathSchema.optional(),
+  module: entryPathSchema.optional(),
 
   type: z.enum(["module", "commonjs"]).default("commonjs"),
 
@@ -36,10 +30,13 @@ const packageJSONSchema = z.object({
     .object({
       node: z
         .string()
-        .transform((value) => {
+
+        .transform((value, ctx) => {
           const version = semver.minVersion(value, true);
-          if (version) return version.format();
-          throw new Error(`invalid semver range: ${value}`);
+          if (!version) {
+            return addCustomIssue(ctx, `Invalid semver range: ${value}`);
+          }
+          return version.format();
         })
         .optional(),
     })

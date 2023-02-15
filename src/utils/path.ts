@@ -48,7 +48,7 @@ export async function resolveEntry(
   const entryDir = path.dirname(outputFile.replace(DIST_DIR, SRC_DIR));
   const entry = path.join(baseDir, entryDir, entryName);
   const filePath = await resolveFile(entry, entryExtensions);
-  return `.${path.sep}${path.relative(baseDir, filePath)}`;
+  return path.relative(baseDir, filePath);
 }
 
 export function toModuleID(input: string): string {

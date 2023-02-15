@@ -21,7 +21,7 @@ exports[`bin > logs 1`] = `
   ✔ Making bundle from 'package.json'
   › ✔ Parsing 'package.json'
   › ✔ Making '.bin' entry bundle
-    ─ ℹ Using '.bin.' entry: ./src/cli.ts
+    ─ ℹ Using '.bin.' entry: src/cli.ts
 ------
 Exit Code: 0
 `;

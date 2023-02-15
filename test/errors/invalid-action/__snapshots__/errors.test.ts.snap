@@ -3,8 +3,8 @@
 exports[`invalid-action > output 1`] = `
 ✘ Resolving build manifests [fail]
   ─ ✘ Invalid 'action.yml':
-      '.runs.main': expected to be in the 'dist' directory, received 'action.js'
-      '.runs.using': expected "'node12' | 'node16'", received "undefined"
+      '.runs.main': Expected to be in the 'dist' directory, received 'action.js'
+      '.runs.using': Expected 'node12' | 'node16', received undefined
   ─ ℹ Checking 'action.yml'
 ------
 Exit Code: 1

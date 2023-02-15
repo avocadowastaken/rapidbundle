@@ -16,13 +16,27 @@ export async function runTaskTree(
 export type TaskGenerator<T = void> = AsyncGenerator<string, T>;
 export type TaskProcess<T = void> = Promise<T> | TaskGenerator<T>;
 
-function processTaskError(task: Task, error: unknown): never {
+function cleanupErrorMessage(input: string): string {
+  return input.replace(/([{}])/g, "\\\\$1");
+}
+
+function getErrorMessage(error: unknown): string | undefined {
   if (error instanceof ValidationError) {
-    task.error(error.message, true);
+    return error.message;
   }
 
   if (error instanceof Error) {
-    task.error(error.stack || error.message, true);
+    return error.stack || error.message;
+  }
+
+  return undefined;
+}
+
+function processTaskError(task: Task, error: unknown): never {
+  const errorMessage = getErrorMessage(error);
+
+  if (errorMessage) {
+    task.error(cleanupErrorMessage(errorMessage), true);
   }
 
   task.fail();

@@ -2,7 +2,8 @@
 
 exports[`invalid-package-bin-path > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.bin.': expected to be in the 'dist' directory, received 'bin'
+  ─ ✘ Invalid 'package.json':
+      '.bin.': Expected to be in the 'dist' directory, received 'bin'
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

@@ -41,8 +41,8 @@ exports[`module-cjs > logs 1`] = `
   ✔ Making bundle from 'package.json'
   › ✔ Parsing 'package.json'
   › ✔ Making '.module' entry bundle
-    ─ ℹ Setting entry point: ./src/index.js
-    ─ ℹ Setting output file: ./dist/index.js
+    ─ ℹ Setting entry point: src/index.js
+    ─ ℹ Setting output file: dist/index.js
     ─ ℹ Setting build target: chrome<version>, edge<version>, firefox<version>, ios<version>, safari<version>
 ------
 Exit Code: 0

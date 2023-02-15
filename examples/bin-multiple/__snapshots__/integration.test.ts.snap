@@ -28,8 +28,8 @@ exports[`bin-multiple > logs 1`] = `
   ✔ Making bundle from 'package.json'
   › ✔ Parsing 'package.json'
   › ✔ Making '.bin' entry bundle
-    ─ ℹ Using '.bin.hello' entry: ./src/hello.ts
-    ─ ℹ Using '.bin.hi' entry: ./src/hi.ts
+    ─ ℹ Using '.bin.hello' entry: src/hello.ts
+    ─ ℹ Using '.bin.hi' entry: src/hi.ts
 ------
 Exit Code: 0
 `;

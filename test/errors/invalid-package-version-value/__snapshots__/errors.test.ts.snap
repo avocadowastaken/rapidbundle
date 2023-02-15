@@ -2,7 +2,8 @@
 
 exports[`invalid-package-version-value > output 1`] = `
 ✘ Resolving build manifests [fail]
-  ─ ✘ Invalid 'package.json': '.engines.node': expected "string", received "number"
+  ─ ✘ Invalid 'package.json':
+      '.engines.node': Expected string, received number
   ─ ℹ Checking 'action.yml'
   ─ ℹ Checking 'package.json'
 ------

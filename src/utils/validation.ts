@@ -1,100 +1,96 @@
-import {
-  setErrorMap,
-  ZodError,
-  ZodInvalidTypeIssue,
-  ZodIssueBase,
-  ZodIssueCode,
-} from "zod";
+import path from "node:path";
+import { z } from "zod";
 
-setErrorMap((error, ctx) => {
-  switch (error.code) {
-    case ZodIssueCode.invalid_type:
-      return {
-        message: `expected "${error.expected}", received "${error.received}"`,
-      };
+z.setErrorMap((issue, ctx) => {
+  let message = ctx.defaultError;
 
-    case ZodIssueCode.invalid_enum_value:
-      return {
-        message: `expected ${error.options
-          .map((option) => `"${option}"`)
-          .join(" or ")} but received "${ctx.data}"`,
-      };
+  if (
+    issue.code === z.ZodIssueCode.invalid_type &&
+    issue.received === z.ZodParsedType.undefined
+  ) {
+    message =
+      message = `Expected ${issue.expected}, received ${issue.received}`;
   }
 
-  return { message: ctx.defaultError };
+  return { message };
 });
 
-function formatZodIssue(issue: ZodIssueBase): string {
-  return `'.${issue.path.join(".")}': ${issue.message}`;
-}
-
-function* extractZodErrors(error: ZodError): Generator<string, number, void> {
-  let issues = 0;
-
-  for (const issue of error.issues) {
-    if (issue.code === ZodIssueCode.invalid_union) {
-      const typeIssues: ZodInvalidTypeIssue[] = [];
-      let nonTypeIssues = 0;
-
-      for (const unionError of issue.unionErrors) {
-        for (const unionErrorIssue of unionError.issues) {
-          if (unionErrorIssue.code === ZodIssueCode.invalid_type) {
-            typeIssues.push(unionErrorIssue);
-          } else {
-            nonTypeIssues += yield* extractZodErrors(unionError);
-          }
-        }
-      }
-
-      if (nonTypeIssues > 0) {
-        issues += nonTypeIssues;
-      } else if (typeIssues.length) {
-        for (const typeIssue of typeIssues) {
-          issues++;
-          yield formatZodIssue(typeIssue);
-        }
-      }
-    } else {
-      issues++;
-      yield formatZodIssue(issue);
-    }
+function* collectZodFormattedErrors(
+  { _errors, ...fields }: z.ZodFormattedError<Record<string, unknown>>,
+  pathPrefix = ""
+): Generator<string, void> {
+  for (const error of _errors) {
+    yield `'${pathPrefix}': ${error}`;
   }
 
-  return issues;
+  for (const [field, fieldErrors] of Object.entries(fields)) {
+    if (fieldErrors) {
+      yield* collectZodFormattedErrors(fieldErrors, `${pathPrefix}.${field}`);
+    }
+  }
+}
+
+function formatZodError(error: z.ZodError): string {
+  let output = "";
+  const formatted = error.format() as z.ZodFormattedError<
+    Record<string, unknown>
+  >;
+
+  for (const error of collectZodFormattedErrors(formatted)) {
+    output += `\n${error}`;
+  }
+
+  return output;
+}
+
+function formatErrorMessage(message: string, errorReason?: Error): string {
+  let reason = "";
+
+  if (errorReason instanceof z.ZodError) {
+    reason = formatZodError(errorReason);
+  } else if (errorReason instanceof Error) {
+    reason = errorReason.message;
+  }
+
+  if (!reason) {
+    return message;
+  }
+
+  return `${message}: ${reason}`;
 }
 
 export class ValidationError extends Error {
   public static process(message: string, reason: unknown): void {
-    if (reason instanceof Error) {
-      if ("code" in reason && reason.code === "ENOENT") {
-        return;
-      }
+    if (!(reason instanceof Error)) {
+      throw reason;
+    }
 
+    if (!("code" in reason) || reason.code !== "ENOENT") {
       throw new ValidationError(message, reason);
     }
-
-    throw reason;
   }
 
-  constructor(message: string, originalError?: Error) {
-    const errorMessage =
-      originalError instanceof ZodError
-        ? Array.from(extractZodErrors(originalError)).join("\n")
-        : originalError?.message;
-
-    if (!errorMessage) {
-      super(message);
-    } else if (errorMessage.includes("\n")) {
-      super(
-        `${message}:\n${errorMessage
-          .split("\n")
-          .map((line) => `  ${line}`)
-          .join("\n")}`
-      );
-    } else {
-      super(`${message}: ${errorMessage}`);
-    }
-
+  constructor(message: string, reason?: Error) {
+    super(formatErrorMessage(message, reason));
     this.name = "ValidationError";
   }
 }
+
+export function addCustomIssue(ctx: z.RefinementCtx, message: string): never {
+  ctx.addIssue({ code: z.ZodIssueCode.custom, message: message });
+  return z.NEVER;
+}
+
+export const entryPathSchema = z
+  .string()
+  .min(1, "Expected to be a valid file path")
+  .transform((input, ctx) => {
+    const value = path.posix.normalize(input);
+    if (!value.startsWith("dist/")) {
+      return addCustomIssue(
+        ctx,
+        `Expected to be in the 'dist' directory, received '${input}'`
+      );
+    }
+    return value;
+  });
