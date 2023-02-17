@@ -1,7 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import stripAnsi from "strip-ansi";
-import TaskTree from "tasktree-cli";
 import { vi } from "vitest";
 import { registerRawSnapshot } from "./registerRawSnapshot";
 
@@ -14,6 +13,9 @@ function cleanupLogs(input: string): string {
     .map((line) =>
       line
         .replace(ROOT_DIR, "<rootDir>")
+        .replace(/ √ /g, " ✔ ")
+        .replace(/ × /g, " ✘ ")
+        .replace(/ i /g, " ℹ ")
         .replace(/\b(chrome|edge|firefox|ios|safari)[\d.]+\b/gm, "$1<version>")
     )
     .join("\n")
@@ -21,18 +23,13 @@ function cleanupLogs(input: string): string {
 }
 
 async function runSrc(): Promise<string> {
-  process.argv.push("--silent");
-  vi.spyOn(process, "exit").mockRejectedValue(new Error("exit"));
-
-  const tree = TaskTree.tree();
-
+  const logSpy = vi.spyOn(console, "log").mockImplementation(() => void 0);
   if (process.env["TEST_BUNDLE"] !== "true") {
     await import("../../src/cli");
   } else {
     await import(path.join(ROOT_DIR, "dist", "cli.js"));
   }
-
-  return tree.render().join("\n");
+  return logSpy.mock.lastCall?.[0] || "";
 }
 
 export async function execCLI(): Promise<string> {

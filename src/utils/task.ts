@@ -1,16 +1,22 @@
 import type TaskTree from "tasktree-cli";
 import type { Task } from "tasktree-cli/lib/Task";
-import type { ITaskTreeOptions } from "tasktree-cli/lib/TaskTree";
+import type { TaskContext } from "../ctx";
 import { ValidationError } from "./validation";
 
 export async function runTaskTree(
   tree: TaskTree,
-  options: ITaskTreeOptions,
+  { noTTY }: TaskContext,
   fn: () => Promise<void>
 ): Promise<void> {
-  tree.start(options);
-  await fn();
-  tree.stop();
+  tree.start({ silent: noTTY, autoClear: false });
+  try {
+    await fn();
+    tree.stop();
+  } finally {
+    if (noTTY) {
+      console.log(tree.render().join("\n"));
+    }
+  }
 }
 
 export type TaskGenerator<T = void> = AsyncGenerator<string, T>;

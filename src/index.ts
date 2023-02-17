@@ -1,4 +1,5 @@
 import TaskTree from "tasktree-cli";
+import type { TaskContext } from "./ctx";
 import { ActionYML, tryParseActionYML } from "./manifests/ActionYML";
 import { PackageJSON, tryParsePackageJSON } from "./manifests/PackageJSON";
 import { bundleGitHubAction } from "./tasks/bundleGitHubAction";
@@ -7,12 +8,6 @@ import { rmrf } from "./utils/fs";
 import { getDistDir } from "./utils/path";
 import { runTask, runTaskTree } from "./utils/task";
 import { ValidationError } from "./utils/validation";
-
-type TaskContext = {
-  cwd: string;
-  isCI: boolean;
-  isSilent: boolean;
-};
 
 async function resolveBuildManifests(
   cwd: string,
@@ -42,15 +37,16 @@ async function runPreparations(cwd: string, tree: TaskTree) {
   });
 }
 
-export async function run({ cwd, isCI, isSilent }: TaskContext): Promise<void> {
+export async function run(ctx: TaskContext): Promise<void> {
   const tree = TaskTree.tree();
-  return runTaskTree(tree, { silent: isSilent, autoClear: false }, async () => {
+  return runTaskTree(tree, ctx, async () => {
+    const { cwd, ci } = ctx;
     const [actionYML, packageJSON] = await resolveBuildManifests(cwd, tree);
 
     await runPreparations(cwd, tree);
 
     if (actionYML) {
-      await bundleGitHubAction(cwd, isCI, tree, actionYML);
+      await bundleGitHubAction(cwd, ci, tree, actionYML);
     }
 
     if (packageJSON) {
