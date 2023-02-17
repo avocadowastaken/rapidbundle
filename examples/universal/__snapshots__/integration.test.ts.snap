@@ -48,9 +48,9 @@ __name(hello, "hello");
 `;
 
 exports[`universal > dist/index.d.ts 1`] = `
-declare function hello(name: string): string;
+export declare function hello(name: string): string;
 
-export { hello };
+export { }
 
 `;
 

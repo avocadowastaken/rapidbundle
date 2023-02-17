@@ -90,12 +90,11 @@
     "src/cli.js"
   ],
   "dependencies": {
+    "@microsoft/api-extractor": "^7.34.4",
     "browserslist": "^4.21.5",
     "enquirer": "^2.3.6",
     "esbuild": "^0.17.8",
     "js-yaml": "^4.1.0",
-    "rollup": "^3.15.0",
-    "rollup-plugin-dts": "^5.2.0",
     "semver": "^7.3.8",
     "tasktree-cli": "^7.0.0",
     "zod": "^3.20.6"

@@ -49,9 +49,9 @@ exports[`types-js > dist/hello.d.ts 1`] = `
  * @param {string} name
  * @returns {string}
  */
-declare function hello(name: string): string;
+export declare function hello(name: string): string;
 
-export { hello };
+export { }
 
 `;
 
