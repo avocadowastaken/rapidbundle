@@ -106,7 +106,6 @@
     "@typescript-eslint/parser": "5.52.0",
     "@umidbekk/configs": "0.2.0",
     "@vitest/coverage-c8": "0.28.5",
-    "cac": "^6.7.14",
     "cross-env": "7.0.3",
     "eslint": "8.34.0",
     "eslint-plugin-node": "11.1.0",

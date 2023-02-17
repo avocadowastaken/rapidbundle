@@ -19,7 +19,8 @@ export function testBundle(
   const testName = path.basename(testDir);
 
   beforeEach(async () => {
-    vi.stubEnv("CI", String(isCI));
+    vi.stubEnv("NO_TTY", "1");
+    vi.stubEnv("CI", isCI ? "1" : "");
     vi.stubEnv("BROWSERSLIST_IGNORE_OLD_DATA", "true");
     vi.spyOn(process, "cwd").mockReturnValue(testDir);
   });
