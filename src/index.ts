@@ -6,18 +6,19 @@ import { bundleGitHubAction } from "./tasks/bundleGitHubAction";
 import { bundleNodePackage } from "./tasks/bundleNodePackage";
 import { rmrf } from "./utils/fs";
 import { getDistDir } from "./utils/path";
-import { runTask, runTaskTree } from "./utils/task";
+import { runTask } from "./utils/task";
 import { ValidationError } from "./utils/validation";
 
 async function resolveBuildManifests(
-  cwd: string,
-  tree: TaskTree
+  tree: TaskTree,
+  { cwd }: TaskContext
 ): Promise<[undefined | ActionYML, undefined | PackageJSON]> {
-  return runTask(tree.add("Resolving build manifests"), async function* () {
-    yield "Checking 'action.yml'";
+  const task = tree.add("Resolving build manifests");
+  return runTask(task, async () => {
+    task.log("Checking 'action.yml'");
     const parsedActionYML = await tryParseActionYML(cwd);
 
-    yield "Checking 'package.json'";
+    task.log("Checking 'package.json'");
     const parsedPackageJSON = await tryParsePackageJSON(cwd);
 
     if (!parsedActionYML && !parsedPackageJSON) {
@@ -30,27 +31,39 @@ async function resolveBuildManifests(
   });
 }
 
-async function runPreparations(cwd: string, tree: TaskTree) {
-  return runTask(tree.add("Run preparations"), async function* () {
-    yield "Removing 'dist' directory";
+async function runPreparations(tree: TaskTree, { cwd }: TaskContext) {
+  const task = tree.add("Run preparations");
+  return runTask(task, async () => {
+    // TODO: Skip if `dist` dir not exists.
+    task.log("Removing 'dist' directory");
     await rmrf(getDistDir(cwd));
   });
 }
 
+async function runTasks(tree: TaskTree, ctx: TaskContext) {
+  const [actionYML, packageJSON] = await resolveBuildManifests(tree, ctx);
+
+  await runPreparations(tree, ctx);
+
+  if (actionYML) {
+    await bundleGitHubAction(ctx.cwd, ctx.ci, tree, actionYML);
+  }
+
+  if (packageJSON) {
+    await bundleNodePackage(ctx.cwd, tree, packageJSON);
+  }
+}
+
 export async function run(ctx: TaskContext): Promise<void> {
+  const { noTTY } = ctx;
   const tree = TaskTree.tree();
-  return runTaskTree(tree, ctx, async () => {
-    const { cwd, ci } = ctx;
-    const [actionYML, packageJSON] = await resolveBuildManifests(cwd, tree);
-
-    await runPreparations(cwd, tree);
-
-    if (actionYML) {
-      await bundleGitHubAction(cwd, ci, tree, actionYML);
+  try {
+    tree.start({ silent: noTTY, autoClear: false });
+    await runTasks(tree, ctx);
+    tree.stop();
+  } finally {
+    if (noTTY) {
+      console.log(tree.render().join("\n"));
     }
-
-    if (packageJSON) {
-      await bundleNodePackage(cwd, tree, packageJSON);
-    }
-  });
+  }
 }

@@ -35,47 +35,47 @@ export async function bundleGitHubAction(
   tree: TaskTree,
   { runs: { main, pre, post, using } }: ActionYML
 ): Promise<void> {
-  return runTask(
-    tree.add("Making bundle from 'action.yml'"),
-    async function* () {
-      const distDir = getDistDir(cwd);
-      const options = {
-        logLevel: "silent",
+  // TODO: Bundle each entry in separate task.
+  const task = tree.add("Making bundle from 'action.yml'");
 
-        bundle: true,
-        outdir: distDir,
-        keepNames: true,
-        platform: "node",
-        absWorkingDir: cwd,
-        target: using,
-        entryPoints: [] as string[],
+  return runTask(task, async () => {
+    const distDir = getDistDir(cwd);
+    const options = {
+      logLevel: "silent",
 
-        external: [
-          // Optional dependency of the `node-fetch`.
-          "encoding",
-        ],
+      bundle: true,
+      outdir: distDir,
+      keepNames: true,
+      platform: "node",
+      absWorkingDir: cwd,
+      target: using,
+      entryPoints: [] as string[],
 
-        treeShaking: true,
-        define: {
-          "process.env.NODE_ENV": JSON.stringify("production"),
-        },
-      } satisfies BuildOptions;
+      external: [
+        // Optional dependency of the `node-fetch`.
+        "encoding",
+      ],
 
-      for (const [name, entryPath] of Object.entries({ main, pre, post })) {
-        if (entryPath) {
-          const entry = await resolveEntry(cwd, entryPath);
-          options.entryPoints.push(entry);
-          yield `Using '.runs.${name}' entry: ${toModuleID(entry)}`;
-        }
-      }
+      treeShaking: true,
+      define: {
+        "process.env.NODE_ENV": JSON.stringify("production"),
+      },
+    } satisfies BuildOptions;
 
-      yield `Using '.runs.using' entry: ${options.target}`;
-      await esbuild.build(options);
-
-      if (isCI) {
-        yield "Checking build difference";
-        await ensureUnchanged(distDir);
+    for (const [name, entryPath] of Object.entries({ main, pre, post })) {
+      if (entryPath) {
+        const entry = await resolveEntry(cwd, entryPath);
+        options.entryPoints.push(entry);
+        task.log(`Using '.runs.${name}' entry: ${toModuleID(entry)}`);
       }
     }
-  );
+
+    task.log(`Using '.runs.using' entry: ${options.target}`);
+    await esbuild.build(options);
+
+    if (isCI) {
+      task.log("Checking build difference");
+      await ensureUnchanged(distDir);
+    }
+  });
 }

@@ -6,14 +6,15 @@ import { compileProjectDefinitions } from "../lib/tsc";
 import type { PackageJSON } from "../manifests/PackageJSON";
 import { getESBuildBrowsers } from "../utils/browsers";
 import { getDistDir, resolveEntry, toModuleID } from "../utils/path";
-import { runTask, TaskGenerator } from "../utils/task";
+import { runTask } from "../utils/task";
 
 async function prepareBuildOptions(
   cwd: string,
   task: Task,
   { engines, dependencies, peerDependencies, optionalDependencies }: PackageJSON
 ): Promise<[base: BuildOptions, node: BuildOptions]> {
-  return runTask(task.add("Parsing 'package.json'"), async function* () {
+  const subTask = task.add("Parsing 'package.json'");
+  return runTask(subTask, async () => {
     const baseOptions = {
       bundle: true,
       logLevel: "silent",
@@ -29,7 +30,7 @@ async function prepareBuildOptions(
       const external = Object.keys(values);
       if (external.length) {
         baseOptions.external.push(...external);
-        yield `Using ".${field}" as external: ${external.join(", ")}`;
+        subTask.log(`Using ".${field}" as external: ${external.join(", ")}`);
       }
     }
 
@@ -45,7 +46,7 @@ async function prepareBuildOptions(
 
     if (engines?.node) {
       baseNodeOptions.target = `node${engines.node}`;
-      yield `Using '.engines.node' entry: ${engines.node}`;
+      subTask.log(`Using '.engines.node' entry: ${engines.node}`);
     }
 
     return [baseOptions, baseNodeOptions];
@@ -62,7 +63,8 @@ async function bundleBin(
     return;
   }
 
-  await runTask(task.add("Making '.bin' entry bundle"), async function* () {
+  const subTask = task.add("Making '.bin' entry bundle");
+  await runTask(subTask, async () => {
     const options = {
       ...baseOptions,
       minify: true,
@@ -73,39 +75,40 @@ async function bundleBin(
     for (const [name, filePath] of Object.entries(bin)) {
       const entry = await resolveEntry(cwd, filePath);
       options.entryPoints.push(entry);
-      yield `Using '.bin.${name}' entry: ${toModuleID(entry)}`;
+      subTask.log(`Using '.bin.${name}' entry: ${toModuleID(entry)}`);
     }
 
     if (type === "module") {
       options.format = "esm";
-      yield `Using '.type' entry: ${type}`;
+      subTask.log(`Using '.type' entry: ${type}`);
     }
 
     await esbuild.build(options);
   });
 }
 
-async function* bundleEntry(
+async function bundleEntry(
+  task: Task,
   cwd: string,
   entryName: string,
   buildOptions: BuildOptions
-): TaskGenerator {
+): Promise<void> {
   const options = { ...buildOptions } satisfies BuildOptions;
 
   {
     const entry = await resolveEntry(cwd, entryName);
     options.entryPoints = [entry];
-    yield `Setting entry point: ${toModuleID(entry)}`;
+    task.log(`Setting entry point: ${toModuleID(entry)}`);
   }
 
   {
     options.outfile = path.join(cwd, entryName);
-    yield `Setting output file: ${entryName}`;
+    task.log(`Setting output file: ${entryName}`);
   }
 
   if (options.platform === "browser") {
     options.target = await getESBuildBrowsers("defaults, Firefox ESR");
-    yield `Setting build target: ${options.target.join(", ")}`;
+    task.log(`Setting build target: ${options.target.join(", ")}`);
   }
 
   await esbuild.build(options);
@@ -121,9 +124,10 @@ async function bundleMain(
     return;
   }
 
-  await runTask(task.add("Making '.main' entry bundle"), async function* () {
+  const subTask = task.add("Making '.main' entry bundle");
+  await runTask(subTask, async () => {
     const options = { ...baseOptions };
-    yield* bundleEntry(cwd, main, options);
+    await bundleEntry(subTask, cwd, main, options);
   });
 }
 
@@ -137,14 +141,15 @@ async function bundleModule(
     return;
   }
 
-  await runTask(task.add("Making '.module' entry bundle"), async function* () {
+  const subTask = task.add("Making '.module' entry bundle");
+  await runTask(subTask, async () => {
     const options = {
       ...baseOptions,
       format: "esm",
       platform: "browser",
     } satisfies BuildOptions;
 
-    yield* bundleEntry(cwd, module, options);
+    await bundleEntry(subTask, cwd, module, options);
   });
 }
 
@@ -157,11 +162,12 @@ async function bundleTypes(
     return;
   }
 
-  await runTask(task.add("Making '.types' entry bundle"), async function* () {
-    yield "Generating 'd.ts' files";
+  const subTask = task.add("Making '.types' entry bundle");
+  await runTask(subTask, async () => {
+    subTask.log("Generating 'd.ts' files");
     const declarationDir = await compileProjectDefinitions(cwd);
 
-    yield "Bundle into single 'd.ts' file";
+    subTask.log("Bundle into single 'd.ts' file");
     const { rollupTypeDeclarations } = await import("../lib/api-extractor");
     await rollupTypeDeclarations(cwd, types, declarationDir);
   });
