@@ -8,7 +8,7 @@ async function loadTS() {
   return ts;
 }
 
-async function prepareConfig(cwd: string, declarationDir: string) {
+async function prepareConfig(cwd: string) {
   const ts = await loadTS();
   const nodeSystem = ts.createSolutionBuilderHost(ts.sys);
   nodeSystem.readDirectory?.(cwd);
@@ -18,39 +18,24 @@ async function prepareConfig(cwd: string, declarationDir: string) {
     throw new ValidationError("Failed to resolve 'tsconfig.json'");
   }
   const configFile = ts.readConfigFile(configFilePath, ts.sys.readFile);
-  const config = ts.parseJsonConfigFileContent(configFile.config, ts.sys, cwd);
-
-  // Override `"noEmit": true` config.
-  config.options.noEmit = false;
-
-  // Preserve file structure
-  config.options.rootDir = cwd;
-
-  // Emit into temporary directory.
-  config.options.declaration = true;
-  config.options.emitDeclarationOnly = true;
-  config.options.declarationDir = declarationDir;
-  return config;
+  return ts.parseJsonConfigFileContent(configFile.config, ts.sys, cwd);
 }
 
 export async function compileProjectDefinitions(cwd: string): Promise<string> {
   const ts = await loadTS();
   const distDir = getDistDir(cwd);
   const declarationDir = path.join(distDir, ".dst");
-  const { options, fileNames, errors } = await prepareConfig(
-    cwd,
-    declarationDir
-  );
+  const { options, fileNames, errors } = await prepareConfig(cwd);
 
-  // Override `"noEmit": true` config.
+  // Generate .d.ts files.
+  options.declaration = true;
+  // Only output d.ts files and not JavaScript files.
+  options.emitDeclarationOnly = true;
+  // Enable emitting file from a compilation, so it wouldn't conflict with the `emitDeclarationOnly`.
   options.noEmit = false;
-
   // Preserve file structure
   options.rootDir = cwd;
-
   // Emit into temporary directory.
-  options.declaration = true;
-  options.emitDeclarationOnly = true;
   options.declarationDir = declarationDir;
 
   const program = ts.createProgram(
